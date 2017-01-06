@@ -15,9 +15,13 @@ node {
         sh "mkdir results"
     }
     stage('Run Test'){
-        sh ". virt/bin/activate && pip2 install -r ./requirements.txt && py.test --junitxml results/TestLoadRecord.xml TestLoadRecord.py"
-    }
-    stage('Save Test Results'){
-        junit 'results/*.xml'
+        try {
+            sh ". virt/bin/activate && pip2 install -r ./requirements.txt && py.test --junitxml results/TestLoadRecord.xml TestLoadRecord.py"
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        } finally {
+            junit 'results/*.xml'
+        }
     }
 }

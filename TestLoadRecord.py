@@ -9,4 +9,4 @@ class TestLoadRecord(unittest.TestCase):
         p = subprocess.Popen(["curl", self.url,'-H',"Accept: application/json"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output,err = p.communicate()
         self.response = output
-        self.assertFalse("error-code" in self.response)
+        self.assertFalse("error-code" in self.response, "error-code Not found on json response")
