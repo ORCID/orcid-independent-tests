@@ -11,6 +11,6 @@ class TestLoadRecord(unittest.TestCase):
         output,err = p.communicate()
         self.assertFalse("error-code" in self.response)
 
-test_cases = [junit_xml.TestCase('TestLoadRecord',TestLoadRecord)]
+test_cases = [junit_xml.TestCase('TestLoadRecord',TestLoadRecord),TestCase('Test1', 'some.class.name', 123.345, 'I am stdout!', 'I am stderr!')]
 ts = junit_xml.TestSuite("API Manual Tests", test_cases)
 print(junit_xml.TestSuite.to_xml_string([ts]))
