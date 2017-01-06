@@ -2,7 +2,7 @@ import unittest
 import subprocess
 
 class TestLoadRecord(unittest.TestCase):
-    url = 'https://pub.qa.orcid.org/v2.0_rc4/0000-0001-6085-8875/record'
+    url = 'https://pub.qa.orcid.org/v2.0_rc4/0000-0001-6085-8875C/record'
     response = ''
 
     def test_read(self):
