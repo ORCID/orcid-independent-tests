@@ -15,6 +15,3 @@ class OrcidBaseTest(unittest.TestCase):
         response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", data)
         json_response = json.loads(response)
         return json_response['access_token']
-        
-        
-        
