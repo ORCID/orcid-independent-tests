@@ -33,7 +33,7 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
     def test_read_record_with_20_api(self):
         self.assertIsNotNone(self.token,"No token generated, instead got " + self.token)
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0_rc3/" + self.orcid_id + "/orcid-profile", curl_params)
+        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0_rc3/" + self.orcid_id + "/record", curl_params)
         self.assertTrue("ma_test" in response, "Name not returned on " + response)
 
     def test_read_record_without_access_token(self):
