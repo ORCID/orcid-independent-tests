@@ -5,12 +5,12 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         p = pyjavaproperties.Properties()
-        p.load(open('/home/jperez/public_html/ORCID-Source/orcid-integration-test/src/test/resources/test-client.properties'))
+        p.load(open('test-client.properties'))
         self.orcid_props   = p
-        self.client_id     = self.orcid_props['org.orcid.web.publicClient1.clientId']
-        self.client_secret = self.orcid_props['org.orcid.web.publicClient1.clientSecret']
-        self.seach_value   = "family-name:30sep2016"
-        self.orcid_id      = "0000-0003-4962-7157"
+        self.client_id     = self.orcid_props['clientId']
+        self.client_secret = self.orcid_props['clientSecret']
+        self.seach_value   = "family-name:" + self.orcid_props['searchValue']
+        self.orcid_id      = self.orcid_props['orcidId']
         self.token         = self.orcid_generate_read_public_token(self.client_id, self.client_secret)
 
     def test_read(self):
