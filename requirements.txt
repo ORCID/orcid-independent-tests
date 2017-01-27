@@ -1,3 +1,0 @@
-junit_xml
-pytest
-pyjavaproperties

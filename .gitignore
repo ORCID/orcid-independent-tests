@@ -3,3 +3,6 @@ __pycache__/
 .py_env/
 *.secrets
 *.properties
+.directory
+.DS_Store
+
