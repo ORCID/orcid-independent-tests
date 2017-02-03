@@ -58,5 +58,5 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def test_post_webhook(self):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'PUT']
-        response = self.orcid_curl("http://api.qa.orcid.org/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere2.com%2Fupdated"), curl_params)
+        response = self.orcid_curl("http://api.qa.orcid.org/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere.net%2Fupdated"), curl_params)
         self.assertTrue("201 Created" in response, "response: " + response)
