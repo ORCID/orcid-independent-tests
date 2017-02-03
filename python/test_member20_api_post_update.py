@@ -7,7 +7,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         p = pyjavaproperties.Properties()
-        p.load(open('test-client.properties'))
+        p.load(open('test.properties'))
         self.orcid_props   = p
         self.client_id     = self.orcid_props['memberClientId']
         self.client_secret = self.orcid_props['memberClientSecret']        
