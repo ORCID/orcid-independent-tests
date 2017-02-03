@@ -1,7 +1,7 @@
 import OrcidBaseTest
 import pyjavaproperties
 
-class MemberApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
+class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = '../ORCID-Source/orcid-integration-test/src/test/manual-test/'
 
