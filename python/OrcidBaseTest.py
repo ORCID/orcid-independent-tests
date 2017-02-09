@@ -9,6 +9,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
+        print " ".join(curl_call)
         p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output,err = p.communicate()
         return output
@@ -30,7 +31,7 @@ class OrcidBaseTest(unittest.TestCase):
             response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", exchange_data)
             json_response = json.loads(response)
         else:
-            json_response = self.load_secrets_from_file(code)        
+            json_response = self.load_secrets_from_file(code)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             return [json_response['access_token'],json_response['refresh_token']]
@@ -39,8 +40,8 @@ class OrcidBaseTest(unittest.TestCase):
                 raise ValueError("No tokens found in response: " + json_response['error-desc']['value'])
         return [None, None]
 
-    def orcid_generate_token(self, client_id, client_secret, scope="read-public"):
-        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=/' + scope, '-d', 'grant_type=client_credentials']
+    def orcid_generate_token(self, client_id, client_secret, scope="/read-public"):
+        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
         response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
@@ -48,13 +49,14 @@ class OrcidBaseTest(unittest.TestCase):
         else: 
             if('error-desc' in json_response):
                 raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
-        return [None, None]
+        return None
 
     def get_putcode_from_response(self, response):
         for header in response.split('\n'):
             if("Location:" in header):
                 location_chunks = header.split('/')
-                return location_chunks[-1]    
+                return location_chunks[-1]
+        return False
 
     def orcid_generate_member_token(self, client_id, client_secret, scope="read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=/' + scope, '-d', 'grant_type=client_credentials']
