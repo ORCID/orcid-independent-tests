@@ -25,9 +25,7 @@ class Member12ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("http://pub.qa.orcid.org/v1.2/%s/orcid-works" % self.orcid_id, curl_params)
         json_response = json.loads(response)
-        orcid_works = json_response.get("orcid-profile")
-        .get("orcid-activities")
-        .get("orcid-works")
+        orcid_works = json_response.get("orcid-profile").get("orcid-activities").get("orcid-works")
         if (len(orcid_works) > 0):
             for w in orcid_works["orcid-work"]:
                 delete_results = self.remove_by_putcode(w["put-code"])
