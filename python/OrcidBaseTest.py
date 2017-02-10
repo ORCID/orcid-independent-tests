@@ -48,7 +48,7 @@ class OrcidBaseTest(unittest.TestCase):
             return json_response['access_token']
         else: 
             if('error-desc' in json_response):
-                raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+                print "No access token found in response: " + json_response['error-desc']['value']
         return None
 
     def get_putcode_from_response(self, response):
@@ -58,8 +58,8 @@ class OrcidBaseTest(unittest.TestCase):
                 return location_chunks[-1]
         return False
 
-    def orcid_generate_member_token(self, client_id, client_secret, scope="read-public"):
-        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=/' + scope, '-d', 'grant_type=client_credentials']
+    def orcid_generate_member_token(self, client_id, client_secret, scope="/read-public"):
+        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
         response = self.orcid_curl("http://api.qa.orcid.org/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
