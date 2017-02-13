@@ -51,6 +51,12 @@ class OrcidBaseTest(unittest.TestCase):
                 print "No access token found in response: " + json_response['error-desc']['value']
         return None
 
+    def remove_by_putcode(self, putcode, activity_type = "work"):
+        print "Deleting putcode: %s" % putcode
+        curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
+        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
+        return response
+
     def get_putcode_from_response(self, response):
         for header in response.split('\n'):
             if("Location:" in header):

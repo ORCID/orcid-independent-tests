@@ -13,12 +13,6 @@ class Member12ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.client_secret       = self.orcid_props['memberClientSecret']        
         self.code                = self.orcid_props['api2PostUpdateCode']
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        
-    def remove_by_putcode(self, putcode, activity_type = "work"):
-        print "Deleting putcode: %s" % putcode
-        curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
-        return response
 
     def test_get12_orcidworks(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -54,7 +48,7 @@ class Member12ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(group, "Group not found in JSON")
         if (len(group) > 0):
             for s in group:
-                putcode = s["summary"][0]["put-code"]
+                putcode = s["funding-summary"][0]["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'funding')
                 self.assertEquals("", str(delete_results))
 
@@ -99,4 +93,6 @@ class Member12ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
                 for w in ws:
                     codes = str(w["put-code"]) + " - " + codes
         self.assertTrue(False, "JSON: " + codes + " Found: " + str(len(orcid_works)))'''
+        
+        
         
