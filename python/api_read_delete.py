@@ -23,8 +23,8 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(group, "Group not found in JSON")
         if (len(group) > 0):
             for s in group:
-                putcode = s["works-summary"][0]["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'works')
+                putcode = s["work-summary"][0]["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'work')
                 self.assertEquals("", str(delete_results))
 
     def test_get20_fundings(self):
