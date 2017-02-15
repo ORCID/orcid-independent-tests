@@ -1,6 +1,9 @@
 __pycache__/
+results/
+**/*.pyc
 .directory
 .py_env/
+.cache/
 *.secrets
 *.properties
 .directory
