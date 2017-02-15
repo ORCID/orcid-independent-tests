@@ -13,7 +13,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.client_secret = self.orcid_props['memberClientSecret']        
         self.code          = self.orcid_props['api1PostUpdateCode']
         self.orcid_id      = self.orcid_props['orcidId']
-        self.webhook_access= self.orcid_props['webhookCreateSecret']
+        self.webhook_access= self.orcid_props['webhookToken']
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     def test_post_work(self):

@@ -32,6 +32,10 @@ node {
         sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
     }
     
+    stage('Clean OrcidiD'){
+        sh ". .py_env/bin/activate && pytest -v -r fEx orcid/api_read_delete.py"
+    }
+    
     stage('Run Test'){
         try {
         
@@ -41,7 +45,7 @@ node {
             
             sh ". .py_env/bin/activate && py.test --junitxml results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py"
             
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_email_read_private.xml orcid/test_email_read_private.py"
+            //sh ". .py_env/bin/activate && py.test --junitxml results/test_email_read_private.xml orcid/test_email_read_private.py"
             
             sh ". .py_env/bin/activate && py.test --junitxml results/test_scope_methods.xml orcid/test_scope_methods.py"
             
