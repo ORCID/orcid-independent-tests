@@ -75,3 +75,35 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # TEST delete
         delete_response = self.delete_activity(putcode, "peer-review")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
+        
+    def test_post_update_delete_keyword(self):
+        # TEST 96 post education
+        response = self.post_activity("keywords", "ma2_keyword.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        putcode = self.get_putcode_from_response(response)
+        self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
+        # TEST delete
+        delete_response = self.delete_activity(putcode, "keywords")
+        self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
+        
+    def test_post_update_delete_identifier(self):
+        # TEST 96 post education
+        response = self.post_activity("external-identifiers", "ma2_identifier.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        putcode = self.get_putcode_from_response(response)
+        self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
+        # TEST delete
+        delete_response = self.delete_activity(putcode, "external-identifiers")
+        self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
+
+    def test_post_update_delete_notification(self):
+        # TEST 96 post education
+        response = self.post_activity("notification-permission", "notify.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        putcode = self.get_putcode_from_response(response)
+        self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
+        # TEST delete
+        delete_response = self.delete_activity(putcode, "notification-permission")
+        self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))        
+        
+        
