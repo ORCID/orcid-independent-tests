@@ -5,7 +5,7 @@ node {
             logRotator(artifactDaysToKeepStr: '5', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
         ),
         parameters([
-            string(name: 'branch_to_build'       , defaultValue: 'tests_coding'                                   , description: 'Branch name to work on'),            
+            string(name: 'branch_to_build'       , defaultValue: 'master'                                         , description: 'Branch name to work on'),            
             string(name: 'orcid_id'              , defaultValue: '0000-0003-4248-6064'                            , description: 'Latest orcid id'),
             string(name: 'search_value'          , defaultValue: 'family-name:13jan2017'                          , description: 'Username suffix to search'),
             string(name: 'read_code'             , defaultValue: 'xHvV5b'                                         , description: 'Six digits code with read privileges'),
@@ -28,19 +28,19 @@ node {
         sh "rm -rf .py_env results"
         sh "virtualenv .py_env"
         sh "mkdir results"
-        sh ". .py_env/bin/activate && pip2 install -r python/requirements.txt"
+        sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
     }
     
     stage('Run Test'){
         try {
         
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_public_api_read_search.xml python/test_public_api_read_search.py"
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py"
             
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_member12_api_post_update.xml python/test_member12_api_post_update.py"
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_member12_api_post_update.xml orcid/test_member12_api_post_update.py"
             
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_member20_api_post_update.xml python/test_member20_api_post_update.py"
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py"
             
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_scope_methods.xml python/test_scope_methods.py"
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_scope_methods.xml orcid/test_scope_methods.py"
             
         } catch(Exception err) {
             def err_msg = err.getMessage()
