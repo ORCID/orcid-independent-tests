@@ -10,8 +10,9 @@ class OrcidBaseTest(unittest.TestCase):
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
-        print " ".join(curl_call)
+        #print " ".join(curl_call)
         p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(subprocess.list2cmdline(curl_call))
         output,err = p.communicate()
         return output
 
