@@ -2,8 +2,6 @@ import OrcidBaseTest
 import pyjavaproperties
 
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
-    
-    xml_data_files_path = '../ORCID-Source/orcid-integration-test/src/test/manual-test/'
 
     def setUp(self):
         p = pyjavaproperties.Properties()
@@ -15,22 +13,6 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.code          = self.orcid_props['api2PostUpdateCode']
         self.orcid_id      = self.orcid_props['orcidId']
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        
-    def post_activity(self, activity_type = "work", xml_file = "ma2_work.xml"):
-        self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
-        return response
-    
-    def update_activity(self, putcode, updated_data, activity_type = "work"):
-        update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
-        update_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%d" % (self.orcid_id, activity_type,int(putcode)), update_curl_params)
-        return update_response
-    
-    def delete_activity(self, putcode, activity_type = "work"):
-        delete_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
-        return delete_response
     
     def test_post_update_delete_work(self):
         # TEST 85 Post the ma test work 2
