@@ -1,7 +1,7 @@
 import OrcidBaseTest
 import pyjavaproperties
 
-class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
+class PublicRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
     	p = pyjavaproperties.Properties()
