@@ -25,7 +25,7 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub.qa.orcid.org/v1.2/" + self.public_orcid_id + "/orcid-profile", curl_params)
-        response_body = response.partition('path=/')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.        
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record12.xml','r').read(), 'response_body: ' + response_body)
 
@@ -34,7 +34,7 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('path=/')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.        
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -43,7 +43,7 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.public_orcid_id + "/orcid-profile", curl_params)
-        response_body = response.partition('path=/')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.        
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record12.xml','r').read(), 'response_body: ' + response_body)
 
@@ -52,6 +52,6 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('path=/')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.        
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)

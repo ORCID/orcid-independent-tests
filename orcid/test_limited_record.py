@@ -1,5 +1,6 @@
 import OrcidBaseTest
 import pyjavaproperties
+import urllib
 
 class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
@@ -22,6 +23,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
+        self.public_json_items =['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285', 'works.json?workIds=141942', 'peer-reviews.json?peerReviewIds=1077']
+
  
  #Test no information is returned using the public API       
     def test_read_limited_record_with_12_public_api(self):
@@ -29,16 +32,16 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12_publicapi.xml','r').read(), 'response_body: ' + response_body)
 		
-    def test_read_public_record_with_20_public_api(self):
+    def test_read_limited_record_with_20_public_api(self):
     	#TEST 139
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -62,15 +65,15 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 142
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
 		
-    def test_read_public_record_with_20_public_token(self):
+    def test_read_limited_record_with_20_public_token(self):
     	#TEST 143
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -94,7 +97,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 		
-    def test_read_public_record_with_20_revoked_token(self):
+    def test_read_limited_record_with_20_revoked_token(self):
     	#TEST 147
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
@@ -117,7 +120,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		self.assertTrue("You do not have the required permissions" in response, "Expected security issue error, instead: " + response)
 		
-    def test_read_public_record_with_20_wrong_token(self):
+    def test_read_limited_record_with_20_wrong_token(self):
     	#TEST 149
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
@@ -140,15 +143,15 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 152
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
 		
-    def test_read_public_record_with_20_update_token(self):
+    def test_read_limited_record_with_20_update_token(self):
     	#TEST 153
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 		
@@ -169,11 +172,11 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 155
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
 		
-    def test_read_public_record_with_20_create_token(self):
+    def test_read_limited_record_with_20_create_token(self):
     	#TEST 156
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
@@ -196,15 +199,15 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 159
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/limited_record12.xml','r').read(), 'response_body: ' + response_body)
 		
-    def test_read_public_record_with_20_limited_token(self):
+    def test_read_limited_record_with_20_limited_token(self):
     	#TEST 160
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
-		response_body = response.partition('path=/')[2]
+		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/limited_record20.xml','r').read(), 'response_body: ' + response_body)
 		
@@ -212,7 +215,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         # TEST 161
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
-        response_body = response.partition('path=/')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_work.json','r').read(), 'response_body: ' + response_body)
         
@@ -220,10 +223,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	# TEST 162
     	curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
-       	response_body = response.partition('path=/')[2]
+       	response_body = response.partition('X-Frame-Options: DENY')[2]
        	#Compare the body of the response to the saved file.
        	self.assertTrue(response_body.strip() == open('saved_records/limited_record_email.json','r').read(), 'response_body: ' + response_body)
-
-        
-          
-	
