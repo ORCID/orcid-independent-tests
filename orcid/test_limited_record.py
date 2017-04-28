@@ -23,8 +23,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
-        self.public_json_items =['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285', 'works.json?workIds=141942', 'peer-reviews.json?peerReviewIds=1077']
-
+        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285', 'peer-reviews.json?peerReviewIds=1077']
+        self.public_json_work = ['works.json?workIds=141942']
  
  #Test no information is returned using the public API       
     def test_read_limited_record_with_12_public_api(self):
@@ -226,3 +226,19 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
        	response_body = response.partition('X-Frame-Options: DENY')[2]
        	#Compare the body of the response to the saved file.
        	self.assertTrue(response_body.strip() == open('saved_records/limited_record_email.json','r').read(), 'response_body: ' + response_body)
+       	
+#Test public json expecting server errors
+    def test_limited_public_json_server_error(self):
+        for item in self.public_json_items:
+            work_url = ('http://orcid.org/' + self.limited_orcid_id + '/' + item)
+            response = urllib.urlopen(work_url).read()
+            print work_url
+            self.assertTrue("There has been a problem with the server" in response, "Expected server error instead: " + response)
+
+#Test public json expecting empty page
+    def test_limited_public_json_empty(self):
+        for item in self.public_json_work:
+            work_url = ('http://orcid.org/' + self.limited_orcid_id + '/' + item)
+            response = urllib.urlopen(work_url).read()
+            print work_url
+            self.assertTrue("[]" in response, "Expected empty brackets instead: " + response)
