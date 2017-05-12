@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orcid-message xmlns="http://www.orcid.org/ns/orcid">
+    <message-version>1.2</message-version>
+    <orcid-profile type="user">
+        <orcid-identifier>
+            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
+            <path>0000-0001-7325-5491</path>
+            <host>qa.orcid.org</host>
+        </orcid-identifier>
+        <orcid-preferences>
+            <locale>en</locale>
+        </orcid-preferences>
+        <orcid-history>
+            <creation-method>Direct</creation-method>
+            <submission-date>2016-03-03T20:39:35.087Z</submission-date>
+            <last-modified-date>2017-02-22T19:20:27.455Z</last-modified-date>
+            <claimed>true</claimed>
+            <verified-email>false</verified-email>
+            <verified-primary-email>false</verified-primary-email>
+        </orcid-history>
+        <orcid-bio>
+            <personal-details>
+                <given-names></given-names>
+            </personal-details>
+        </orcid-bio>
+    </orcid-profile>
+</orcid-message>
