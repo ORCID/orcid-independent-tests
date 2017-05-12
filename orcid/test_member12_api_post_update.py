@@ -22,7 +22,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("http://api.qa.orcid.org/v1.2/%s/orcid-works" % self.orcid_id, curl_params)
         self.assertTrue("201 Created" in response, "response: " + response)
 
-    def test_update_work(self):
+    '''def test_update_work(self):
         self.assertIsNotNone(self.access, "Not token generated: [%s]" % str(self.access))
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work2.xml', '-X', 'PUT']
         response = self.orcid_curl("http://api.qa.orcid.org/v1.2/%s/orcid-works" % self.orcid_id, curl_params)
@@ -56,7 +56,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.access, "Not token generated: [%s]" % str(self.access))
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma_bio.xml', '-X', 'PUT']
         response = self.orcid_curl("http://api.qa.orcid.org/v1.2/%s/orcid-bio" % self.orcid_id, curl_params)
-        self.assertTrue("200 OK" in response, "response: " + response)
+        self.assertTrue("200 OK" in response, "response: " + response)'''
 
     '''def test_revoke_post_work(self):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work.xml', '-X', 'POST']

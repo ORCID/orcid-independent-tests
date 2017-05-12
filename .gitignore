@@ -1,11 +1,11 @@
-__pycache__/
-results/
+__pycache__
+results
 **/*.pyc
 .directory
-.py_env/
-.cache/
+.py_env
+.cache
 *.secrets
 *.properties
-.directory
 .DS_Store
+orcid/testinputs.py
 
