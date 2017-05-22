@@ -2,13 +2,12 @@
 
 ## Overview
 
-Orcid API privide and support data exchage using curl command line calls. This project simulate an automated call iteration.
+OrciD API privide and support data exchage using curl command line calls. This project simulate an automated call iteration.
 
 ## Required Python Libraries
 
 * pytest
 * junit-xml
-* pyjavaproperties
 
 Already included on _requirements.txt_ file
 
@@ -25,7 +24,7 @@ pip2 install -r ./requirements.txt
 ```
 ## Running Tests
 
-Each test_*.py test on python folder is expecting a _test.properties_ file containing at least next key values
+Each test_*.py file at _python_ folder is expecting a _properties.py_ file containing at least next key values
 
     publicClientId=APP-AAAAAAAAAAAAAAAA
     memberClientId=APP-BBBBBBBBBBBBBBBB
@@ -33,20 +32,15 @@ Each test_*.py test on python folder is expecting a _test.properties_ file conta
     publicClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
     memberClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
     premiumClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
-    searchValue=family-name:13jan2017
+    orcidUsername=ma_test_13Feb2017
+    orcidPassword=f45j%?7f3&#4
     orcidId=0000-0003-4248-6064
-    readPublicCode=123456
-    api1PostUpdateCode=a1b2c3
-    api2PostUpdateCode=x9y8z7
 
 To get the 3 codes above you'll need to browse next urls
 
-* public read api (test 40)
-    * https://qa.orcid.org/oauth/authorize?client_id=[public client id]&response_type=code&scope=/authenticate&redirect_uri=https://developers.google.com/oauthplayground
-* api 1.2 post update (test 53)
-    * https://qa.orcid.org/oauth/authorize?client_id=[member client id]&response_type=code&scope=/orcid-bio/update /orcid-works/create /orcid-works/update /affiliations/create /affiliations/update /funding/create /funding/update /orcid-profile/read-limited&redirect_uri=https://developers.google.com/oauthplayground&email=ma_test_[DD][month][YYYY]@mailinator.com
-* api 2 post update (test 80)
-    * https://qa.orcid.org/oauth/authorize?client_id=[member client id]&response_type=code&scope=/read-limited /activities/update /person/update&redirect_uri=https://developers.google.com/oauthplayground
+* [public read api (test 40)](https://qa.orcid.org/oauth/authorize?client_id=PUBLIC_CLIENT_ID&response_type=code&scope=/authenticate&redirect_uri=https://developers.google.com/oauthplayground)
+* [api 1.2 post update (test 53)](https://qa.orcid.org/oauth/authorize?client_id=MEMBER_CLIENT_ID&response_type=code&scope=/orcid-bio/update /orcid-works/create /orcid-works/update /affiliations/create /affiliations/update /funding/create /funding/update /orcid-profile/read-limited&redirect_uri=https://developers.google.com/oauthplayground&email=ma_test_[DD][month][YYYY]@mailinator.com)
+* [api 2 post update (test 80)](https://qa.orcid.org/oauth/authorize?client_id=MEMBER_CLIENT_ID&response_type=code&scope=/read-limited /activities/update /person/update&redirect_uri=https://developers.google.com/oauthplayground)
 
 In order to execute the test suite against the target urls
 

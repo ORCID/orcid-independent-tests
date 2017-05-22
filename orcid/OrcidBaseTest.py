@@ -2,33 +2,48 @@ import unittest
 import subprocess
 import json
 import os.path
+import urllib
+import testinputs
 
 class OrcidBaseTest(unittest.TestCase):
     
-    secrets_file_path = 'secrets'
+    secrets_file_path = './'
+    secrets_file_extension = '.secret'
     xml_data_files_path = '../ORCID-Source/orcid-integration-test/src/test/manual-test/'
-
+        
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
-        #print " ".join(curl_call)
         p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print(subprocess.list2cmdline(curl_call))
         output,err = p.communicate()
         return output
 
     def save_secrets_to_file(self, content, code):
-        with open(code + "." + self.secrets_file_path, 'w') as secrets_file:
+        with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'w') as secrets_file:
             json.dump(content, secrets_file)
 
     def load_secrets_from_file(self, code):
         content = None
-        with open(code + "." + self.secrets_file_path, 'r') as secrets_file:
+        with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'r') as secrets_file:
             content = json.load(secrets_file)
         return content
+    
+    def generate_auth_code(self, client_id, scope):
+        who = str(self.__class__.__name__)
+        if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
+            cmd = ['generate_auth_code', urllib.quote_plus(testinputs.username), testinputs.password, client_id, scope]
+            p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output,err = p.communicate()
+            print(subprocess.list2cmdline(cmd).strip())
+            code = str(output).strip()
+            self.save_secrets_to_file(code, who)
+            return code
+        else:
+            return self.load_secrets_from_file(who)
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
         json_response = None
-        if not os.path.isfile(code + "." + self.secrets_file_path):
+        if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]
             response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", exchange_data)
             json_response = json.loads(response)
