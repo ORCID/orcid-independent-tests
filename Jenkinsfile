@@ -6,11 +6,11 @@ node {
         ),
         parameters([
             string(name: 'branch_to_build'       , defaultValue: 'master'                                         , description: 'Branch name to work on'),
-            string(name: 'user_login'            , defaultValue: 'ma_test_23feb2017@mailinator.com'               , description: 'Username'),
+            string(name: 'user_login'            , defaultValue: 'ma_test_23feb2017'                              , description: 'Username'),
             string(name: 'user_pass'             , defaultValue: 's$Y44853Wu3W'                                   , description: 'Password'),
             string(name: 'orcid_id'              , defaultValue: '0000-0001-6143-7896'                            , description: 'Latest orcid ID'),
-            string(name: 'search_value'          , defaultValue: 'family-name:23feb2017'                          , description: 'Family name query format'),            
-            string(name: 'client_secrets_file'   , defaultValue: '/var/lib/jenkins/test.properties'               , description: 'Properties file with predefined secrets')
+            string(name: 'search_value'          , defaultValue: '23feb2017'                                      , description: 'Family name query format'),            
+            string(name: 'client_secrets_file'   , defaultValue: '/var/lib/jenkins/orcidclients.py'               , description: 'Properties file with predefined secrets')
         ]),        
         [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]
     ])
@@ -19,8 +19,8 @@ node {
     
     stage('Crate properties file'){
         sh "rm -f *.properties"
-        writeFile file: 'testinputs.py', text: "searchValue=$search_value\norcidId=$orcid_id\nuser_login=$user_login\npassword=$user_pass"
-        sh "cat $client_secrets_file testinputs.py > test.properties"
+        writeFile file: 'testinputs.py', text: "searchValue=$search_value\norcidId=$orcid_id\nuser_login=$user_login\npassword=$user_pass\n"
+        sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
     }
     
     stage('Prepare Environment'){
@@ -83,6 +83,17 @@ node {
             echo "Tests problem: $err_msg"
         }
     }
+    
+    stage('Run Limited Record Test'){
+        try {
+            
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_limited_record.xml orcid/test_limited_record.py"
+            
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }    
     
     stage('Run Test scope methods'){
         try {
