@@ -1,5 +1,6 @@
 import OrcidBaseTest
 import pyjavaproperties
+import properties.py
 
 class PublicRecord(OrcidBaseTest.OrcidBaseTest):
 
