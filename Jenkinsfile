@@ -18,7 +18,7 @@ node {
     git url: 'https://github.com/ORCID/orcid-independent-tests.git', branch: params.branch_to_build
     
     stage('Crate properties file'){
-        sh "rm -f *.properties"
+        sh "rm -f orcid/properties.py"
         writeFile file: 'testinputs.py', text: "searchValue=$search_value\norcidId=$orcid_id\nuser_login=$user_login\npassword=$user_pass\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
     }

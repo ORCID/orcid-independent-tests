@@ -1,17 +1,14 @@
 import OrcidBaseTest
-import pyjavaproperties
 import json
+import properties
 
 class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.orcid_id            = self.orcid_props['orcidId']
-        self.client_id           = self.orcid_props['memberClientId']
-        self.client_secret       = self.orcid_props['memberClientSecret']        
-        self.code                = self.orcid_props['api2PostUpdateCode']
+        self.orcid_id            = properties.orcidId
+        self.client_id           = properties.memberClientId
+        self.client_secret       = properties.memberClientSecret
+        self.code                = self.generate_auth_code(self.client_id, "/authenticate")
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     def test_get20_works(self):

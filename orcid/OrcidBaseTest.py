@@ -3,7 +3,7 @@ import subprocess
 import json
 import os.path
 import urllib
-import testinputs
+import properties
 
 class OrcidBaseTest(unittest.TestCase):
     
@@ -27,11 +27,11 @@ class OrcidBaseTest(unittest.TestCase):
         with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'r') as secrets_file:
             content = json.load(secrets_file)
         return content
-    
     def generate_auth_code(self, client_id, scope):
+        # returns [No JSON object could be decoded | 6 digits ]
         who = str(self.__class__.__name__)
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
-            cmd = ['generate_auth_code', urllib.quote_plus(testinputs.username), testinputs.password, client_id, scope]
+            cmd = ['generate_auth_code', properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
             p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output,err = p.communicate()
             print(subprocess.list2cmdline(cmd).strip())
