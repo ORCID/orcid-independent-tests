@@ -1,15 +1,14 @@
 import OrcidBaseTest
-import pyjavaproperties
+import properties
 
 class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.client_id     = self.orcid_props['publicClientId']
-        self.client_secret = self.orcid_props['publicClientSecret']
-        self.read_pub_code = self.orcid_props['readPublicCode']
+        self.client_id     = properties.publicClientId
+        self.client_secret = properties.publicClientSecret
+        # readPublicCode
+        self.scope         = "/authenticate"
+        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope)
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
         self.private_orcid_id = '0000-0003-2366-2712'
         self.limited_token = '6ae41a5b-abf9-4922-bbb4-08ed8508b4ce'
@@ -23,7 +22,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 165
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub.qa.orcid.org/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
 		#Check the name and email address are not returned anywhere        
         self.assertFalse('Published Name' in response, "Name returned " + response)
         self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
@@ -35,7 +34,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 165
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.private_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/record", curl_params)
 		#Check the name and email address are not returned anywhere
         self.assertFalse('Published Name' in response, "Name returned " + response)
         self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
@@ -53,7 +52,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_private_record_with_12_limited_token(self):
     	#TEST 167
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
 		#Check the name and email address are not returned anywhere        
         self.assertFalse('Published Name' in response, "Name returned " + response)
         self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
@@ -65,7 +64,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_private_record_with_20_limited_token(self):
     	#TEST 168
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.private_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/record", curl_params)
 		#Check the name and email address are not returned anywhere
         self.assertFalse('Published Name' in response, "Name returned " + response)
         self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
@@ -83,13 +82,13 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_private_work_with_20_limited_token(self):
         # TEST 169
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.private_orcid_id + "/work/141943", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/work/141943", curl_params)
         self.assertTrue("<error-code>9013</error-code>" in response, "Expected error code 9013 instead: " + response) 
     
     def test_read_private_email_with_20_limited_token(self):
         # TEST 171
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.private_orcid_id + "/email", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/email", curl_params)
        	#Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)  
         
