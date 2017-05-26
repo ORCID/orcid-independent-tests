@@ -1,16 +1,14 @@
 import OrcidBaseTest
-import pyjavaproperties
+import properties
 import urllib
 
 class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-    	p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.client_id     = self.orcid_props['publicClientId']
-        self.client_secret = self.orcid_props['publicClientSecret']
-        self.read_pub_code = self.orcid_props['readPublicCode']
+        self.client_id     = properties.publicClientId
+        self.client_secret = properties.publicClientSecret
+        # properties.readPublicCode
+        self.read_pub_code = 
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
         self.limited_orcid_id = '0000-0001-7325-5491'
         self.limited_token = '1fcda8a0-1af3-4b35-8825-e4c53dae8953'
@@ -31,7 +29,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 138
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://pub.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12_publicapi.xml','r').read(), 'response_body: ' + response_body)
@@ -40,7 +38,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	#TEST 139
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
@@ -49,14 +47,14 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         # TEST 140
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+		response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
 		self.assertTrue("<error-code>9039</error-code>" in response, "Expected error code 9039 instead: " + response)
         
     def test_read_limited_email_with_20_public_api(self):
         # TEST 141
 		self.assertIsNotNone(self.token,"No token generated")
 		curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+		response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
 		#Check an empty email sections is returned
 		self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
         
@@ -64,7 +62,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_12_public_token(self):
     	#TEST 142
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
@@ -72,7 +70,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_public_token(self):
     	#TEST 143
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
@@ -80,13 +78,13 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_work_with_20_public_token(self):
         # TEST 144
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
         
     def test_read_limited_email_with_20_public_token(self):
         # TEST 145
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
        	#Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
         
@@ -94,55 +92,55 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_12_revoked_token(self):
     	#TEST 146
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 		
     def test_read_limited_record_with_20_revoked_token(self):
     	#TEST 147
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 		
     def test_read_limited_work_with_20_revoked_token(self):
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_email_with_20_revoked_token(self):
     	curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-    	response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+    	response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
     	self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 		
 #Test access tokens for another record can't be used to read the record
     def test_read_limited_record_with_12_wrong_token(self):
     	#TEST 148
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		self.assertTrue("You do not have the required permissions" in response, "Expected security issue error, instead: " + response)
 		
     def test_read_limited_record_with_20_wrong_token(self):
     	#TEST 149
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
 		
     def test_read_limited_work_with_20_wrong_token(self):
         # TEST 150
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
         
     def test_read_limited_email_with_20_wrong_token(self):
         # TEST 151
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
        	
 #Test an update access tokens can't be used to read the record
     def test_read_limited_record_with_12_update_token(self):
     	#TEST 152
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
@@ -150,7 +148,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_update_token(self):
     	#TEST 153
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
@@ -158,12 +156,12 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_work_with_20_update_token(self):
         # TEST 154
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
         
     def test_read_limited_email_with_20_update_token(self):
     	curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
        	#Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
@@ -171,7 +169,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_12_create_token(self):
     	#TEST 155
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record12.xml','r').read(), 'response_body: ' + response_body)
@@ -179,26 +177,26 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_create_token(self):
     	#TEST 156
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		self.assertTrue("<error-code>9005</error-code>" in response, "Expected error code 9005 instead: " + response)
 		
     def test_read_limited_work_with_20_create_token(self):
         # TEST 157
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         self.assertTrue("<error-code>9005</error-code>" in response, "Expected error code 9005 instead: " + response)
         
     def test_read_limited_email_with_20_create_token(self):
     	# TEST 158
     	curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("<error-code>9005</error-code>" in response, "Expected error code 9005 instead: " + response)
        	
 #Test an active read-limited token returns information as expected
     def test_read_limited_record_with_12_limited_token(self):
     	#TEST 159
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/limited_record12.xml','r').read(), 'response_body: ' + response_body)
@@ -206,7 +204,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_limited_token(self):
     	#TEST 160
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/record", curl_params)
+		response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 		response_body = response.partition('X-Frame-Options: DENY')[2]
 		#Compare the body of the response to the saved file.        
 		self.assertTrue(response_body.strip() == open('saved_records/limited_record20.xml','r').read(), 'response_body: ' + response_body)
@@ -214,7 +212,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_work_with_20_limited_token(self):
         # TEST 161
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_work.json','r').read(), 'response_body: ' + response_body)
@@ -222,7 +220,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_email_with_20_limited_token(self):
     	# TEST 162
     	curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-    	response = self.orcid_curl("https://api.qa.orcid.org/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+    	response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
        	response_body = response.partition('X-Frame-Options: DENY')[2]
        	#Compare the body of the response to the saved file.
        	self.assertTrue(response_body.strip() == open('saved_records/limited_record_email.json','r').read(), 'response_body: ' + response_body)
