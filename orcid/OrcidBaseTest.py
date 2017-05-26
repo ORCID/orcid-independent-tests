@@ -27,9 +27,10 @@ class OrcidBaseTest(unittest.TestCase):
         with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'r') as secrets_file:
             content = json.load(secrets_file)
         return content
-    def generate_auth_code(self, client_id, scope):
+
+    def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
         # returns [No JSON object could be decoded | 6 digits ]
-        who = str(self.__class__.__name__)
+        who = str(auth_code_name)
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
             cmd = [properties.authCodeGenerator, properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
             p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -38,15 +39,19 @@ class OrcidBaseTest(unittest.TestCase):
             code = str(output).strip()
             if code:
                 self.save_secrets_to_file(code, who)
+            print "Using code: %s" % code
             return code
         else:
-            return self.load_secrets_from_file(who)
+            code = self.load_secrets_from_file(who)
+            code = str(output).strip()
+            print "Using code: %s" % code
+            return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
         json_response = None
         if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]
-            response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", exchange_data)
+            response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", exchange_data)
             json_response = json.loads(response)
         else:
             json_response = self.load_secrets_from_file(code)
@@ -60,7 +65,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def orcid_generate_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://pub.qa.orcid.org/oauth/token", data)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
@@ -71,7 +76,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def orcid_generate_member_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://api.qa.orcid.org/oauth/token", data)
+        response = self.orcid_curl("http://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
@@ -83,7 +88,7 @@ class OrcidBaseTest(unittest.TestCase):
     def remove_by_putcode(self, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
         curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
         return response
 
     def get_putcode_from_response(self, response):
@@ -96,16 +101,16 @@ class OrcidBaseTest(unittest.TestCase):
     def post_activity(self, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
     
     def update_activity(self, putcode, updated_data, activity_type = "work"):
         update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
-        update_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%d" % (self.orcid_id, activity_type,int(putcode)), update_curl_params)
+        update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type,int(putcode)), update_curl_params)
         return update_response
     
     def delete_activity(self, putcode, activity_type = "work"):
         delete_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
+        delete_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
         return delete_response
         

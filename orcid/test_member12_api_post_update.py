@@ -11,7 +11,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.client_secret = properties.memberClientSecret
         self.orcid_id      = properties.orcidId
         self.webhook_access= properties.webhookToken
-        self.code          = self.generate_auth_code(self.client_id, self.scope) # api1PostUpdateCode
+        self.code          = self.generate_auth_code(self.client_id, self.scope, "api1PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     def test_post_work(self):

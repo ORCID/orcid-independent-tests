@@ -7,8 +7,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def setUp(self):
         self.client_id     = properties.publicClientId
         self.client_secret = properties.publicClientSecret
-        # properties.readPublicCode
-        self.read_pub_code = 
+        self.scope         = "/authenticate"
+        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope,"readPublicCode")
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
         self.limited_orcid_id = '0000-0001-7325-5491'
         self.limited_token = '1fcda8a0-1af3-4b35-8825-e4c53dae8953'
