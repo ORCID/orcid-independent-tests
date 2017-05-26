@@ -31,7 +31,7 @@ class OrcidBaseTest(unittest.TestCase):
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(self.__class__.__name__)
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
-            cmd = ['generate_auth_code', properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
+            cmd = [properties.authCodeGenerator, properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
             p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output,err = p.communicate()
             print(subprocess.list2cmdline(cmd).strip())
