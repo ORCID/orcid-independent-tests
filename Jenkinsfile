@@ -19,7 +19,7 @@ node {
     
     stage('Crate properties file'){
         sh "rm -f orcid/properties.py"
-        writeFile file: 'testinputs.py', text: "searchValue=$search_value\norcidId=$orcid_id\nuser_login=$user_login\npassword=$user_pass\n"
+        writeFile file: 'testinputs.py', text: "searchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\npassword=\"$user_pass\"\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
     }
     
