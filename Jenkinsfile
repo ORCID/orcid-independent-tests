@@ -6,6 +6,7 @@ node {
         ),
         parameters([
             string(name: 'branch_to_build'       , defaultValue: 'master'                                         , description: 'Branch name to work on'),
+            string(name: 'test_server'           , defaultValue: 'qa.orcid.org'                                   , description: 'Base domain name to test'),
             string(name: 'user_login'            , defaultValue: 'ma_test_23feb2017'                              , description: 'Username'),
             string(name: 'user_pass'             , defaultValue: 's$Y44853Wu3W'                                   , description: 'Password'),
             string(name: 'orcid_id'              , defaultValue: '0000-0001-6143-7896'                            , description: 'Latest orcid ID'),
@@ -19,7 +20,7 @@ node {
     
     stage('Crate properties file'){
         sh "rm -f orcid/properties.py"
-        writeFile file: 'testinputs.py', text: "searchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\npassword=\"$user_pass\"\n"
+        writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nsearchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\npassword=\"$user_pass\"\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
     }
     
