@@ -1,17 +1,15 @@
 import OrcidBaseTest
-import pyjavaproperties
+import properties
 
 class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.client_id     = self.orcid_props['publicClientId']
-        self.client_secret = self.orcid_props['publicClientSecret']
-        self.read_pub_code = self.orcid_props['readPublicCode']
-        self.seach_value   = self.orcid_props['searchValue']
-        self.orcid_id      = self.orcid_props['orcidId']
+        self.scope         = "/authenticate"
+        self.client_id     = properties.publicClientId
+        self.client_secret = properties.publicClientSecret
+        self.seach_value   = properties.searchValue
+        self.orcid_id      = properties.orcidId        
+        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope) #self.orcid_props['readPublicCode']
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.read_pub_code)
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
 

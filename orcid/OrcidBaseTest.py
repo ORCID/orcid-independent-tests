@@ -36,7 +36,8 @@ class OrcidBaseTest(unittest.TestCase):
             output,err = p.communicate()
             print(subprocess.list2cmdline(cmd).strip())
             code = str(output).strip()
-            self.save_secrets_to_file(code, who)
+            if code:
+                self.save_secrets_to_file(code, who)
             return code
         else:
             return self.load_secrets_from_file(who)
