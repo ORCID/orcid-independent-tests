@@ -5,10 +5,11 @@ import properties
 class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
+        self.scope               = "/read-limited%20/activities/update%20/person/update"
         self.orcid_id            = properties.orcidId
         self.client_id           = properties.memberClientId
         self.client_secret       = properties.memberClientSecret
-        self.code                = self.generate_auth_code(self.client_id, "/authenticate")
+        self.code                = self.generate_auth_code(self.client_id, self.scope)
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     def test_get20_works(self):
