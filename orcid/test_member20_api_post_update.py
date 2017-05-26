@@ -1,17 +1,16 @@
 import OrcidBaseTest
 import pyjavaproperties
+import properties.py
 
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.client_id     = self.orcid_props['memberClientId']
-        self.client_secret = self.orcid_props['memberClientSecret']
-        self.notify_token  = self.orcid_props['notifyToken']
-        self.code          = self.orcid_props['api2PostUpdateCode']
-        self.orcid_id      = self.orcid_props['orcidId']
+        #self.client_id     = self.orcid_props['memberClientId']
+        #self.client_secret = self.orcid_props['memberClientSecret']
+        #self.notify_token  = self.orcid_props['notifyToken']
+        #self.code          = self.orcid_props['api2PostUpdateCode']
+        #self.orcid_id      = self.orcid_props['orcidId']
+        self.code                = self.generate_auth_code(self.client_id, "/orcid-bio/update /orcid-works/create /orcid-works/update /affiliations/create /affiliations/update /funding/create /funding/update /orcid-profile/read-limited")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
     
     def test_post_update_delete_work(self):

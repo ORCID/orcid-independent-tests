@@ -1,23 +1,21 @@
 import OrcidBaseTest
-import pyjavaproperties
 import json
+import properties
 
 class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.orcid_id            = self.orcid_props['orcidId']
-        self.client_id           = self.orcid_props['memberClientId']
-        self.client_secret       = self.orcid_props['memberClientSecret']        
-        self.code                = self.orcid_props['api2PostUpdateCode']
+        self.scope               = "/read-limited%20/activities/update%20/person/update"
+        self.orcid_id            = properties.orcidId
+        self.client_id           = properties.memberClientId
+        self.client_secret       = properties.memberClientSecret
+        self.code                = self.generate_auth_code(self.client_id, self.scope)
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     def test_get20_works(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/%s/works" % self.orcid_id, curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/%s/works" % self.orcid_id, curl_params)
         json_response = json.loads(response)
         group = json_response.get("group")
         self.assertIsNotNone(group, "Group not found in JSON")
@@ -30,7 +28,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
     def test_get20_fundings(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/%s/fundings" % self.orcid_id, curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/%s/fundings" % self.orcid_id, curl_params)
         json_response = json.loads(response)
         group = json_response.get("group")
         self.assertIsNotNone(group, "Group not found in JSON")
@@ -43,7 +41,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
     def test_get20_reviews(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/%s/peer-reviews" % self.orcid_id, curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/%s/peer-reviews" % self.orcid_id, curl_params)
         json_response = json.loads(response)
         group = json_response.get("group")
         self.assertIsNotNone(group, "Group not found in JSON")
@@ -56,7 +54,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
     def test_get20_educations(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/%s/educations" % self.orcid_id, curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/%s/educations" % self.orcid_id, curl_params)
         json_response = json.loads(response)
         es = json_response.get("education-summary")
         self.assertIsNotNone(es, "education-summary not found in JSON")
