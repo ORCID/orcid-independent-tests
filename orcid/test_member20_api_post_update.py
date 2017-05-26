@@ -8,9 +8,8 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.client_secret = properties.memberClientSecret
         self.notify_token  = properties.notifyToken
         self.orcid_id      = properties.orcidId
-        # api2PostUpdateCode
         self.scope               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
-        self.code                = self.generate_auth_code(self.client_id,self.scope)
+        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
     
     def test_post_update_delete_work(self):

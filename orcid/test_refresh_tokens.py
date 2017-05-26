@@ -7,9 +7,8 @@ class RefreshTokens(OrcidBaseTest.OrcidBaseTest):
         self.client_id             = properties.memberClientId
         self.client_secret         = properties.memberClientSecret
         self.orcid_id              = properties.orcidId
-        # api2PostUpdateCode
-        self.scope               = "/orcid-bio/update /orcid-works/create /orcid-works/update /affiliations/create /affiliations/update /funding/create /funding/update /orcid-profile/read-limited"
-        self.code                = self.generate_auth_code(self.client_id,self.scope)
+        self.scope               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
+        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
         self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)        
         
     def test_access_wrong_record1(self):

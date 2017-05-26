@@ -6,9 +6,8 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
     def setUp(self):
         self.client_id     = properties.publicClientId
         self.client_secret = properties.publicClientSecret
-        # readPublicCode
         self.scope         = "/authenticate"
-        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope)
+        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope, "readPublicCode")
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
         self.private_orcid_id = '0000-0003-2366-2712'
         self.limited_token = '6ae41a5b-abf9-4922-bbb4-08ed8508b4ce'
