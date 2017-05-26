@@ -43,7 +43,7 @@ class OrcidBaseTest(unittest.TestCase):
             return code
         else:
             code = self.load_secrets_from_file(who)
-            code = str(output).strip()
+            code = str(code).strip()
             print "Using code: %s" % code
             return code
 
