@@ -4,7 +4,6 @@ import properties
 class PublicRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
         self.public_orcid_id    = '0000-0002-3874-7658'
         self.limited_token      = 'eba7892b-4f4a-4651-9c47-f0c74fae61c5'
         self.empty_activities   = '"orcid-activities":null'
