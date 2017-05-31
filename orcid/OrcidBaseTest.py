@@ -39,15 +39,17 @@ class OrcidBaseTest(unittest.TestCase):
             code = str(output).strip()
             if code:
                 self.save_secrets_to_file(code, who)
-            print "Using code: %s" % code
+            print "Using fresh code: %s" % code
             return code
         else:
             code = self.load_secrets_from_file(who)
             code = str(code).strip()
-            print "Using code: %s" % code
+            print "Using local code: %s" % code
             return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
+        if not code:
+            return [None, None]
         json_response = None
         if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]

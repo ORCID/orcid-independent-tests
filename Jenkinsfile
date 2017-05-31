@@ -30,11 +30,26 @@ node {
         sh "mkdir results"
         sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
     }
-    
+
     stage('Clean OrcidiD'){
-        sh ". .py_env/bin/activate && pytest -v -r fEx orcid/api_read_delete.py"
+        def cleanup_orcid_record = false
+        try {
+            timeout(time:20,unit:'SECONDS'){
+                cleanup_orcid_record = input message: 'Would you like to clean up orcid record before continue ?', 
+                                                  ok: 'Clean',
+                                          parameters: [booleanParam(defaultValue: false, description: '', name: 'Clean ?')]
+            }
+        } catch(err){
+            echo err.toString()
+        }
+        if (cleanup_orcid_record) {
+            echo "Removing activities from orcid record [$orcid_id]"
+            sh ". .py_env/bin/activate && pytest -v -r fEx orcid/api_read_delete.py"
+        } else {
+            echo "Continuing with existing record content."
+        }
     }
-    
+
     stage('Run Test Public Read'){
         try {
             sh ". .py_env/bin/activate && py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py"
@@ -114,6 +129,7 @@ node {
             echo "Tests problem: $err_msg"
         } finally {
             junit 'results/*.xml'
+            deleteDir()
         }
     }    
 }
