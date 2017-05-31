@@ -24,27 +24,18 @@ pip2 install -r ./requirements.txt
 ```
 ## Running Tests
 
-Each test_*.py file at _python_ folder is expecting a _properties.py_ file containing at least next key values
+Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file containing at least next key values
 
-    publicClientId=APP-AAAAAAAAAAAAAAAA
-    memberClientId=APP-BBBBBBBBBBBBBBBB
-    premiumClientId=APP-CCCCCCCCCCCCCCC
-    publicClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
-    memberClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
-    premiumClientSecret=FFFFFFFF-AAAA-BBBB-CCCC-GGGGGGGGGGGG
-    orcidUsername=ma_test_13Feb2017
-    orcidPassword=f45j%?7f3&#4
+    test_server=localhost.orcid.org
+    user_login=ma_test_13feb2017
+    password=abcxyz
     orcidId=0000-0003-4248-6064
+    searchValue=13feb2017
 
-To get the 3 codes above you'll need to browse next urls
+In order to execute the test suite against the target server
 
-* [public read api (test 40)](https://qa.orcid.org/oauth/authorize?client_id=PUBLIC_CLIENT_ID&response_type=code&scope=/authenticate&redirect_uri=https://developers.google.com/oauthplayground)
-* [api 1.2 post update (test 53)](https://qa.orcid.org/oauth/authorize?client_id=MEMBER_CLIENT_ID&response_type=code&scope=/orcid-bio/update /orcid-works/create /orcid-works/update /affiliations/create /affiliations/update /funding/create /funding/update /orcid-profile/read-limited&redirect_uri=https://developers.google.com/oauthplayground&email=ma_test_[DD][month][YYYY]@mailinator.com)
-* [api 2 post update (test 80)](https://qa.orcid.org/oauth/authorize?client_id=MEMBER_CLIENT_ID&response_type=code&scope=/read-limited /activities/update /person/update&redirect_uri=https://developers.google.com/oauthplayground)
-
-In order to execute the test suite against the target urls
-
-    py.test --junitxml results/TestLoadRecord.xml python/TestLoadRecord.py
+    source .py_env/bin/activate
+    py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
 
 ## Implement Automated Execution At Jenkins
 
