@@ -13,10 +13,13 @@ class OrcidBaseTest(unittest.TestCase):
         
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
-        p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print(subprocess.list2cmdline(curl_call))
-        output,err = p.communicate()
-        return output
+        try:
+            p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print(subprocess.list2cmdline(curl_call))
+            output,err = p.communicate()
+            return output
+        except Exception as e:
+            raise Exception(e)
 
     def save_secrets_to_file(self, content, code):
         with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'w') as secrets_file:
@@ -90,8 +93,12 @@ class OrcidBaseTest(unittest.TestCase):
     def remove_by_putcode(self, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
         curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
-        return response
+        try:
+            response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
+            return response
+        except Exception as e:
+            print "We've got some problems while deleting by putcode: " + e
+        return ""
 
     def get_putcode_from_response(self, response):
         for header in response.split('\n'):

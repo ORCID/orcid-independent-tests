@@ -7,10 +7,10 @@ node {
         parameters([
             string(name: 'branch_to_build'       , defaultValue: 'master'                                         , description: 'Branch name to work on'),
             string(name: 'test_server'           , defaultValue: 'qa.orcid.org'                                   , description: 'Base domain name to test'),
-            string(name: 'user_login'            , defaultValue: 'ma_test_13jan2017'                              , description: 'Username'),
-            string(name: 'user_pass'             , defaultValue: '347zX*4Ql3pa'                                   , description: 'Password'),
-            string(name: 'orcid_id'              , defaultValue: '0000-0003-4248-6064'                            , description: 'Latest orcid ID'),
-            string(name: 'search_value'          , defaultValue: '13jan2017'                                      , description: 'Family name query format'),            
+            string(name: 'user_login'            , defaultValue: 'ma_test_31052017'                               , description: 'Username'),
+            string(name: 'user_pass'             , defaultValue: 'ma_test_31052017'                               , description: 'Password'),
+            string(name: 'orcid_id'              , defaultValue: '0000-0002-6816-6010'                            , description: 'Latest orcid ID'),
+            string(name: 'search_value'          , defaultValue: '31052017'                                       , description: 'Family name query format'),            
             string(name: 'client_secrets_file'   , defaultValue: '/var/lib/jenkins/orcidclients.py'               , description: 'Properties file with predefined secrets')
         ]),        
         [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]
