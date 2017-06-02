@@ -1,5 +1,6 @@
 import OrcidBaseTest
 import properties
+import re
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
