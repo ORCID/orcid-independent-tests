@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<education:education
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:education="http://www.orcid.org/ns/education"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/employment https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.0/education-2.0.xsd">
+        <education:department-name>Art History</education:department-name>
+    	<education:role-title>phd</education:role-title>
+        <education:organization>
+            <common:name>Massachusetts Institute of Technology</common:name>
+            <common:address>
+                <common:city>Cambridge</common:city>
+                <common:region>MA</common:region>
+                <common:country>US</common:country>
+            </common:address>
+            <common:disambiguated-organization>
+                <common:disambiguated-organization-identifier>2167</common:disambiguated-organization-identifier>
+                <common:disambiguation-source>RINGGOLD</common:disambiguation-source>
+            </common:disambiguated-organization>
+        </education:organization>
+</education:education>
