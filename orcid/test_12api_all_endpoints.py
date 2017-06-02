@@ -1,16 +1,16 @@
 import OrcidBaseTest
-import pyjavaproperties
+import properties
 
-class Api12PostUpdateDelete(OrcidBaseTest.OrcidBaseTest):
+class Api12PAllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.orcid_id    = self.orcid_props['staticId']
-        self.access      = self.orcid_props['staticAccess']
+        self.client_id     = properties.memberClientId
+        self.client_secret = properties.memberClientSecret
+        self.notify_token  = properties.notifyToken
+        self.orcid_id    = properties.staticId
+        self.access      = properties.staticAccess
 
 #Works section 1.2
     def test_01post_work_12(self):

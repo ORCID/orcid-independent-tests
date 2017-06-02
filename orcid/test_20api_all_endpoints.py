@@ -1,20 +1,16 @@
 import OrcidBaseTest
-import pyjavaproperties
-import json
-import re
+import properties
 
-class Api20PostUpdateDelete(OrcidBaseTest.OrcidBaseTest):
+class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        p = pyjavaproperties.Properties()
-        p.load(open('test.properties'))
-        self.orcid_props   = p
-        self.orcid_id    = self.orcid_props['staticId']
-        self.access      = self.orcid_props['staticAccess']
-        self.client_id     = self.orcid_props['memberClientId']
-        self.client_secret = self.orcid_props['memberClientSecret']
+        self.client_id     = properties.memberClientId
+        self.client_secret = properties.memberClientSecret
+        self.notify_token  = properties.notifyToken
+        self.orcid_id    = properties.staticId
+        self.access      = properties.staticAccess
 
 #2.0
     def post20(self, file_name, endpoint):
