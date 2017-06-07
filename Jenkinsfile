@@ -118,7 +118,27 @@ node {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
         }
-    }    
+    }
+    
+    stage('Run 1.2 All Endpoints'){
+        try {
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_12api_all_endpoints.xml orcid/test_12api_all_endpoints.py"
+            
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }
+    
+    stage('Run 2.0 All Endpoints'){
+        try {
+            sh ". .py_env/bin/activate && py.test --junitxml results/test_20api_all_endpoints.xml orcid/test_20api_all_endpoints.py"
+            
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }          
     
     stage('Run Test scope methods'){
         try {
