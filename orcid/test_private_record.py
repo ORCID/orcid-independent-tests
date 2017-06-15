@@ -4,11 +4,8 @@ import properties
 class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id     = properties.publicClientId
-        self.client_secret = properties.publicClientSecret
-        self.scope         = "/authenticate"
-        self.read_pub_code = self.generate_auth_code(properties.publicClientId, self.scope, "readPublicCode")
-        self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
+        self.public_token = 'ba290a09-b757-4583-a5af-bd55d7087467'
+        self.public_api_token = '80e4aa5a-6ccc-44b3-83bb-3d9e315cda22'
         self.private_orcid_id = '0000-0003-2366-2712'
         self.limited_token = '6ae41a5b-abf9-4922-bbb4-08ed8508b4ce'
         self.empty_activities = '"orcid-activities":null'
@@ -19,8 +16,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
     def test_read_private_record_with_12_public_api(self):
     	#TEST 165
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
+        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
 		#Check the name and email address are not returned anywhere        
         self.assertFalse('Published Name' in response, "Name returned " + response)
@@ -31,8 +27,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         
     def test_read_private_record_with_20_public_api(self):
     	#TEST 165
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/record", curl_params)
 		#Check the name and email address are not returned anywhere
         self.assertFalse('Published Name' in response, "Name returned " + response)
