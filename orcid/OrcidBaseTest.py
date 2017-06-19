@@ -90,6 +90,17 @@ class OrcidBaseTest(unittest.TestCase):
                 raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
         return [None, None]
 
+    def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update"):
+        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', "access_token=" + access_token, '-d', 'scope=' + scope, '-d', 'grant_type=crefresh_token']
+        response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
+        json_response = json.loads(response)
+        if('access_token' in json_response):
+            return json_response['access_token']
+        else: 
+            if('error-desc' in json_response):
+                raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+        return [None, None]
+
     def remove_by_putcode(self, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
         curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
@@ -122,4 +133,9 @@ class OrcidBaseTest(unittest.TestCase):
         delete_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
         return delete_response
+
+    def read_record(self, self.token, endpoint = "record"):
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
+        return response
         
