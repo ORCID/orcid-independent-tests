@@ -134,8 +134,8 @@ class OrcidBaseTest(unittest.TestCase):
         delete_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
         return delete_response
 
-    def read_record(self, self.token, endpoint = "record"):
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+    def read_record(self, token, endpoint = "record"):
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
         
