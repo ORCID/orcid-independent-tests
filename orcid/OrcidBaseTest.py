@@ -91,7 +91,7 @@ class OrcidBaseTest(unittest.TestCase):
         return [None, None]
 
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update"):
-        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', "access_token=" + access_token, '-d', 'scope=' + scope, '-d', 'grant_type=crefresh_token']
+        data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.access), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', 'grant_type=refresh_token']
         response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
