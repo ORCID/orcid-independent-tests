@@ -9,7 +9,7 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         self.orcid_id      = properties.orcidId
         self.scope               = "/read-limited%20/activities/update"
         self.code                = self.generate_auth_code(self.client_id, self.scope, "refresh_tokens")
-        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
 
     def test_refresh_like_for_like(self):
         #Generate a new access_token
