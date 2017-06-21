@@ -34,5 +34,5 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
     def test_3refresh_disabled(self):
         #Test that a disabled token can't be used to generate a refresh token
         self.disabled = self.orcid_refresh_token(self.client_id, self.client_secret, self.access, self.refresh)
-        self.assertTrue("Parent token is disabled" in self.disabled, "Expected token disabled error instead " + self.disabled)
+        self.assertTrue("Parent token is disabled" in str(self.disabled), "Expected token disabled error instead " + str(self.disabled))
         
