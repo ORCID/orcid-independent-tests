@@ -30,4 +30,9 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         #Check the revoked token can't read the record
         response = self.read_record(self.access)
         self.assertTrue("invalid_token" in response, "Read with revoked token response: " + response)
+
+    def test_3refresh_disabled(self):
+        #Test that a disabled token can't be used to generate a refresh token
+        self.disabled = self.orcid_refresh_token(self.client_id, self.client_secret, self.access, self.refresh)
+        self.assertTrue("Parent token is disabled" in self.disabled, "Expected token disabled error instead " + response)
         
