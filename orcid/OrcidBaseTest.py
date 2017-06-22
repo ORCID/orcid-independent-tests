@@ -96,7 +96,7 @@ class OrcidBaseTest(unittest.TestCase):
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
-        elif('Parent token is disabled' in json_response):
+        elif('Parent token is disabled' in str(json_response)):
             return json_response
         else: 
             if('error-desc' in json_response):
