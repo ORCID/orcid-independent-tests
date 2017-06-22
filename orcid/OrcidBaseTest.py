@@ -101,6 +101,7 @@ class OrcidBaseTest(unittest.TestCase):
         else: 
             if('error-desc' in json_response):
                 raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+            return json_response['error-desc']['value']
         return [None, None]
 
     def remove_by_putcode(self, putcode, activity_type = "work"):
