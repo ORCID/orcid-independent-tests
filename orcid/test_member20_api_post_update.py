@@ -44,7 +44,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
-        Update the keyword
+        #Update the keyword
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = '{"put-code":' + str(putcode) + ',"content":"oranges"}'
         update_response = self.update_activity(putcode, updated_data, "keyword")
