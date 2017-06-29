@@ -50,16 +50,16 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         update_response = self.update_activity(putcode, updated_data, "keywords")
         self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
              
-	def test_post_othername(self):
-        response = self.post_activity("external-identifiers", "ma2_othername.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
-        
-	def test_post_country(self):
-        response = self.post_activity("external-identifiers", "ma2_country.xml")
+    def test_post_othername(self):
+        response = self.post_activity("other-names", "ma2_othername.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
         
     def test_post_country(self):
-        response = self.post_activity("external-identifiers", "ma2_country.xml")
+        response = self.post_activity("address", "ma2_country.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
+        
+    def test_post_website(self):
+        response = self.post_activity("researcher-urls", "ma2_website.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
         
     def test_post_identifier(self):
