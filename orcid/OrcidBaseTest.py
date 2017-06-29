@@ -9,7 +9,7 @@ class OrcidBaseTest(unittest.TestCase):
     
     secrets_file_path = './'
     secrets_file_extension = '.secret'
-    xml_data_files_path = '../ORCID-Source/orcid-integration-test/src/test/manual-test/'
+    xml_data_files_path = 'post_files/'
         
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
