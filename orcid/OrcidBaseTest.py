@@ -56,7 +56,7 @@ class OrcidBaseTest(unittest.TestCase):
         json_response = None
         if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]
-            response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", exchange_data)
+            response = self.orcid_curl("https://pub." + properties.test_server + "/oauth/token", exchange_data)
             json_response = json.loads(response)
         else:
             json_response = self.load_secrets_from_file(code)
@@ -64,30 +64,30 @@ class OrcidBaseTest(unittest.TestCase):
             self.save_secrets_to_file(json_response, code)
             return [json_response['access_token'],json_response['refresh_token']]
         else: 
-            if('error-desc' in json_response):
-                raise ValueError("No tokens found in response: " + json_response['error-desc']['value'])
+            if('error' in json_response):
+                raise ValueError("No tokens found in response: " + json_response['error']['value'])
         return [None, None]
 
     def orcid_generate_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", data)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
         else: 
-            if('error-desc' in json_response):
-                print "No access token found in response: " + json_response['error-desc']['value']
+            if('error' in json_response):
+                print "No access token found in response: " + json_response['error']['value']
         return None
 
     def orcid_generate_member_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://api." + properties.test_server + "/oauth/token", data)
+        response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
         else: 
-            if('error-desc' in json_response):
-                raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+            if('error' in json_response):
+                raise ValueError("No access token found in response: " + json_response['error']['value'])
         return [None, None]
         
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
@@ -99,8 +99,8 @@ class OrcidBaseTest(unittest.TestCase):
         elif('Parent token is disabled' in str(json_response)):
             return json_response
         else: 
-            if('error-desc' in json_response):
-                raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+            if('error' in json_response):
+                raise ValueError("No access token found in response: " + json_response['error']['value'])
 		return [None, None]
 
     def remove_by_putcode(self, putcode, activity_type = "work"):
