@@ -10,7 +10,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.client_id     = properties.memberClientId
         self.client_secret = properties.memberClientSecret
         self.orcid_id      = properties.orcidId
-        self.webhook_access= properties.webhookToken
+        self.webhook_access= orcid_generate_token(client_id, client_secret, "/webhook"):
         self.code          = self.generate_auth_code(self.client_id, self.scope, "api1PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
@@ -56,12 +56,7 @@ class Member12ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("http://api." + properties.test_server + "/v1.2/%s/orcid-bio" % self.orcid_id, curl_params)
         self.assertTrue("200 OK" in response, "response: " + response)
 
-    '''def test_revoke_post_work(self):
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work.xml', '-X', 'POST']
-        response = self.orcid_curl("http://api." + properties.test_server + "/v1.2/%s/orcid-works" % self.orcid_id, curl_params)
-        self.assertTrue("401 Unauthorized" in response, "response: " + response)'''
-
-    '''def test_post_webhook(self):
+    def test_post_webhook(self):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'PUT']
         response = self.orcid_curl("http://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
-        self.assertTrue("201 Created" in response, "response: " + response)'''
+        self.assertTrue("201 Created" in response, "response: " + response)
