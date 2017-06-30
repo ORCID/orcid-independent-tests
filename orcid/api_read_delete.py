@@ -69,8 +69,8 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/external-identifiers" % self.orcid_id, curl_params)
-        json_response = json.loads(response)
-        for json_response.get("external-identifier"):
+        es = json.loads(response)
+        for e in es:
             putcode = e["put-code"]
             delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
                 
@@ -78,9 +78,8 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/keywords" % self.orcid_id, curl_params)
-        json_response = json.loads(response)
-		json_response = json.loads(response)
-		for json_response.get("keywords"):
+        es = json.loads(response)
+        for e in es:
             putcode = e["put-code"]
             delete_results = self.remove_by_putcode(putcode, 'keywords')
                 
