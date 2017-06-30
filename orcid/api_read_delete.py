@@ -70,21 +70,19 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/external-identifiers" % self.orcid_id, curl_params)
         json_response = json.loads(response)
-        if (len(es) > 0):
-            for e in es:
-                putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
+        for json_response.get("external-identifier"):
+            putcode = e["put-code"]
+            delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
                 
     def test_get20_keyword(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/keywords" % self.orcid_id, curl_params)
         json_response = json.loads(response)
-        es = json_response.get
-        if (len(es) > 0):
-            for e in es:
-                putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'keywords')
+		json_response = json.loads(response)
+		for json_response.get("keywords"):
+            putcode = e["put-code"]
+            delete_results = self.remove_by_putcode(putcode, 'keywords')
                 
     def test_remove_webhook(self):
     	self.assertIsNotNone(self.webhook_access, "No token generated")
