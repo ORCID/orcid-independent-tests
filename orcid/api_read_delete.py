@@ -65,23 +65,24 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
                 delete_results = self.remove_by_putcode(putcode, 'education')
                 #self.assertEquals("", str(delete_results))
                 
-    def test_get20_identifier(self):
+    def test_remove_person_info(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/external-identifiers" % self.orcid_id, curl_params)
-        es = json.loads(response)
-        for e in es:
-            putcode = e["put-code"]
-            delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
-                
-    def test_get20_keyword(self):
-        self.assertIsNotNone(self.token, "No token generated")
-        curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/keywords" % self.orcid_id, curl_params)
-        es = json.loads(response)
-        for e in es:
-            putcode = e["put-code"]
-            delete_results = self.remove_by_putcode(putcode, 'keywords')
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/person" % self.orcid_id, curl_params)
+        json_response = json.loads(response)
+        #identifiers
+        old_ids = json_response.get("external-identifiers")
+        self.assertIsNotNone(old_ids, "external-identifiers not found in JSON")
+        if (len(old_ids) > 0):
+            for e in old_ids:
+                putcode = e["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
+        old_keys = json_response.get("keywords")
+        self.assertIsNotNone(old_keys, "keywords not found in JSON")
+        if (len(old_ids) > 0):
+            for e in old_ids:
+                putcode = e["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'keywords')
                 
     def test_remove_webhook(self):
     	self.assertIsNotNone(self.webhook_access, "No token generated")
