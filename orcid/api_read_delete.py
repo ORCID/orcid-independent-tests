@@ -64,25 +64,32 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'education')
                 #self.assertEquals("", str(delete_results))
-                
-    def test_remove_person_info(self):
+
+    def test_remove_keywords(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/person" % self.orcid_id, curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/keywords" % self.orcid_id, curl_params)
         json_response = json.loads(response)
-        #identifiers
-        old_ids = json_response.get("external-identifiers")
-        self.assertIsNotNone(old_ids, "external-identifiers not found in JSON")
-        if (len(old_ids) > 0):
-            for e in old_ids:
+        es = json_response.get("keywords")
+        self.assertIsNotNone(es, "keywords not found in JSON")
+        if (len(es) > 0):
+            for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'external-identifiers')
-        old_keys = json_response.get("keywords")
-        self.assertIsNotNone(old_keys, "keywords not found in JSON")
-        if (len(old_ids) > 0):
-            for e in old_ids:
+                delete_results = self.remove_by_putcode(putcode, 'keyword')
+                #self.assertEquals("", str(delete_results))
+                
+    def test_remove_keywords(self):
+        self.assertIsNotNone(self.token, "No token generated")
+        curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/external-identifiers" % self.orcid_id, curl_params)
+        json_response = json.loads(response)
+        es = json_response.get("external-identifiers")
+        self.assertIsNotNone(es, "external-identifiers not found in JSON")
+        if (len(es) > 0):
+            for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'keywords')
+                delete_results = self.remove_by_putcode(putcode, 'external-identifier')
+                #self.assertEquals("", str(delete_results))
                 
     def test_remove_webhook(self):
     	self.assertIsNotNone(self.webhook_access, "No token generated")
