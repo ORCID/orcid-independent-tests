@@ -101,7 +101,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'address')
                 
-	def test_remove_websites(self):
+    def test_remove_websites(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/researcher-urls" % self.orcid_id, curl_params)
