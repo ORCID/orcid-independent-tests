@@ -76,7 +76,6 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'keyword')
-                #self.assertEquals("", str(delete_results))
                 
     def test_remove_externalids(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -89,7 +88,30 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'external-identifier')
-                #self.assertEquals("", str(delete_results))
+                
+    def test_remove_country(self):
+        self.assertIsNotNone(self.token, "No token generated")
+        curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/address" % self.orcid_id, curl_params)
+        json_response = json.loads(response)
+        es = json_response.get("address")
+        self.assertIsNotNone(es, "address not found in JSON")
+        if (len(es) > 0):
+            for e in es:
+                putcode = e["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'address')
+                
+	def test_remove_websites(self):
+        self.assertIsNotNone(self.token, "No token generated")
+        curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/researcher-urls" % self.orcid_id, curl_params)
+        json_response = json.loads(response)
+        es = json_response.get("researcher-url")
+        self.assertIsNotNone(es, "researcher-url not found in JSON")
+        if (len(es) > 0):
+            for e in es:
+                putcode = e["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'researcher-urls')
                 
     def test_remove_webhook(self):
     	self.assertIsNotNone(self.webhook_access, "No token generated")
