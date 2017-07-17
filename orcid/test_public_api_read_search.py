@@ -33,15 +33,15 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("http://pub." + properties.test_server + "/v1.2/" + self.orcid_id + "/orcid-profile", curl_params)
-        self.assertTrue("ma_test" in response, "Name not returned on " + response)
+        self.assertTrue(self.seach_value in response, "Name not returned on " + response)
 
     def test_read_record_with_20_api(self):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.orcid_id + "/record", curl_params)
-        self.assertTrue("ma_test" in response, "Name not returned on " + response)
+        self.assertTrue(self.seach_value in response, "Name not returned on " + response)
 
-    def test_read_record_without_access_token(self):
+    def test_read_record_without_token_version(self):
         curl_params = ['-H', "Accept: application/xml", '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://pub." + properties.test_server + "/v1.2/" + self.orcid_id + "/orcid-profile", curl_params)
-        self.assertTrue("ma_test" in response, "Data returned without requiring token " + response)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/" + self.orcid_id + "/orcid-profile", curl_params)
+        self.assertTrue(self.seach_value in response, "Read without token failed " + response)
