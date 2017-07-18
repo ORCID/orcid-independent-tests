@@ -26,7 +26,7 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
     def test_search_my_record_20(self):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
-        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/search?q=" + self.seach_value, curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/search?q=" + self.seach_value, curl_params)
         self.assertTrue(self.orcid_id in response, "Record not retuned in search" + response)
 
     def test_read_record_with_12_api(self):

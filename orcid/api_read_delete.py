@@ -100,6 +100,18 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(putcode, 'address')
+
+    def test_remove_other_names(self):
+        self.assertIsNotNone(self.token, "No token generated")
+        curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/other-names" % self.orcid_id, curl_params)
+        json_response = json.loads(response)
+        es = json_response.get("other-name")
+        self.assertIsNotNone(es, "other-name not found in JSON")
+        if (len(es) > 0):
+            for e in es:
+                putcode = e["put-code"]
+                delete_results = self.remove_by_putcode(putcode, 'other-names')
                 
     def test_remove_websites(self):
         self.assertIsNotNone(self.token, "No token generated")
