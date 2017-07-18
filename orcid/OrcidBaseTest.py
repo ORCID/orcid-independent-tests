@@ -9,7 +9,7 @@ class OrcidBaseTest(unittest.TestCase):
     
     secrets_file_path = './'
     secrets_file_extension = '.secret'
-    xml_data_files_path = '../ORCID-Source/orcid-integration-test/src/test/manual-test/'
+    xml_data_files_path = 'post_files/'
         
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
@@ -56,7 +56,7 @@ class OrcidBaseTest(unittest.TestCase):
         json_response = None
         if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]
-            response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", exchange_data)
+            response = self.orcid_curl("https://pub." + properties.test_server + "/oauth/token", exchange_data)
             json_response = json.loads(response)
         else:
             json_response = self.load_secrets_from_file(code)
@@ -64,31 +64,44 @@ class OrcidBaseTest(unittest.TestCase):
             self.save_secrets_to_file(json_response, code)
             return [json_response['access_token'],json_response['refresh_token']]
         else: 
-            if('error-desc' in json_response):
-                raise ValueError("No tokens found in response: " + json_response['error-desc']['value'])
+            if('error' in json_response):
+                raise ValueError("No tokens found in response: " + json_response['error']['value'])
         return [None, None]
 
     def orcid_generate_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://pub." + properties.test_server + "/oauth/token", data)
+        response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
         else: 
-            if('error-desc' in json_response):
-                print "No access token found in response: " + json_response['error-desc']['value']
+            if('error' in json_response):
+                print "No access token found in response: " + json_response['error']['value']
         return None
 
     def orcid_generate_member_token(self, client_id, client_secret, scope="/read-public"):
         data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
-        response = self.orcid_curl("http://api." + properties.test_server + "/oauth/token", data)
+        response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
             return json_response['access_token']
         else: 
-            if('error-desc' in json_response):
-                raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
+            if('error' in json_response):
+                raise ValueError("No access token found in response: " + json_response['error']['value'])
         return [None, None]
+        
+    def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
+        data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
+        response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
+        json_response = json.loads(response)
+        if('access_token' in json_response):
+            return json_response['access_token']
+        elif('Parent token is disabled' in str(json_response)):
+            return json_response
+        else: 
+            if('error' in json_response):
+                raise ValueError("No access token found in response: " + json_response['error']['value'])
+		return [None, None]
 
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
         data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
@@ -141,6 +154,16 @@ class OrcidBaseTest(unittest.TestCase):
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
 
+    def post_activity_refresh(self, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        return response
+        
+    def read_record(self, token, endpoint = "record"):
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
+        return response
+        
     def post_activity_refresh(self, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)

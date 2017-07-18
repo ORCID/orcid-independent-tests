@@ -45,3 +45,9 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('</history:history>')[2]
         #Compare the body of the response to the saved file.        
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
+
+    def test_public_last_modified(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
+        #Check the record has not been modified since June 9th 2017       
+        self.assertTrue("<common:last-modified-date>2017-06-09T17:33:42.792Z</common:last-modified-date>" in response, "Last modified date has changed" + response)

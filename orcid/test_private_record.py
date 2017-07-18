@@ -84,6 +84,42 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/email", curl_params)
        	#Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)  
+        self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
+
+    def test_read_deactivated_record_member_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
+        response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
+       	#Check record has deactivated date
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record.xml','r').read(), "No deactivate date " + response)
+
+    def test_read_deactivated_record_public_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
+        response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
+       	#Check record has deactivated date
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record.xml','r').read(), "No deactivate date " + response)
+
+    def test_read_locked_record_member_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0002-1871-711X/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
+
+    def test_read_locked_record_public_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0002-1871-711X/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
         
-        
+    def test_read_deprecated_record_member_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0003-2914-7527/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
+
+    def test_read_deprecated_record_public_api(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0003-2914-7527/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
