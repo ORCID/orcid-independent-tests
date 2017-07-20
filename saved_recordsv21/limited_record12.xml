@@ -1,0 +1,198 @@
+<orcid-bio>
+            <personal-details>
+                <given-names>Limited Everything</given-names>
+                <family-name>MA test</family-name>
+                <credit-name visibility="limited">Published Name</credit-name>
+                <other-names visibility="limited">
+                    <other-name>Also know as</other-name>
+                </other-names>
+            </personal-details>
+            <biography visibility="limited">Biography</biography>
+            <researcher-urls visibility="limited">
+                <researcher-url>
+                    <url-name>ORCID webiste</url-name>
+                    <url>https://qa.orcid.org/</url>
+                </researcher-url>
+            </researcher-urls>
+            <contact-details>
+                <email primary="true" current="true" verified="false" visibility="limited" source="0000-0001-7325-5491">limited_ma@mailinator.com</email>
+                <address>
+                    <country visibility="limited">CR</country>
+                </address>
+            </contact-details>
+            <keywords visibility="limited">
+                <keyword>keyword 1</keyword>
+                <keyword>keyword 2</keyword>
+            </keywords>
+            <external-identifiers visibility="limited">
+                <external-identifier>
+                    <external-id-common-name>id</external-id-common-name>
+                    <external-id-reference>2.2</external-id-reference>
+                    <external-id-url>http://www.my_id2.com1</external-id-url>
+                    <source>
+                        <source-orcid>
+                            <uri>http://qa.orcid.org/0000-0002-6285-0954</uri>
+                            <path>0000-0002-6285-0954</path>
+                            <host>qa.orcid.org</host>
+                        </source-orcid>
+                        <source-name>ORCID Test Credentials</source-name>
+                        <source-date>2016-04-29T17:22:55.943Z</source-date>
+                    </source>
+                </external-identifier>
+            </external-identifiers>
+        </orcid-bio>
+        <orcid-activities>
+            <affiliations>
+                <affiliation visibility="limited" put-code="1413">
+                    <type>employment</type>
+                    <department-name>department</department-name>
+                    <role-title>role</role-title>
+                    <start-date>
+                        <year>2010</year>
+                        <month>01</month>
+                        <day>01</day>
+                    </start-date>
+                    <organization>
+                        <name>ORCID</name>
+                        <address>
+                            <city>Bethesda</city>
+                            <region>MD</region>
+                            <country>US</country>
+                        </address>
+                        <disambiguated-organization>
+                            <disambiguated-organization-identifier>385488</disambiguated-organization-identifier>
+                            <disambiguation-source>RINGGOLD</disambiguation-source>
+                        </disambiguated-organization>
+                    </organization>
+                    <source>
+                        <source-orcid>
+                            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
+                            <path>0000-0001-7325-5491</path>
+                            <host>qa.orcid.org</host>
+                        </source-orcid>
+                        <source-date>2016-03-03T20:41:57.042Z</source-date>
+                    </source>
+                    <created-date>2016-03-03T20:41:57.042Z</created-date>
+                    <last-modified-date>2016-03-03T20:41:57.042Z</last-modified-date>
+                </affiliation>
+                <affiliation visibility="limited" put-code="1412">
+                    <type>education</type>
+                    <department-name>department</department-name>
+                    <role-title>degree</role-title>
+                    <start-date>
+                        <year>2009</year>
+                        <month>02</month>
+                        <day>02</day>
+                    </start-date>
+                    <end-date>
+                        <year>2010</year>
+                        <month>03</month>
+                        <day>03</day>
+                    </end-date>
+                    <organization>
+                        <name>Finlandia University</name>
+                        <address>
+                            <city>Hancock</city>
+                            <region>MI</region>
+                            <country>US</country>
+                        </address>
+                        <disambiguated-organization>
+                            <disambiguated-organization-identifier>32787</disambiguated-organization-identifier>
+                            <disambiguation-source>RINGGOLD</disambiguation-source>
+                        </disambiguated-organization>
+                    </organization>
+                    <source>
+                        <source-orcid>
+                            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
+                            <path>0000-0001-7325-5491</path>
+                            <host>qa.orcid.org</host>
+                        </source-orcid>
+                        <source-date>2016-03-03T20:41:34.450Z</source-date>
+                    </source>
+                    <created-date>2016-03-03T20:41:34.450Z</created-date>
+                    <last-modified-date>2016-03-03T20:41:34.450Z</last-modified-date>
+                </affiliation>
+            </affiliations>
+            <orcid-works>
+                <orcid-work put-code="141942" visibility="limited">
+                    <work-title>
+                        <title>Title</title>
+                        <subtitle>subtitle</subtitle>
+                    </work-title>
+                    <short-description>description</short-description>
+                    <work-citation>
+                        <work-citation-type>bibtex</work-citation-type>
+                        <citation>@Book{Torre2008,
+ author    = "Joe Torre and Tom Verducci",
+ publisher = "Doubleday",
+ title     = "The Yankee Years",
+ year      =  2008,
+}</citation>
+                    </work-citation>
+                    <work-type>journal-article</work-type>
+                    <work-external-identifiers>
+                        <work-external-identifier>
+                            <work-external-identifier-type>doi</work-external-identifier-type>
+                            <work-external-identifier-id>123</work-external-identifier-id>
+                        </work-external-identifier>
+                    </work-external-identifiers>
+                    <source>
+                        <source-orcid>
+                            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
+                            <path>0000-0001-7325-5491</path>
+                            <host>qa.orcid.org</host>
+                        </source-orcid>
+                        <source-date>2016-03-03T20:43:10.778Z</source-date>
+                    </source>
+                    <created-date>2016-03-03T20:43:10.778Z</created-date>
+                    <last-modified-date>2016-06-13T16:22:03.837Z</last-modified-date>
+                </orcid-work>
+            </orcid-works>
+            <funding-list>
+                <funding put-code="1285" visibility="limited">
+                    <funding-type>grant</funding-type>
+                    <funding-title>
+                        <title>Gant title</title>
+                    </funding-title>
+                    <short-description>description</short-description>
+                    <amount currency-code="USD">1000</amount>
+                    <url></url>
+                    <start-date>
+                        <year>2014</year>
+                    </start-date>
+                    <end-date>
+                        <year>2015</year>
+                    </end-date>
+                    <funding-external-identifiers>
+                        <funding-external-identifier>
+                            <funding-external-identifier-type>grant_number</funding-external-identifier-type>
+                            <funding-external-identifier-value>0000</funding-external-identifier-value>
+                        </funding-external-identifier>
+                    </funding-external-identifiers>
+                    <organization>
+                        <name>Wellcome Trust</name>
+                        <address>
+                            <city>London</city>
+                            <region>London</region>
+                            <country>GB</country>
+                        </address>
+                        <disambiguated-organization>
+                            <disambiguated-organization-identifier>5072</disambiguated-organization-identifier>
+                            <disambiguation-source>RINGGOLD</disambiguation-source>
+                        </disambiguated-organization>
+                    </organization>
+                    <source>
+                        <source-orcid>
+                            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
+                            <path>0000-0001-7325-5491</path>
+                            <host>qa.orcid.org</host>
+                        </source-orcid>
+                        <source-date>2016-03-03T20:42:27.830Z</source-date>
+                    </source>
+                    <created-date>2016-03-03T20:42:27.830Z</created-date>
+                    <last-modified-date>2016-06-07T21:58:51.336Z</last-modified-date>
+                </funding>
+            </funding-list>
+        </orcid-activities>
+    </orcid-profile>
+</orcid-message>

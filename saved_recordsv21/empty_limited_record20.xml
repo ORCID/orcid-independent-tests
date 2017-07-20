@@ -1,0 +1,16 @@
+<person:person path="/0000-0001-7325-5491/person">
+        <other-name:other-names path="/0000-0001-7325-5491/other-names"/>
+        <researcher-url:researcher-urls path="/0000-0001-7325-5491/researcher-urls"/>
+        <email:emails path="/0000-0001-7325-5491/email"/>
+        <address:addresses path="/0000-0001-7325-5491/address"/>
+        <keyword:keywords path="/0000-0001-7325-5491/keywords"/>
+        <external-identifier:external-identifiers path="/0000-0001-7325-5491/external-identifiers"/>
+    </person:person>
+    <activities:activities-summary path="/0000-0001-7325-5491/activities">
+        <activities:educations path="/0000-0001-7325-5491/educations"/>
+        <activities:employments path="/0000-0001-7325-5491/employments"/>
+        <activities:fundings path="/0000-0001-7325-5491/fundings"/>
+        <activities:peer-reviews path="/0000-0001-7325-5491/peer-reviews"/>
+        <activities:works path="/0000-0001-7325-5491/works"/>
+    </activities:activities-summary>
+</record:record>
