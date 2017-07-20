@@ -115,7 +115,7 @@
                 </common:source>
                 <common:external-id-type>id</common:external-id-type>
                 <common:external-id-value>2.2</common:external-id-value>
-                <common:external-id-url>https://www.my_id2.com1</common:external-id-url>
+                <common:external-id-url>http://www.my_id2.com1</common:external-id-url>
                 <common:external-id-relationship>self</common:external-id-relationship>
             </external-identifier:external-identifier>
         </external-identifier:external-identifiers>
