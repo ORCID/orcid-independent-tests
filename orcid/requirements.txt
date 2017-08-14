@@ -1,4 +1,3 @@
 junit_xml
 pytest
-re==2.7.13
 urllib
