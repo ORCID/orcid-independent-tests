@@ -1,2 +1,4 @@
 junit_xml
 pytest
+re
+urllib

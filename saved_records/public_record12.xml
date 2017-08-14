@@ -1,4 +1,23 @@
-<orcid-bio>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orcid-message xmlns="http://www.orcid.org/ns/orcid">
+    <message-version>1.2</message-version>
+    <orcid-profile type="user">
+        <orcid-identifier>
+            <uri>http://qa.orcid.org/0000-0002-3874-7658</uri>
+            <path>0000-0002-3874-7658</path>
+            <host>qa.orcid.org</host>
+        </orcid-identifier>
+        <orcid-preferences>
+            <locale>en</locale>
+        </orcid-preferences>
+        <orcid-history>
+            <creation-method>Direct</creation-method>
+            <submission-date>2016-03-03T18:26:06.956Z</submission-date>
+            <claimed>true</claimed>
+            <verified-email>true</verified-email>
+            <verified-primary-email>true</verified-primary-email>
+        </orcid-history>
+        <orcid-bio>
             <personal-details>
                 <given-names>Everything Public</given-names>
                 <family-name>MA test</family-name>
@@ -15,7 +34,7 @@
                 </researcher-url>
             </researcher-urls>
             <contact-details>
-                <email primary="true" current="true" verified="false" visibility="public" source="0000-0002-3874-7658">public_ma@mailinator.com</email>
+                <email primary="true" current="true" verified="true" visibility="public" source="0000-0002-3874-7658">public_ma@mailinator.com</email>
                 <address>
                     <country visibility="public">US</country>
                 </address>
@@ -73,8 +92,6 @@
                         <source-name>Published Name</source-name>
                         <source-date>2016-03-03T18:28:17.874Z</source-date>
                     </source>
-                    <created-date>2016-03-03T18:28:17.874Z</created-date>
-                    <last-modified-date>2016-03-03T18:28:17.874Z</last-modified-date>
                 </affiliation>
                 <affiliation visibility="public" put-code="1409">
                     <type>education</type>
@@ -111,8 +128,6 @@
                         <source-name>Published Name</source-name>
                         <source-date>2016-03-03T18:27:57.340Z</source-date>
                     </source>
-                    <created-date>2016-03-03T18:27:57.340Z</created-date>
-                    <last-modified-date>2016-03-03T18:27:57.340Z</last-modified-date>
                 </affiliation>
             </affiliations>
             <orcid-works>
@@ -121,6 +136,7 @@
                         <title>Title</title>
                         <subtitle>subtitle</subtitle>
                     </work-title>
+                    <journal-title>jounal of testing</journal-title>
                     <short-description>Description</short-description>
                     <work-citation>
                         <work-citation-type>bibtex</work-citation-type>
@@ -143,6 +159,7 @@
                             <work-external-identifier-id>123</work-external-identifier-id>
                         </work-external-identifier>
                     </work-external-identifiers>
+                    <url>https://works.org</url>
                     <source>
                         <source-orcid>
                             <uri>http://qa.orcid.org/0000-0002-3874-7658</uri>
@@ -150,21 +167,20 @@
                             <host>qa.orcid.org</host>
                         </source-orcid>
                         <source-name>Published Name</source-name>
-                        <source-date>2016-03-03T20:18:48.782Z</source-date>
+                        <source-date>2016-03-03T21:42:51.181Z</source-date>
                     </source>
-                    <created-date>2016-03-03T20:18:48.782Z</created-date>
-                    <last-modified-date>2016-03-03T20:37:58.717Z</last-modified-date>
                 </orcid-work>
             </orcid-works>
             <funding-list>
                 <funding put-code="1284" visibility="public">
                     <funding-type>grant</funding-type>
+                    <organization-defined-type>subtype</organization-defined-type>
                     <funding-title>
                         <title>Grant Title</title>
                     </funding-title>
                     <short-description>description</short-description>
                     <amount currency-code="USD">1000</amount>
-                    <url>https://qa.orcid.org/</url>
+                    <url>https://grants2.org</url>
                     <start-date>
                         <year>2014</year>
                         <month>01</month>
@@ -177,6 +193,7 @@
                         <funding-external-identifier>
                             <funding-external-identifier-type>grant_number</funding-external-identifier-type>
                             <funding-external-identifier-value>00000</funding-external-identifier-value>
+                            <funding-external-identifier-url>https://grants.org</funding-external-identifier-url>
                         </funding-external-identifier>
                     </funding-external-identifiers>
                     <organization>
@@ -200,8 +217,6 @@
                         <source-name>Published Name</source-name>
                         <source-date>2016-03-03T20:17:47.789Z</source-date>
                     </source>
-                    <created-date>2016-03-03T20:17:47.789Z</created-date>
-                    <last-modified-date>2016-03-03T20:37:58.717Z</last-modified-date>
                 </funding>
             </funding-list>
         </orcid-activities>
