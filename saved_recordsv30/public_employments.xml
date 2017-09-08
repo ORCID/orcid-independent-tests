@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activities:employments path="/0000-0002-3874-7658/employments" xmlns:funding="http://www.orcid.org/ns/funding" xmlns:education="http://www.orcid.org/ns/education" xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work" xmlns:activities="http://www.orcid.org/ns/activities" xmlns:peer-review="http://www.orcid.org/ns/peer-review" xmlns:employment="http://www.orcid.org/ns/employment">
+    <employment:employment-summary put-code="1410" path="/0000-0002-3874-7658/employment/1410" visibility="public">
+        <common:source>
+            <common:source-orcid>
+                <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
+                <common:path>0000-0002-3874-7658</common:path>
+                <common:host>qa.orcid.org</common:host>
+            </common:source-orcid>
+            <common:source-name>Published Name</common:source-name>
+        </common:source>
+        <employment:department-name>Department</employment:department-name>
+        <employment:role-title>Role</employment:role-title>
+        <common:start-date>
+            <common:year>2013</common:year>
+            <common:month>03</common:month>
+            <common:day>03</common:day>
+        </common:start-date>
+        <employment:organization>
+            <common:name>ORCID</common:name>
+            <common:address>
+                <common:city>Bethesda</common:city>
+                <common:region>MD</common:region>
+                <common:country>US</common:country>
+            </common:address>
+            <common:disambiguated-organization>
+                <common:disambiguated-organization-identifier>385488</common:disambiguated-organization-identifier>
+                <common:disambiguation-source>RINGGOLD</common:disambiguation-source>
+            </common:disambiguated-organization>
+        </employment:organization>
+    </employment:employment-summary>
+</activities:employments>

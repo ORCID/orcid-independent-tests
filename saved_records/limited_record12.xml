@@ -1,23 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<orcid-message xmlns="http://www.orcid.org/ns/orcid">
-    <message-version>1.2</message-version>
-    <orcid-profile type="user">
-        <orcid-identifier>
-            <uri>http://qa.orcid.org/0000-0001-7325-5491</uri>
-            <path>0000-0001-7325-5491</path>
-            <host>qa.orcid.org</host>
-        </orcid-identifier>
-        <orcid-preferences>
-            <locale>en</locale>
-        </orcid-preferences>
-        <orcid-history>
-            <creation-method>Direct</creation-method>
-            <submission-date>2016-03-03T20:39:35.087Z</submission-date>
-            <claimed>true</claimed>
-            <verified-email>false</verified-email>
-            <verified-primary-email>false</verified-primary-email>
-        </orcid-history>
-        <orcid-bio>
+<orcid-bio>
             <personal-details>
                 <given-names>Limited Everything</given-names>
                 <family-name>MA test</family-name>
@@ -91,6 +72,8 @@
                         </source-orcid>
                         <source-date>2016-03-03T20:41:57.042Z</source-date>
                     </source>
+                    <created-date>2016-03-03T20:41:57.042Z</created-date>
+                    <last-modified-date>2016-03-03T20:41:57.042Z</last-modified-date>
                 </affiliation>
                 <affiliation visibility="limited" put-code="1412">
                     <type>education</type>
@@ -126,6 +109,8 @@
                         </source-orcid>
                         <source-date>2016-03-03T20:41:34.450Z</source-date>
                     </source>
+                    <created-date>2016-03-03T20:41:34.450Z</created-date>
+                    <last-modified-date>2016-03-03T20:41:34.450Z</last-modified-date>
                 </affiliation>
             </affiliations>
             <orcid-works>
@@ -159,6 +144,8 @@
                         </source-orcid>
                         <source-date>2016-03-03T20:43:10.778Z</source-date>
                     </source>
+                    <created-date>2016-03-03T20:43:10.778Z</created-date>
+                    <last-modified-date>2016-06-13T16:22:03.837Z</last-modified-date>
                 </orcid-work>
             </orcid-works>
             <funding-list>
@@ -202,6 +189,8 @@
                         </source-orcid>
                         <source-date>2016-03-03T20:42:27.830Z</source-date>
                     </source>
+                    <created-date>2016-03-03T20:42:27.830Z</created-date>
+                    <last-modified-date>2016-06-07T21:58:51.336Z</last-modified-date>
                 </funding>
             </funding-list>
         </orcid-activities>
