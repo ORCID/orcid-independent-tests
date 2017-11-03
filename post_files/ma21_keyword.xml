@@ -2,6 +2,6 @@
 <keyword:keyword
     xmlns:keyword="http://www.orcid.org/ns/keyword"
     xmlns:common="http://www.orcid.org/ns/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/keyword https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.0/keyword-2.0.xsd ">		
-    <keyword:content>keyword</keyword:content>
+    xsi:schemaLocation="http://www.orcid.org/ns/keyword https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.1/keyword-2.1.xsd ">		
+    <keyword:content>kiwi</keyword:content>
 </keyword:keyword>

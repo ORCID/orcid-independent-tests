@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<education:education
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:education="http://www.orcid.org/ns/education"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/education https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.1/education-2.1.xsd "> 
+     <common:start-date>
+		<common:year>2012</common:year>
+		<common:month>07</common:month>
+		<common:day>01</common:day>
+	</common:start-date>	
+    <education:organization>
+        <common:name>Massachusetts Institute of Technology</common:name>
+        <common:address>
+            <common:city>Cambridge</common:city>
+            <common:region>MA</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.116068.8</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+    </education:organization>	
+</education:education>
+

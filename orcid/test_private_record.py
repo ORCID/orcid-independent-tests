@@ -43,6 +43,24 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         for activity in self.activities: 
 	        self.assertTrue('<activities:' + activity + ' path="/' + self.private_orcid_id + '/' + activity + '"/>' in response, "Non-empty section " + activity + response)
 	        
+    def test_read_private_record_with_21_public_api(self):
+    	#TEST 165
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.private_orcid_id + "/record", curl_params)
+		#Check the name and email address are not returned anywhere
+        self.assertFalse('Published Name' in response, "Name returned " + response)
+        self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
+		#Check each bio and activities section is returned without content
+        for bio_section in self.bio_sections2:
+        	if bio_section == 'email':
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 's path="/' + self.private_orcid_id + '/' + bio_section + '"/>' in response, "Non-empty section " + bio_section + response)
+	        elif bio_section == 'address':
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 'es path="/' + self.private_orcid_id + '/' + bio_section + '"/>' in response, "Non-empty section " + bio_section + response)
+	        else:
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 's path="/' + self.private_orcid_id + '/' + bio_section + 's"/>' in response, "Non-empty section " + bio_section + response)
+        for activity in self.activities: 
+	        self.assertTrue('<activities:' + activity + ' path="/' + self.private_orcid_id + '/' + activity + '"/>' in response, "Non-empty section " + activity + response)
+	        
     def test_read_private_record_with_12_limited_token(self):
     	#TEST 167
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
@@ -73,6 +91,25 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         for activity in self.activities: 
 	        self.assertTrue('<activities:' + activity + ' path="/' + self.private_orcid_id + '/' + activity + '"/>' in response, "Non-empty section " + activity + response)
 	        
+    def test_read_private_record_with_21_limited_token(self):
+    	#TEST 168
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.private_orcid_id + "/record", curl_params)
+		#Check the name and email address are not returned anywhere
+        self.assertFalse('Published Name' in response, "Name returned " + response)
+        self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
+		#Check each bio and activities section is returned without content
+        for bio_section in self.bio_sections2:
+        	if bio_section == 'email':
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 's path="/' + self.private_orcid_id + '/' + bio_section + '"/>' in response, "Non-empty section " + bio_section + response)
+	        elif bio_section == 'address':
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 'es path="/' + self.private_orcid_id + '/' + bio_section + '"/>' in response, "Non-empty section " + bio_section + response)
+	        else:
+	        	self.assertTrue('<' + bio_section + ':' + bio_section + 's path="/' + self.private_orcid_id + '/' + bio_section + 's"/>' in response, "Non-empty section " + bio_section + response)
+        for activity in self.activities: 
+	        self.assertTrue('<activities:' + activity + ' path="/' + self.private_orcid_id + '/' + activity + '"/>' in response, "Non-empty section " + activity + response)
+	        	        
+
     def test_read_private_work_with_20_limited_token(self):
         # TEST 169
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
@@ -86,40 +123,93 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
        	#Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
-    def test_read_deactivated_record_member_api(self):
+    def test_read_deactivated_record_member_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
        	#Check record has deactivated date
-        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record.xml','r').read(), "No deactivate date " + response)
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record20.xml','r').read(), "No deactivate date " + response)
 
-    def test_read_deactivated_record_public_api(self):
+    def test_read_deactivated_record_public_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
        	#Check record has deactivated date
-        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record.xml','r').read(), "No deactivate date " + response)
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record20.xml','r').read(), "No deactivate date " + response)
 
-    def test_read_locked_record_member_api(self):
+    def test_read_locked_record_member_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0002-1871-711X/record", curl_params)
        	#Check locked error is returned
         self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
 
-    def test_read_locked_record_public_api(self):
+    def test_read_locked_record_public_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0002-1871-711X/record", curl_params)
        	#Check locked error is returned
         self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
         
-    def test_read_deprecated_record_member_api(self):
+    def test_read_deprecated_record_member_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/0000-0003-2914-7527/record", curl_params)
        	#Check locked error is returned
         self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
 
-    def test_read_deprecated_record_public_api(self):
+    def test_read_deprecated_record_public_api_20(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0003-2914-7527/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
+        
+#2.1 tests
+
+    def test_read_private_work_with_21_limited_token(self):
+        # TEST 169
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.private_orcid_id + "/work/141943", curl_params)
+        self.assertTrue("<error-code>9013</error-code>" in response, "Expected error code 9013 instead: " + response) 
+    
+    def test_read_private_email_with_21_limited_token(self):
+        # TEST 171
+        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.private_orcid_id + "/email", curl_params)
+       	#Check an empty email sections is returned
+        self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
+
+    def test_read_deactivated_record_member_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/0000-0002-7564-3444/record", curl_params)
+        response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
+       	#Check record has deactivated date
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record21.xml','r').read(), "No deactivate date " + response)
+
+    def test_read_deactivated_record_public_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/0000-0002-7564-3444/record", curl_params)
+        response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
+       	#Check record has deactivated date
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record21.xml','r').read(), "No deactivate date " + response)
+
+    def test_read_locked_record_member_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/0000-0002-1871-711X/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
+
+    def test_read_locked_record_public_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/0000-0002-1871-711X/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
+        
+    def test_read_deprecated_record_member_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/0000-0003-2914-7527/record", curl_params)
+       	#Check locked error is returned
+        self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
+
+    def test_read_deprecated_record_public_api_21(self):
+        curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/0000-0003-2914-7527/record", curl_params)
        	#Check locked error is returned
         self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)

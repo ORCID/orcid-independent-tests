@@ -28,10 +28,22 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
         
+    def test_access_wrong_record21(self):
+        # TEST 113
+        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.wrong_orcid_id + "/work", curl_params)
+        self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
+        
     def test_access_record2_without_token(self):
         # TEST 114
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.orcid_id + "/work", curl_params)
+        self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
+
+    def test_access_record21_without_token(self):
+        # TEST 114
+        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
         
     def test_update_record2_without_token(self):
@@ -68,11 +80,11 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         delete_response = self.delete_activity(putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
         
-    def test_check_access_denied_on_deny(self):
+    #def test_check_access_denied_on_deny(self):
         # TODO simulate
         # https://" + properties.test_server + "/oauth/authorize?client_id=[memberClientId]&response_type=code&scope=/read-limited /activities/update /orcid-bio/update&redirect_uri=https://developers.google.com/oauthplayground
         # click deny
-        self.assertTrue(True)
+        #self.assertTrue(True)
 
         
                 
