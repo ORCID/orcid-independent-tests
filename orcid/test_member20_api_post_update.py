@@ -9,8 +9,8 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.notify_token  = properties.notifyToken
         self.orcid_id      = properties.orcidId
         self.version	   = "/v2.0/"
-		self.scope               = "/read-limited%20/activities/update%20/person/update"
-        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
+        self.scope         = "/read-limited%20/activities/update%20/person/update"
+        self.code          = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
     
@@ -74,7 +74,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.access = self.notify_token
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
         # TEST 99
-        response = self.post_activity(self.version, "notification-permission", "ma2_swnotify.xml")
+        response = self.post_activity(self.version, "notification-permission", "ma2_notify.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         
         
