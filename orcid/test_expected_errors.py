@@ -15,7 +15,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.access,self.refresh   = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
         self.code2                = self.generate_auth_code(self.client_id2,self.scope2,"api2PostUpdateCode")
-        self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code2)        
+        self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id2,self.client_secret2,self.code2)        
         
     def test_access_wrong_record1(self):
         # TEST 112
@@ -55,7 +55,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(putcode,"No valid putcode returned: [%s]" % str(putcode))
         # Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
-        updated_data = "{'put-code':'%s','title':{'title':'APITestTitleUpdated'},'type':'JOURNAL_ARTICLE','external-ids':{'external-id':[{'external-id-value':'1234','external-id-type':'doi','external-id-relationship':'SELF'}]}}" %  str(putcode)
+        updated_data = "{'put-code':'%s','title':{'title':'APITestTitleUpdated'},'type':'JOURNAL_ARTICLE','external-ids':{'external-id':[{'external-id-value':'123456','external-id-type':'doi','external-id-relationship':'SELF'}]}}" %  str(putcode)
         # TEST 115 
         activity_type = "work"
         update_curl_params = ['-i', '-L', '-k', '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
@@ -73,7 +73,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(putcode,"No valid putcode returned: [%s]" % str(putcode))
         # TEST 116 Attempt to update the work using the premium client with old scopes
         self.assertFalse("" == putcode, "Empty putcode in url")
-        updated_data = '{"put-code":' + str(putcode).strip() + ',"title":{"title":"APITestTitleUpdated"},"type":"JOURNAL_ARTICLE","external-ids":{"external-id":[{"external-id-value":"1234","external-id-type":"doi","external-id-relationship":"SELF"}]}}'
+        updated_data = '{"put-code":' + str(putcode).strip() + ',"title":{"title":"APITestTitleUpdated"},"type":"JOURNAL_ARTICLE","external-ids":{"external-id":[{"external-id-value":"12345","external-id-type":"doi","external-id-relationship":"SELF"}]}}'
         update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access2), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, "work", str(putcode).strip()), update_curl_params)
         self.assertTrue("401 Unauthorized" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)

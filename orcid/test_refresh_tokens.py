@@ -10,12 +10,13 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         self.scope               = "/read-limited%20/activities/update"
         self.code                = self.generate_auth_code(self.client_id, self.scope, "refresh_tokens")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        self.version 		 	 = '/v2.0/'
 
     def test_1refresh_like_for_like(self):
         #Generate a new access_token
         self.token1 = self.orcid_refresh_token(self.client_id, self.client_secret, self.access, self.refresh)
         #check new token works
-        response = self.read_record(self.token1)
+        response = self.read_record(self.version, self.token1)
         self.assertTrue("<common:path>%s</common:path>" % self.orcid_id in response, "Refresh token read response: " + response)
         #check old token still works
         response = self.read_record(self.access)
@@ -28,7 +29,7 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         response = self.post_activity_refresh(self.token2)
         self.assertTrue("<error-code>9038</error-code>" in response, "Post with read refresh token response: " +response)
         #Check the revoked token can't read the record
-        response = self.read_record(self.access)
+        response = self.read_record(self.version, self.access)
         self.assertTrue("invalid_token" in response, "Read with revoked token response: " + response)
 
     def test_3refresh_disabled(self):
