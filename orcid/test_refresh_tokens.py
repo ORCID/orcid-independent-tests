@@ -19,7 +19,7 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         response = self.read_record(self.version, self.token1)
         self.assertTrue("<common:path>%s</common:path>" % self.orcid_id in response, "Refresh token read response: " + response)
         #check old token still works
-        response = self.read_record(self.access)
+        response = self.read_record(self.version, self.access)
         self.assertTrue("<common:path>%s</common:path>" % self.orcid_id in response, "Original access token read response: " + response)
 
     def test_2refresh_subset(self):
