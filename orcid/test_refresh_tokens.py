@@ -26,7 +26,7 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         #Generate a new token with just the read-limit scope and revoke the old token
         self.token2 = self.orcid_refresh_token(self.client_id, self.client_secret, self.access, self.refresh, "/read-limited", "true")
         #Check the new token can't post a work
-        response = self.post_activity_refresh(self.token2)
+        response = self.post_activity_refresh(self.version, self.token2)
         self.assertTrue("<error-code>9038</error-code>" in response, "Post with read refresh token response: " +response)
         #Check the revoked token can't read the record
         response = self.read_record(self.version, self.access)

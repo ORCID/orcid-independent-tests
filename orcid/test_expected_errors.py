@@ -62,7 +62,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
         self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
-        delete_response = self.delete_activity(putcode, "work")
+        delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
         
     def test_update_record2_from_other_source(self):
@@ -78,7 +78,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, "work", str(putcode).strip()), update_curl_params)
         self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
-        delete_response = self.delete_activity(putcode, "work")
+        delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
         
     #def test_check_access_denied_on_deny(self):
