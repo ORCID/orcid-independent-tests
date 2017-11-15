@@ -156,7 +156,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_serve + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
         
     def read_record(self, version, token, endpoint = "record"):
