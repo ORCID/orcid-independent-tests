@@ -2,11 +2,11 @@
 <funding:funding
     xmlns:common="http://www.orcid.org/ns/common" xmlns:funding="http://www.orcid.org/ns/funding"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/funding https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.0/funding-2.0.xsd ">    
+    xsi:schemaLocation="http://www.orcid.org/ns/funding https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.1/funding-2.1.xsd ">    
     <funding:type>grant</funding:type>
     <funding:organization-defined-type>subtype</funding:organization-defined-type>
     <funding:title>
-        <common:title>Manual Test 2.0 Put</common:title>
+        <common:title>Manual Test 2.0 Post</common:title>
     </funding:title>
     <funding:short-description>Funding Description</funding:short-description>
     <funding:amount currency-code="USD">100</funding:amount>
@@ -18,15 +18,8 @@
     <common:external-ids>
         <common:external-id>
             <common:external-id-type>grant_number</common:external-id-type>
-            <common:external-id-value>1</common:external-id-value>                  
-            <common:external-id-url>http://tempuri.org</common:external-id-url>
-            <common:external-id-relationship>self</common:external-id-relationship>
-        </common:external-id>
-        <common:external-id>
-            <common:external-id-type>grant_number</common:external-id-type>
-            <common:external-id-value>2</common:external-id-value>                 
-            <common:external-id-url>http://tempuri.org/2</common:external-id-url>
-            <common:external-id-relationship>self</common:external-id-relationship>
+            <common:external-id-value>8888</common:external-id-value>
+            <common:external-id-url>https://qa.orcid.org/8888</common:external-id-url>
         </common:external-id>
     </common:external-ids>
     <funding:contributors/>

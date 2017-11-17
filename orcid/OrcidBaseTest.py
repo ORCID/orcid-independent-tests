@@ -116,11 +116,11 @@ class OrcidBaseTest(unittest.TestCase):
                 raise ValueError("No access token found in response: " + json_response['error-desc']['value'])
         return [None, None]
 
-    def remove_by_putcode(self, putcode, activity_type = "work"):
+    def remove_by_putcode(self, version, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
         curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
         try:
-            response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
+            response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
             return response
         except Exception as e:
             print "We've got some problems while deleting by putcode: " + e
@@ -133,39 +133,39 @@ class OrcidBaseTest(unittest.TestCase):
                 return location_chunks[-1]
         return False
 
-    def post_activity(self, activity_type = "work", xml_file = "ma2_work.xml"):
+    def post_activity(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
     
-    def update_activity(self, putcode, updated_data, activity_type = "work"):
+    def update_activity(self, version, putcode, updated_data, activity_type = "work"):
         update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
-        update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type,int(putcode)), update_curl_params)
+        update_response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
         return update_response
     
-    def delete_activity(self, putcode, activity_type = "work"):
+    def delete_activity(self, version, putcode, activity_type = "work"):
         delete_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
+        delete_response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
         return delete_response
 
-    def read_record(self, token, endpoint = "record"):
+    def read_record(self, version, token, endpoint = "record"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
 
-    def post_activity_refresh(self, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
+    def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
         
-    def read_record(self, token, endpoint = "record"):
+    def read_record(self, version, token, endpoint = "record"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, endpoint) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
         
-    def post_activity_refresh(self, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
+    def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
         

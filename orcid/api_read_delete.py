@@ -12,6 +12,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.webhook_access		 = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
         self.code                = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+        self.version			 ="/v2.0/"
 
     def test_get20_works(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -23,7 +24,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(group) > 0):
             for s in group:
                 putcode = s["work-summary"][0]["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'work')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'work')
                 #self.assertEquals("", str(delete_results))
 
     def test_get20_fundings(self):
@@ -36,7 +37,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(group) > 0):
             for s in group:
                 putcode = s["funding-summary"][0]["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'funding')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'funding')
                 #self.assertEquals("", str(delete_results))
 
     def test_get20_reviews(self):
@@ -49,7 +50,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(group) > 0):
             for s in group:
                 putcode = s["peer-review-summary"][0]["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'peer-review')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'peer-review')
                 #self.assertEquals("", str(delete_results))
 
     def test_get20_educations(self):
@@ -62,7 +63,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'education')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'education')
                 #self.assertEquals("", str(delete_results))
 
     def test_remove_keywords(self):
@@ -75,7 +76,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'keyword')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'keyword')
                 
     def test_remove_externalids(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -87,7 +88,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'external-identifier')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'external-identifier')
                 
     def test_remove_country(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -99,7 +100,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'address')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'address')
 
     def test_remove_other_names(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -111,7 +112,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'other-names')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'other-names')
                 
     def test_remove_websites(self):
         self.assertIsNotNone(self.token, "No token generated")
@@ -123,7 +124,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         if (len(es) > 0):
             for e in es:
                 putcode = e["put-code"]
-                delete_results = self.remove_by_putcode(putcode, 'researcher-urls')
+                delete_results = self.remove_by_putcode(self.version, putcode, 'researcher-urls')
                 
     def test_remove_webhook(self):
     	self.assertIsNotNone(self.webhook_access, "No token generated")

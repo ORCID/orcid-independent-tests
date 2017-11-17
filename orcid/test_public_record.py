@@ -31,7 +31,16 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
         #Compare the body of the response to the saved file.        
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record.xml','r').read(), 'response_body: ' + response_body)
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
+        
+    def test_read_public_record_with_21_public_api(self):
+        #TEST 131
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        #Compare the body of the response to the saved file.        
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
 
     def test_read_public_record_with_12_member_api(self):
         #TEST 132
@@ -49,7 +58,16 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
         #Compare the body of the response to the saved file.        
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record.xml','r').read(), 'response_body: ' + response_body)
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
+        
+    def test_read_public_record_with_21_member_api(self):
+        #TEST 133
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        #Compare the body of the response to the saved file.        
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
 
     def test_public_last_modified(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']

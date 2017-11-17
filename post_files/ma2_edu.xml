@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <affiliation:education 
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.orcid.org/ns/employment https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.0_rc2/education-2.0_rc2.xsd"
- xmlns:common="http://www.orcid.org/ns/common"
- xmlns:affiliation="http://www.orcid.org/ns/education">	
-        <affiliation:organization>
+<education:education
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:education="http://www.orcid.org/ns/education"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/education https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_2.0/education-2.0.xsd "> 
+        <education:organization>
             <common:name>ORCID</common:name>
             <common:address>
                 <common:city>Bethesd</common:city>
@@ -15,5 +14,5 @@
                 <common:disambiguated-organization-identifier>385488</common:disambiguated-organization-identifier>
                 <common:disambiguation-source>ringgold</common:disambiguation-source>
             </common:disambiguated-organization>
-        </affiliation:organization>	
-    </affiliation:education>
+        </education:organization>	
+    </education:education>
