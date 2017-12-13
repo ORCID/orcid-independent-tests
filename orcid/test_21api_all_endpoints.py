@@ -4,7 +4,7 @@ import re
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
-    xml_data_files_path = 'post_filesv21/'
+    xml_data_files_path = 'post_files/'
 
     def setUp(self):
         self.client_id     = properties.memberClientId

@@ -81,11 +81,14 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
         
-    #def test_check_access_denied_on_deny(self):
-        # TODO simulate
-        # https://" + properties.test_server + "/oauth/authorize?client_id=[memberClientId]&response_type=code&scope=/read-limited /activities/update /orcid-bio/update&redirect_uri=https://developers.google.com/oauthplayground
-        # click deny
-        #self.assertTrue(True)
-
+	def test_member_http_read_20(self):
+		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
+		response = self.orcid_curl("http://" + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
+		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
+	
+	def test_member_http_read_21(self):
+		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
+		response = self.orcid_curl("http://" + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
+		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
         
                 
