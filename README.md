@@ -20,7 +20,7 @@ rm -rf .py_env results
 mkdir results
 virtualenv .py_env
 . .py_env/bin/activate
-pip2 install -r ./requirements.txt
+pip2 install -r ./orcid/requirements.txt
 ```
 ## Running Tests
 
