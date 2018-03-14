@@ -22,13 +22,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
  
  #Test no information is returned using the public API
-    def test_read_limited_record_with_12_public_api(self):
-    	#TEST 138
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.limited_orcid_id + "/orcid-profile", curl_params)
-	response_body = response.partition('</orcid-history>')[2]
-	#Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == self.empty_pub_record12, 'response_body: ' + response_body.strip())
 		
     def test_read_limited_record_with_20_public_api(self):
     	#TEST 139

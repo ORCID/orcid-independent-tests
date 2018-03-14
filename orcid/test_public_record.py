@@ -19,10 +19,9 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 130
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.public_orcid_id + "/orcid-profile", curl_params)
-        response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<last-modified-date\>|\<created-date\>)(.*)(\</last-modified-date\>|\</created-date\>)\\n','', response_body)
-        #Compare the body of the response to the saved file.        
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record12.xml','r').read(), 'response_body: ' + response_body)
+        #Check that the 1.2 is disabled error is returned        
+        self.assertTrue("<error-desc>API 1.2 is disabled, please upgrade to the 2.0 API https://members.orcid.org/api/news/xsd-20-update</error-desc>" in response, "No 1.2 error message, instead: " + response)
+
 	
     def test_read_public_record_with_20_public_api(self):
         #TEST 131
