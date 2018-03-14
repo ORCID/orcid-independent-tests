@@ -17,18 +17,6 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0001-6085-8875/record", ['-i', '-k', '-H', "Accept: application/xml"])
         self.assertFalse("error-code" in response, "error-code Not found on json response")
         
-    def test_read_record_with_12_api(self):
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://pub." + properties.test_server + "/v1.2/" + self.orcid_id + "/orcid-profile", curl_params)
-        self.assertTrue("http://" + properties.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
-
-    def test_search_my_record_12(self):
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
-        response = self.orcid_curl("http://pub." + properties.test_server + "/v1.2/search/orcid-bio/?q=" + self.seach_value, curl_params)
-        self.assertTrue("http://" + properties.test_server + "/" + self.orcid_id in response, "Record not retuned in search" + response)
-
     def test_search_my_record_20(self):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]

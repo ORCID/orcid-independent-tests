@@ -13,17 +13,6 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
-
-    def test_read_private_record_with_12_public_api(self):
-    	#TEST 165
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v1.2/" + self.private_orcid_id + "/orcid-profile", curl_params)
-		#Check the name and email address are not returned anywhere        
-        self.assertFalse('Published Name' in response, "Name returned " + response)
-        self.assertFalse('private_ma@mailinator.com' in response, "Email returned " + response)
-		#Check an empty bio and activities sections are returned
-        self.assertTrue(self.empty_activities in response, "Non-empty activities returned " + response)
-        self.assertTrue(self.empty_bio in response, "Non-empty bio returned " + response) 
         
     def test_read_private_record_with_20_public_api(self):
     	#TEST 165
