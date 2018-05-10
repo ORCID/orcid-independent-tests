@@ -13,7 +13,7 @@
         <history:submission-date>2016-03-03T20:39:35.087Z</history:submission-date>
         <history:claimed>true</history:claimed>
         <history:verified-email>true</history:verified-email>
-        <history:verified-primary-email>false</history:verified-primary-email>
+        <history:verified-primary-email>true</history:verified-primary-email>
     </history:history>
     <person:person path="/0000-0001-7325-5491/person">
         <person:name visibility="limited" path="0000-0001-7325-5491">
