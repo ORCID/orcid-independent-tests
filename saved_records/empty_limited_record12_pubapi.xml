@@ -17,10 +17,5 @@
             <verified-email>true</verified-email>
             <verified-primary-email>true</verified-primary-email>
         </orcid-history>
-        <orcid-bio>
-            <personal-details>
-                <given-names></given-names>
-            </personal-details>
-        </orcid-bio>
     </orcid-profile>
 </orcid-message>
