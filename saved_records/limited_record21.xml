@@ -12,8 +12,8 @@
         <history:creation-method>Direct</history:creation-method>
         <history:submission-date>2016-03-03T20:39:35.087Z</history:submission-date>
         <history:claimed>true</history:claimed>
-        <history:verified-email>false</history:verified-email>
-        <history:verified-primary-email>false</history:verified-primary-email>
+        <history:verified-email>true</history:verified-email>
+        <history:verified-primary-email>true</history:verified-primary-email>
     </history:history>
     <person:person path="/0000-0001-7325-5491/person">
         <person:name visibility="limited" path="0000-0001-7325-5491">
@@ -50,7 +50,7 @@
             </researcher-url:researcher-url>
         </researcher-url:researcher-urls>
         <email:emails path="/0000-0001-7325-5491/email">
-            <email:email visibility="limited" verified="false" primary="true">
+            <email:email visibility="limited" verified="true" primary="true">
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
