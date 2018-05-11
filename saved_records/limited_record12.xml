@@ -14,8 +14,8 @@
             <creation-method>Direct</creation-method>
             <submission-date>2016-03-03T20:39:35.087Z</submission-date>
             <claimed>true</claimed>
-            <verified-email>false</verified-email>
-            <verified-primary-email>false</verified-primary-email>
+            <verified-email>true</verified-email>
+            <verified-primary-email>true</verified-primary-email>
         </orcid-history>
         <orcid-bio>
             <personal-details>
@@ -34,7 +34,7 @@
                 </researcher-url>
             </researcher-urls>
             <contact-details>
-                <email primary="true" current="true" verified="false" visibility="limited" source="0000-0001-7325-5491">limited_ma@mailinator.com</email>
+                <email primary="true" current="true" verified="true" visibility="limited" source="0000-0001-7325-5491">limited_ma@mailinator.com</email>
                 <address>
                     <country visibility="limited">CR</country>
                 </address>

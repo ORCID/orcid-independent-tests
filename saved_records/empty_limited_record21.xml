@@ -12,8 +12,8 @@
         <history:creation-method>Direct</history:creation-method>
         <history:submission-date>2016-03-03T20:39:35.087Z</history:submission-date>
         <history:claimed>true</history:claimed>
-        <history:verified-email>false</history:verified-email>
-        <history:verified-primary-email>false</history:verified-primary-email>
+        <history:verified-email>true</history:verified-email>
+        <history:verified-primary-email>true</history:verified-primary-email>
     </history:history>
     <person:person path="/0000-0001-7325-5491/person">
         <other-name:other-names path="/0000-0001-7325-5491/other-names"/>
