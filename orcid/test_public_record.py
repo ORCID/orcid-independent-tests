@@ -72,4 +72,4 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
         #Check the record has not been modified       
-        self.assertTrue('submission-date":{"value":1457029566956},"last-modified-date":{"value":1526060408466}' in response, "Last modified date has changed" + response)
+        self.assertTrue('submission-date":{"value":1457029566956},"last-modified-date":{"value":1526318600419}' in response, "Last modified date has changed" + response)
