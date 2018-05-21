@@ -96,7 +96,7 @@
             </keyword:keyword>
         </keyword:keywords>
         <external-identifier:external-identifiers path="/0000-0001-7325-5491/external-identifiers">
-            <external-identifier:external-identifier put-code="302" visibility="limited" path="/0000-0001-7325-5491/external-identifiers/302" display-index="6">
+            <external-identifier:external-identifier put-code="302" visibility="limited" path="/0000-0001-7325-5491/external-identifiers/302" display-index="2">
                 <common:source>
                     <common:source-client-id>
                         <common:uri>http://qa.orcid.org/client/0000-0002-6285-0954</common:uri>
