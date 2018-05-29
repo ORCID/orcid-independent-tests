@@ -62,7 +62,7 @@
         </orcid-bio>
         <orcid-activities>
             <affiliations>
-                <affiliation visibility="limited" put-code="1413">
+                <affiliation visibility="limited" put-code="4979">
                     <type>employment</type>
                     <department-name>department</department-name>
                     <role-title>role</role-title>
@@ -89,10 +89,10 @@
                             <path>0000-0001-7325-5491</path>
                             <host>qa.orcid.org</host>
                         </source-orcid>
-                        <source-date>2016-03-03T20:41:57.042Z</source-date>
+                        <source-date>2018-05-29T19:42:46.130Z</source-date>
                     </source>
                 </affiliation>
-                <affiliation visibility="limited" put-code="1412">
+                <affiliation visibility="limited" put-code="4978">
                     <type>education</type>
                     <department-name>department</department-name>
                     <role-title>degree</role-title>
@@ -124,7 +124,7 @@
                             <path>0000-0001-7325-5491</path>
                             <host>qa.orcid.org</host>
                         </source-orcid>
-                        <source-date>2016-03-03T20:41:34.450Z</source-date>
+                        <source-date>2018-05-29T19:42:01.680Z</source-date>
                     </source>
                 </affiliation>
             </affiliations>
