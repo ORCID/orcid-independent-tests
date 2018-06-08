@@ -1,13 +1,18 @@
 import OrcidBaseTest
+import OrcidBrowser
 import properties
 
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id = 'APP-96ONQ4RSQY8KWXVZ'
+        self.client_id     = properties.publicClientId
+        self.browser       = OrcidBrowser.OrcidBrowser
+        self.usrname       = ""
+        self.secret        = ""
 
     def test_grant_with_implicit_request(self):
-        self.assertTrue(1)
+        self.browser.getToken(self.usrname, self.secret, self.client_id)
+        self.assertTrue("-" in response, "we got an implicit token: " + response)
 
     def test_generate_read_limited(self):
         self.assertTrue(1)
