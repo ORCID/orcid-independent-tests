@@ -11,6 +11,7 @@ node {
             string(name: 'user_pass'             , defaultValue: ''              , description: 'Password'),
             string(name: 'user_orcid_id'         , defaultValue: ''              , description: 'Latest orcid ID'),
             string(name: 'user_api_id'           , defaultValue: ''              , description: 'Client ID'),
+            string(name: 'user_api_pass'         , defaultValue: ''              , description: 'Client SECRET')
         ]),
         [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]
     ])
@@ -19,7 +20,7 @@ node {
 
     stage('Build properties file'){
         sh "rm -f orcid/properties.py"
-        writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nuser_orcid_id=\"$user_orcid_id\"\nuser_login=\"$user_login\"\nuser_pass=\"$user_pass\"\nuser_api_id=\"$user_api_id\"\n"
+        writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nuser_orcid_id=\"$user_orcid_id\"\nuser_login=\"$user_login\"\nuser_pass=\"$user_pass\"\nuser_api_id=\"$user_api_id\"\nuser_api_pass=\"$user_api_pass\"\n"
         sh "cat /var/lib/jenkins/orcidclients.py testinputs.py > orcid/properties.py"
     }
 
@@ -32,10 +33,17 @@ node {
 
     stage('Run OpenID Tests'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_oauth_open_id.xml orcid/test_oauth_open_id.py"
+            pytest 'test_oauth_open_id'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
         }
+    }
+}
+def pytest(unit){
+    try{
+        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
+    } catch(Exception err) {
+        throw err
     }
 }
