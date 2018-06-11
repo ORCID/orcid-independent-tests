@@ -38,8 +38,10 @@ node {
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
-        } finally {
+        } finally finally {
             stopBrowser()
+            junit 'results/*.xml'
+            deleteDir()
         }
     }
 }
