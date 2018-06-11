@@ -1,8 +1,9 @@
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time
 
 class OrcidBrowser:
@@ -11,7 +12,8 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        self.ff = webdriver.Firefox()
+        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
+        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
         return self.ff.quit()
@@ -38,7 +40,7 @@ class OrcidBrowser:
             login_button.click()
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
             orcid_record = orcid_found.text
-            return orcid_record
+            return str(orcid_record)
         except TimeoutException:
             raise ValueError("failed loading my orcid page.", "orcid: %s" % orcid_record)
 

@@ -28,15 +28,18 @@ node {
         sh "rm -rf .py_env results"
         sh "virtualenv .py_env"
         sh "mkdir results"
-        sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
+        sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt" 
     }
 
     stage('Run OpenID Tests'){
         try {
+            startBrowser()
             pytest 'test_oauth_open_id'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
+        } finally {
+            stopBrowser()
         }
     }
 }
@@ -46,4 +49,13 @@ def pytest(unit){
     } catch(Exception err) {
         throw err
     }
+}
+def startBrowser(){
+    echo "Creating xvfb..."
+    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir /var/lib/jenkins/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
+    sh "cat /tmp/xvfb_jenkins_py.pid"
+}
+def stopBrowser(){
+    echo "Destroying xvfb..."
+    sh "XVFB_PID=\$(cat /tmp/xvfb_jenkins_py.pid) ; kill \$XVFB_PID" 
 }
