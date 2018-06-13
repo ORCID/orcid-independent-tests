@@ -39,6 +39,7 @@
         <activities:memberships path="/0000-0002-7564-3444/memberships"/>
         <activities:peer-reviews path="/0000-0002-7564-3444/peer-reviews"/>
         <activities:qualifications path="/0000-0002-7564-3444/qualifications"/>
+        <activities:research-resources path="/0000-0002-7564-3444/research-resources"/>
         <activities:services path="/0000-0002-7564-3444/services"/>
         <activities:works path="/0000-0002-7564-3444/works"/>
     </activities:activities-summary>
