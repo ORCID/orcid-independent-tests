@@ -2,7 +2,7 @@
 <education:education
     xmlns:common="http://www.orcid.org/ns/common" xmlns:education="http://www.orcid.org/ns/education"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/education https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.1_dev1/education-3.0_dev1.xsd "> 
+    xsi:schemaLocation="http://www.orcid.org/ns/education https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc1/education-3.0_rc1.xsd "> 
      <common:department-name>department-name</common:department-name>
 	 <common:role-title>role-title</common:role-title>
      <common:start-date>

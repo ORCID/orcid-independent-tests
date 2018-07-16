@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qualification:qualification
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:qualification="http://www.orcid.org/ns/qualification"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/qualification https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc1/qualification-3.0_rc1.xsd ">
+     <common:start-date>
+		<common:year>2007</common:year>
+	</common:start-date>	
+    <common:organization>
+        <common:name>NASA</common:name>
+        <common:address>
+            <common:city>Washington</common:city>
+            <common:region>DC</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>3997</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>RINGGOLD</common:disambiguation-source>
+        </common:disambiguated-organization>
+    </common:organization>
+</qualification:qualification>
+
