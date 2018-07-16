@@ -25,7 +25,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
         #Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
-        updated_data = '{"put-code":' + str(putcode) + ',"title":{"title":"APITestTitleUpdated21"},"type":"journal-article","external-ids":{"external-id":[{"external-id-value":"4321","external-id-type":"doi","external-id-relationship":"self"}]}}'
+        updated_data = '{"put-code":' + str(putcode) + ',"title":{"title":"APITestTitleUpdated21"},"type":"journal-article","external-ids":{"external-id":[{"external-id-value":"1111","external-id-type":"doi","external-id-relationship":"self"}]}}'
         update_response = self.update_activity(self.version, putcode, updated_data, "work")
         self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         
@@ -58,7 +58,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
         #Update the keyword from pear to grapes
         self.assertFalse("" == putcode, "Empty putcode in url")
-        updated_data = '{"put-code":' + str(putcode) + ',"content":"grapes"}'
+        updated_data = '{"put-code":' + str(putcode) + ',"content":"peaches"}'
         update_response = self.update_activity(self.version, putcode, updated_data, "keywords")
         self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
              
