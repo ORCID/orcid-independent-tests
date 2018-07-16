@@ -3,7 +3,7 @@
     xmlns:common="http://www.orcid.org/ns/common"
     xmlns:work="http://www.orcid.org/ns/work"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/work https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_dev1/work-3.0_dev1.xsd">	
+    xsi:schemaLocation="http://www.orcid.org/ns/work https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc1/work-3.0_rc1.xsd">	
     <work:title>
        <common:title>Manual testing 3.0_rc1 post</common:title>
     </work:title>
