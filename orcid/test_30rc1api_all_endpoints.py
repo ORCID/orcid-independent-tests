@@ -2,7 +2,7 @@ import OrcidBaseTest
 import properties
 import re
 
-class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
+class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
