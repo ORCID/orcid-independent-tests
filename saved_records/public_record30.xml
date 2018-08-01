@@ -343,15 +343,7 @@
                         <common:external-id-value>ringgold:385488a</common:external-id-value>
                     </common:external-id>
                 </common:external-ids>
-                <peer-review:peer-review-summary put-code="1076" path="/0000-0002-3874-7658/peer-review/1076" visibility="public" display-index="0">
-                    <common:source>
-                        <common:source-client-id>
-                            <common:uri>https://qa.orcid.org/client/APP-5G54N5YFOKGV5Z0X</common:uri>
-                            <common:path>APP-5G54N5YFOKGV5Z0X</common:path>
-                            <common:host>qa.orcid.org</common:host>
-                        </common:source-client-id>
-                        <common:source-name>ORCID, Inc</common:source-name>
-                    </common:source>
+                <activities:peer-review-group>
                     <common:external-ids>
                         <common:external-id>
                             <common:external-id-type>source-work-id</common:external-id-type>
@@ -360,20 +352,40 @@
                             <common:external-id-relationship>self</common:external-id-relationship>
                         </common:external-id>
                     </common:external-ids>
-                    <peer-review:completion-date>
-                        <common:year>2014</common:year>
-                        <common:month>02</common:month>
-                        <common:day>02</common:day>
-                    </peer-review:completion-date>
-                    <peer-review:review-group-id>ringgold:385488a</peer-review:review-group-id>
-                    <peer-review:convening-organization>
-                        <common:name>The Psychoceramics Society</common:name>
-                        <common:address>
-                            <common:city>London</common:city>
-                            <common:country>GB</common:country>
-                        </common:address>
-                    </peer-review:convening-organization>
-                </peer-review:peer-review-summary>
+                    <peer-review:peer-review-summary put-code="1076" path="/0000-0002-3874-7658/peer-review/1076" visibility="public" display-index="0">
+                        <common:source>
+                            <common:source-client-id>
+                                <common:uri>https://qa.orcid.org/client/APP-5G54N5YFOKGV5Z0X</common:uri>
+                                <common:path>APP-5G54N5YFOKGV5Z0X</common:path>
+                                <common:host>qa.orcid.org</common:host>
+                            </common:source-client-id>
+                            <common:source-name>ORCID, Inc</common:source-name>
+                        </common:source>
+                        <peer-review:reviewer-role>reviewer</peer-review:reviewer-role>
+                        <common:external-ids>
+                            <common:external-id>
+                                <common:external-id-type>source-work-id</common:external-id-type>
+                                <common:external-id-value>1234567890</common:external-id-value>
+                                <common:external-id-normalized transient="true">1234567890</common:external-id-normalized>
+                                <common:external-id-relationship>self</common:external-id-relationship>
+                            </common:external-id>
+                        </common:external-ids>
+                        <peer-review:review-type>review</peer-review:review-type>
+                        <peer-review:completion-date>
+                            <common:year>2014</common:year>
+                            <common:month>02</common:month>
+                            <common:day>02</common:day>
+                        </peer-review:completion-date>
+                        <peer-review:review-group-id>ringgold:385488a</peer-review:review-group-id>
+                        <peer-review:convening-organization>
+                            <common:name>The Psychoceramics Society</common:name>
+                            <common:address>
+                                <common:city>London</common:city>
+                                <common:country>GB</common:country>
+                            </common:address>
+                        </peer-review:convening-organization>
+                    </peer-review:peer-review-summary>
+                </activities:peer-review-group>
             </activities:group>
         </activities:peer-reviews>
         <activities:qualifications path="/0000-0002-3874-7658/qualifications">
@@ -536,12 +548,12 @@
                         </common:external-id>
                     </common:external-ids>
                     <work:type>journal-article</work:type>
-                    <work:journal-title>jounal of testing</work:journal-title>
                     <common:publication-date>
                         <common:year>2015</common:year>
                         <common:month>01</common:month>
                         <common:day>01</common:day>
                     </common:publication-date>
+                    <work:journal-title>jounal of testing</work:journal-title>
                 </work:work-summary>
             </activities:group>
         </activities:works>
