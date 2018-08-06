@@ -50,6 +50,11 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_activity(self.version, "peer-review", "ma30_peer2.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         
+    def test_post_researchresource(self):
+    	# Post a research-resource itme using 3.0_rc1 to the record created for testing today
+        response = self.post_activity(self.version, "research-resource", "ma30_rr.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        
     def test_post_update_keyword(self):
         # Post a keyword using 3.0_rc1 to the record created for testing today
         response = self.post_activity(self.version, "keywords", "ma30_keyword.xml")
