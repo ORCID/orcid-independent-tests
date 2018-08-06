@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invited-position:invited-position 
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:invited-position="http://www.orcid.org/ns/invited-position"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/invited-position https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record-3.0_dev1/invited-position-3.0_dev1.xsd">
+    	<common:start-date>
+			<common:year>2008</common:year>
+		</common:start-date>
+		<common:end-date>
+			<common:year>2010</common:year>
+		</common:end-date>
+        <common:organization>
+        <common:name>Digital Science</common:name>
+        <common:address>
+            <common:city>Cambridge</common:city>
+            <common:region>MA</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.452603.6</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+        </common:organization>
+        <common:url>http://tempuri.org</common:url>
+</invited-position:invited-position>

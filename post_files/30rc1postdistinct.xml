@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<distinction:distinction 
+    xmlns:common="http://www.orcid.org/ns/common" xmlns:distinction="http://www.orcid.org/ns/distinction"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.orcid.org/ns/distinction https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record-3.0_dev1/distinction-3.0_dev1.xsd">
+    	<common:start-date>
+			<common:year>1997</common:year>
+			<common:month>02</common:month>
+			<common:day>02</common:day>
+		</common:start-date>
+		<common:end-date>
+			<common:year>1997</common:year>
+			<common:month>02</common:month>
+			<common:day>02</common:day>
+		</common:end-date>
+        <common:organization>
+        <common:name>ORCID</common:name>
+        <common:address>
+            <common:city>Annapolis</common:city>
+            <common:region>MD</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.455335.1</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+        </common:organization>
+        <common:url>http://tempuri.org</common:url>
+        <common:external-ids>
+        	<common:external-id>
+            	<common:external-id-type>doi</common:external-id-type>
+            	<common:external-id-value>10.1000/1000</common:external-id-value>
+            	<common:external-id-relationship>self</common:external-id-relationship>
+			</common:external-id>
+		</common:external-ids>
+</distinction:distinction>

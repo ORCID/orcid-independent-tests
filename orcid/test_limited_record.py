@@ -17,8 +17,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
-        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285', 'peer-reviews.json?peerReviewIds=1077']
-        self.public_json_work = ['works.json?workIds=141942']
+        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285']
+        self.public_json_work = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true']
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
  
  #Test no information is returned using the public API
@@ -456,7 +456,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 #Test public json expecting server errors
     def test_limited_public_json_server_error(self):
         for item in self.public_json_items:
-            work_url = ('http://orcid.org/' + self.limited_orcid_id + '/' + item)
+            work_url = ('http://qa.orcid.org/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
             self.assertTrue("There has been a problem with the server" in response, "Expected server error instead: " + response)
@@ -464,7 +464,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 #Test public json expecting empty page
     def test_limited_public_json_empty(self):
         for item in self.public_json_work:
-            work_url = ('http://orcid.org/' + self.limited_orcid_id + '/' + item)
+            work_url = ('http://qa.orcid.org/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
             self.assertTrue("[]" in response, "Expected empty brackets instead: " + response)
