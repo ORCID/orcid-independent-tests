@@ -1,11 +1,13 @@
-__pycache__
-results
 **/*.pyc
+*.secrets
+*.properties
 .directory
 .py_env
 .cache
-*.secrets
-*.properties
+.pytest_cache
 .DS_Store
+__pycache__
+results
 orcid/testinputs.py
 orcid/properties.py
+geckodriver.log
