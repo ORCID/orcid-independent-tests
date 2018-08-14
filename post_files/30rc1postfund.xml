@@ -10,7 +10,7 @@
     </funding:title>
     <funding:short-description>Funding Description</funding:short-description>
     <funding:amount currency-code="USD">100</funding:amount>
-    <funding:url></funding:url>
+    <common:url>https://qa.orcid.org/8888</common:url>
     <common:start-date>
         <common:year>2017</common:year>
         <common:month>06</common:month>

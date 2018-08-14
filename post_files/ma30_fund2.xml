@@ -10,7 +10,7 @@
     </funding:title>
     <funding:short-description>Funding Description 2</funding:short-description>
     <funding:amount currency-code="USD">500</funding:amount>
-    <funding:url></funding:url>
+    <common:url>http://tempuri.org/ORCID</common:url>
     <common:start-date>
         <common:year>2018</common:year>
         <common:month>05</common:month>
