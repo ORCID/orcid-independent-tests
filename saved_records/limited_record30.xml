@@ -116,7 +116,7 @@
         <activities:distinctions path="/0000-0001-7325-5491/distinctions">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <distinction:distinction-summary put-code="4992" path="/0000-0001-7325-5491/distinction/4992" visibility="limited">
+                <distinction:distinction-summary put-code="4992" display-index="0" path="/0000-0001-7325-5491/distinction/4992" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
@@ -149,7 +149,7 @@
         <activities:educations path="/0000-0001-7325-5491/educations">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <education:education-summary put-code="4978" path="/0000-0001-7325-5491/education/4978" visibility="limited">
+                <education:education-summary put-code="4978" display-index="0" path="/0000-0001-7325-5491/education/4978" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
@@ -187,7 +187,7 @@
         <activities:employments path="/0000-0001-7325-5491/employments">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <employment:employment-summary put-code="4979" path="/0000-0001-7325-5491/employment/4979" visibility="limited">
+                <employment:employment-summary put-code="4979" display-index="0" path="/0000-0001-7325-5491/employment/4979" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
@@ -269,7 +269,7 @@
         <activities:invited-positions path="/0000-0001-7325-5491/invited-positions">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <invited-position:invited-position-summary put-code="4991" path="/0000-0001-7325-5491/invited-position/4991" visibility="limited">
+                <invited-position:invited-position-summary put-code="4991" display-index="0" path="/0000-0001-7325-5491/invited-position/4991" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
@@ -352,7 +352,7 @@
         <activities:qualifications path="/0000-0001-7325-5491/qualifications">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <qualification:qualification-summary put-code="4990" path="/0000-0001-7325-5491/qualification/4990" visibility="limited">
+                <qualification:qualification-summary put-code="4990" display-index="0" path="/0000-0001-7325-5491/qualification/4990" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
@@ -382,6 +382,7 @@
                             <common:disambiguation-source>RINGGOLD</common:disambiguation-source>
                         </common:disambiguated-organization>
                     </common:organization>
+                    <common:url>http://www.cityofhoughton.com/</common:url>
                 </qualification:qualification-summary>
             </activities:affiliation-group>
         </activities:qualifications>
@@ -449,7 +450,7 @@
         <activities:services path="/0000-0001-7325-5491/services">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <service:service-summary put-code="4663" display-index="-1" path="/0000-0001-7325-5491/service/4663" visibility="limited">
+                <service:service-summary put-code="4663" display-index="0" path="/0000-0001-7325-5491/service/4663" visibility="limited">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>

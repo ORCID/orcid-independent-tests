@@ -123,7 +123,7 @@
         <activities:educations path="/0000-0002-3874-7658/educations">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <education:education-summary put-code="1409" display-index="-1" path="/0000-0002-3874-7658/education/1409" visibility="public">
+                <education:education-summary put-code="1409" display-index="0" path="/0000-0002-3874-7658/education/1409" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -162,7 +162,7 @@
         <activities:employments path="/0000-0002-3874-7658/employments">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <employment:employment-summary put-code="1410" display-index="-1" path="/0000-0002-3874-7658/employment/1410" visibility="public">
+                <employment:employment-summary put-code="1410" display-index="0" path="/0000-0002-3874-7658/employment/1410" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -223,6 +223,7 @@
                             <common:external-id-relationship>self</common:external-id-relationship>
                         </common:external-id>
                     </common:external-ids>
+                    <common:url>https://grants2.org</common:url>
                     <funding:type>grant</funding:type>
                     <common:start-date>
                         <common:year>2014</common:year>
@@ -250,7 +251,7 @@
         <activities:invited-positions path="/0000-0002-3874-7658/invited-positions">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <invited-position:invited-position-summary put-code="4667" display-index="-1" path="/0000-0002-3874-7658/invited-position/4667" visibility="public">
+                <invited-position:invited-position-summary put-code="4667" display-index="0" path="/0000-0002-3874-7658/invited-position/4667" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -278,7 +279,7 @@
             </activities:affiliation-group>
             <activities:affiliation-group>
                 <common:external-ids/>
-                <invited-position:invited-position-summary put-code="4668" display-index="-1" path="/0000-0002-3874-7658/invited-position/4668" visibility="public">
+                <invited-position:invited-position-summary put-code="4668" display-index="0" path="/0000-0002-3874-7658/invited-position/4668" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -308,7 +309,7 @@
         <activities:memberships path="/0000-0002-3874-7658/memberships">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <membership:membership-summary put-code="4670" display-index="-1" path="/0000-0002-3874-7658/membership/4670" visibility="public">
+                <membership:membership-summary put-code="4670" display-index="0" path="/0000-0002-3874-7658/membership/4670" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -391,7 +392,7 @@
         <activities:qualifications path="/0000-0002-3874-7658/qualifications">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <qualification:qualification-summary put-code="4666" display-index="-1" path="/0000-0002-3874-7658/qualification/4666" visibility="public">
+                <qualification:qualification-summary put-code="4666" display-index="0" path="/0000-0002-3874-7658/qualification/4666" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -482,7 +483,7 @@
         <activities:services path="/0000-0002-3874-7658/services">
             <activities:affiliation-group>
                 <common:external-ids/>
-                <service:service-summary put-code="4669" display-index="-1" path="/0000-0002-3874-7658/service/4669" visibility="public">
+                <service:service-summary put-code="4669" display-index="0" path="/0000-0002-3874-7658/service/4669" visibility="public">
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -547,6 +548,7 @@
                             <common:external-id-relationship>self</common:external-id-relationship>
                         </common:external-id>
                     </common:external-ids>
+                    <common:url>https://works.org</common:url>
                     <work:type>journal-article</work:type>
                     <common:publication-date>
                         <common:year>2015</common:year>
