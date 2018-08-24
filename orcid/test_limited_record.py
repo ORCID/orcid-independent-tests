@@ -24,7 +24,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
  #Test no information is returned using the public API
 
     def test_read_limited_record_with_20_public_api(self):
-    	#TEST 139
+    	#Test that reading a limited record with the 2.0 public api returns only the public info
 	curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
 	response_body = response.partition('X-Frame-Options: DENY')[2]
@@ -33,7 +33,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 	self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
 	def test_read_limited_record_with_21_public_api(self):
-    	#TEST 139
+    	#Test that reading a limited record with the 2.1 public api returns only the public info
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
     	response_body = response.partition('X-Frame-Options: DENY')[2]
@@ -42,7 +42,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
 
 	def test_read_limited_record_with_30_public_api(self):
-    	#TEST 139
+    	#Test that reading a limited record with the 3.0 public api returns only the public info
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
     	response_body = response.partition('X-Frame-Options: DENY')[2]
@@ -51,20 +51,20 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
 
     def test_read_limited_work_with_20_public_api(self):
-        # TEST 140
+        # Test read limited work with the public api and make sure it returns error
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
 		self.assertTrue("<error-code>9039</error-code>" in response, "Expected error code 9039 instead: " + response)
 
     def test_read_limited_email_with_20_public_api(self):
-        # TEST 141
+        # Test read the limted record email make sure it doesn't return anything
 		curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
 		#Check an empty email sections is returned
 		self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
     def test_read_limited_email_with_30_public_api(self):
-        # TEST 141
+        # Test no info is returned when the read limited record email ewith the 3.0_rc1 public api
 		curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
 		#Check an empty email sections is returned
