@@ -17,8 +17,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
-        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412', 'fundings.json?fundingIds=1285']
-        self.public_json_work = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true']
+        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412']
+        self.public_json_work = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
  #Test no information is returned using the public API
@@ -64,7 +64,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 		self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
     def test_read_limited_email_with_30_public_api(self):
-        # Test no info is returned when the read limited record email ewith the 3.0_rc1 public api
+        # Test no info is returned when the reading limited record email ewith the 3.0_rc1 public api
 		curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
 		#Check an empty email sections is returned
@@ -473,4 +473,11 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
             work_url = ('http://qa.orcid.org/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
-            self.assertTrue("[]" in response, "Expected empty brackets instead: " + response)
+            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
+            
+#Test public json on research-resources
+    def test_limited_public_json_empty(self):
+        work_url = 'http://qa.orcid.org/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005'
+        response = urllib.urlopen(work_url).read()
+        print work_url
+        self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response, "Expected empty brackets instead: " + response)
