@@ -178,37 +178,37 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     	self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_record_with_21_revoked_token(self):
-
-        
+        #Test revoked access tokens can't be used to read the record using 2.1 api
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_21_revoked_token(self):
-
+        #Test revoked access tokens can't be used to read the work using 2.1 api
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/work/141942", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_email_with_21_revoked_token(self):
-
-        
+        #Test revoked access tokens can't be used to read the email using 2.1 api
     	curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
     	self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_record_with_30_revoked_token(self):
-        
+        #Test revoked access tokens can't be used to read the record using 3.0 api
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_30_revoked_token(self):
+        #Test revoked access tokens can't be used to read the work using 3.0 api
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
 		self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_email_with_30_revoked_token(self):
+        #Test revoked access tokens can't be used to read the email using 3.0 api
     	curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
     	response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
     	self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
