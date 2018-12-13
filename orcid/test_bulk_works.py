@@ -12,13 +12,6 @@ import properties
 
 #define Class
 class BulkWorks(OrcidBaseTest.OrcidBaseTest):
-    #Definitions
-    # def setUp(self):
-    #     self.client_id = properties.bulk_works_client
-    #     self.client_secret = properties.bulk_works_secret
-    #     self.notify_token = properties.notifyToken
-    #     self.orcid_id = properties.bulk_works_orcidId
-    #     self.access = properties.bulk_works_token
 
     xml_data_files_path = 'post_files/'
 #Set up properties
