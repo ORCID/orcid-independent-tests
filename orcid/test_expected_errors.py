@@ -15,32 +15,32 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.access,self.refresh   = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
         self.code2                = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
-        self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)        
-        
-    def test_access_wrong_record1(self):
+        self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
+
+    #def test_access_wrong_record1(self):
         # TEST 112
-        curl_params = ['-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work.xml', '-L', '-i', '-k', '-X', 'POST']
-        response = self.orcid_curl("http://api." + properties.test_server + "/v1.2/" + self.wrong_orcid_id + "/orcid-works", curl_params)
-        self.assertTrue("403 Forbidden" in response, "response: " + response)        
-        
+        #curl_params = ['-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: #application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work.xml', '-L', '-i', '-k', '-X', 'POST']
+        #response = self.orcid_curl("http://api." + properties.test_server + "/v1.2/" + self.wrong_orcid_id + "/orcid-works", #curl_params)
+        #self.assertTrue("403 Forbidden" in response, "response: " + response)
+
     def test_access_wrong_record2(self):
         # TEST 113
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
-        
+
     def test_access_wrong_record21(self):
         # TEST 113
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
-        
+
     def test_access_wrong_record30rc1(self):
         # Post a work using an access token for another record
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
-        
+
     def test_access_record2_without_token(self):
         # TEST 114
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
@@ -52,13 +52,13 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
-        
+
     def test_access_record30rc1_without_token(self):
         # Post a work without an access token
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
-        
+
     def test_update_record2_without_token(self):
         # Post the ma test work 2 using the basic client
         response = self.post_activity("/v2.0/", "work", "ma2_work.xml")
@@ -68,7 +68,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = "{'put-code':'%s','title':{'title':'APITestTitleUpdated'},'type':'JOURNAL_ARTICLE','external-ids':{'external-id':[{'external-id-value':'123456','external-id-type':'doi','external-id-relationship':'SELF'}]}}" %  str(putcode)
-        # TEST 115 
+        # TEST 115
         activity_type = "work"
         update_curl_params = ['-i', '-L', '-k', '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
@@ -76,7 +76,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
-        
+
     def test_update_record2_from_other_source(self):
         # Post the ma test work 2 using the basic client
         response = self.post_activity("/v2.0/", "work", "ma2_work.xml")
@@ -92,15 +92,13 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
-        
+
 	def test_member_http_read_20(self):
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("http://" + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
 		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
-	
+
 	def test_member_http_read_21(self):
 		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
 		response = self.orcid_curl("http://" + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
 		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
-        
-                
