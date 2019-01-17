@@ -10,7 +10,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.client_secret2        = properties.premiumClientSecret
         self.orcid_id              = properties.orcidId
         self.scope                 = "/authenticate"
-        self.code                  = self.generate_auth_code(properties.publicClientId, self.scope, "api1PostUpdateCode")
+        self.code                  = self.generate_auth_code(self.client_id, self.scope, "api1PostUpdateCode")
         self.wrong_orcid_id        = '0000-0002-2619-0514'
         self.access,self.refresh   = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
