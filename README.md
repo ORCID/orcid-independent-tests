@@ -2,26 +2,25 @@
 
 ## Overview
 
-OrciD API privide and support data exchage using curl command line calls. This project simulate an automated call iteration.
+ORCID API provide and support data exchage using curl command line calls. This project simulates an automated call interaction.
 
 ## Required Python Libraries
 
 * pytest
 * junit-xml
 
-Already included on _requirements.txt_ file
+> Already included on _requirements.txt_ file
 
 ## Dev Environment Setup
 
 Before executing the test suite prepare a virtual enviroment using the next commands
 
-```
-rm -rf .py_env results
-mkdir results
-virtualenv .py_env
-. .py_env/bin/activate
-pip2 install -r ./orcid/requirements.txt
-```
+    rm -rf .py_env results
+    mkdir results
+    virtualenv .py_env
+    . .py_env/bin/activate
+    pip2 install -r ./orcid/requirements.txt
+
 ## Running Tests
 
 Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file containing at least next key values
