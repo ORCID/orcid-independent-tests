@@ -1,5 +1,5 @@
 **/*.pyc
-*.secrets
+*.secret
 *.properties
 .directory
 .py_env

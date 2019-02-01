@@ -4,13 +4,14 @@ import json
 import os.path
 import urllib
 import properties
+from OrcidBrowser import OrcidBrowser
 
 class OrcidBaseTest(unittest.TestCase):
-    
+
     secrets_file_path = './'
     secrets_file_extension = '.secret'
     xml_data_files_path = 'post_files/'
-        
+
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
         try:
@@ -31,15 +32,25 @@ class OrcidBaseTest(unittest.TestCase):
             content = json.load(secrets_file)
         return content
 
+    def generate_auth_code_bash(self, public_client_id, scope, auth_code_name="readPublicCode"):
+        cmd = [properties.authCodeGenerator, properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
+        p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output,err = p.communicate()
+        print(subprocess.list2cmdline(cmd).strip())
+        code = str(output).strip()
+        return code
+
+    def generate_auth_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+        firefox = OrcidBrowser()
+        code = firefox.getAuthCode(properties.user_login,properties.user_pass,public_client_id,scope)
+        firefox.bye()
+        return code
+
     def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name)
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
-            cmd = [properties.authCodeGenerator, properties.user_login + '%40mailinator.com', properties.password, client_id, scope]
-            p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output,err = p.communicate()
-            print(subprocess.list2cmdline(cmd).strip())
-            code = str(output).strip()
+            code = self.generate_auth_code_selenium(client_id, scope, auth_code_name="readPublicCode")
             if code:
                 self.save_secrets_to_file(code, who)
             print "Using fresh code: %s" % code
@@ -89,7 +100,7 @@ class OrcidBaseTest(unittest.TestCase):
             if('error' in json_response):
                 raise ValueError("No access token found in response: " + json_response['error']['value'])
         return [None, None]
-        
+
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
         data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
         response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
@@ -138,12 +149,12 @@ class OrcidBaseTest(unittest.TestCase):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
-    
+
     def update_activity(self, version, putcode, updated_data, activity_type = "work"):
         update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
         return update_response
-    
+
     def delete_activity(self, version, putcode, activity_type = "work"):
         delete_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), delete_curl_params)
@@ -158,14 +169,14 @@ class OrcidBaseTest(unittest.TestCase):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
-        
+
     def read_record(self, version, token, endpoint = "record"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
-        
+
     def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
-        
+
