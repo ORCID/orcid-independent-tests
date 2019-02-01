@@ -12,8 +12,8 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.scope         = "/read-limited%20/activities/update%20/person/update"
         self.code          = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+        print "%s | %s " % (self.code,self.access)
 
-    
     def test_post_update_work(self):
         # TEST 85 Post the ma test work 2
         response = self.post_activity(self.version, "work", "ma2_work.xml")

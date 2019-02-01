@@ -31,6 +31,18 @@ node {
         sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
     }
 
+    stage('Run Test scope methods'){
+        try {
+            pytest 'test_generate_auth_code'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        } finally {
+            junit 'results/*.xml'
+            deleteDir()
+        }
+    }
+
     stage('Clean OrcidiD'){
         def cleanup_orcid_record = false
         try {
@@ -52,8 +64,7 @@ node {
 
     stage('Run Test Public Read'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py"
-
+            pytest 'test_public_api_read_search'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -62,7 +73,7 @@ node {
 
     stage('Run Test 2.0 post'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py"
+            pytest 'test_member20_api_post_update'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -71,8 +82,7 @@ node {
 
     stage('Run Test Public Record'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_public_record.xml orcid/test_public_record.py"
-
+            pytest 'test_public_record'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -81,8 +91,7 @@ node {
 
     stage('Run Test Private Record'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_private_record.xml orcid/test_private_record.py"
-
+            pytest 'test_private_record'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -91,7 +100,7 @@ node {
 
     stage('Run Expected Errors Test'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_expected_errors.xml orcid/test_expected_errors.py"
+            pytest 'test_expected_errors'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -100,17 +109,7 @@ node {
 
     stage('Run Limited Record Test'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_limited_record.xml orcid/test_limited_record.py"
-
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run 1.2 All Endpoints'){
-        try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_12api_all_endpoints.xml orcid/test_12api_all_endpoints.py"
+            pytest 'test_limited_record'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -119,8 +118,7 @@ node {
 
     stage('Run 2.0 All Endpoints'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_20api_all_endpoints.xml orcid/test_20api_all_endpoints.py"
-
+            pytest 'test_20api_all_endpoints'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -129,7 +127,7 @@ node {
 
     stage('Run Test scope methods'){
         try {
-            sh ". .py_env/bin/activate && py.test --junitxml results/test_scope_methods.xml orcid/test_scope_methods.py"
+            pytest 'test_scope_methods'
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
@@ -138,4 +136,27 @@ node {
             deleteDir()
         }
     }
+}
+def pytest(unit){
+    try {
+        startBrowser()
+        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
+    } catch(Exception err) {
+        def err_msg = err.getMessage()
+        echo "Tests problem: $err_msg"
+        throw err
+    } finally finally {
+        stopBrowser()
+        junit 'results/*.xml'
+        deleteDir()
+    }
+}
+def startBrowser(){
+    echo "Creating xvfb..."
+    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir /var/lib/jenkins/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
+    sh "cat /tmp/xvfb_jenkins_py.pid"
+}
+def stopBrowser(){
+    echo "Destroying xvfb..."
+    sh "XVFB_PID=\$(cat /tmp/xvfb_jenkins_py.pid) ; kill \$XVFB_PID" 
 }

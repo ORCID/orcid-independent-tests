@@ -2,7 +2,7 @@ import OrcidBaseTest
 from OrcidBrowser import OrcidBrowser
 import properties
 
-class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
+class GenerateAuthCode(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         self.firefox       = OrcidBrowser()
@@ -12,7 +12,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_create_auth_code_with_scope(self):
         code = self.firefox.getAuthCode(self.user_login,self.user_pass,self.public_client_id)
-        #print code
         self.assertIsNotNone(code, "oauth code: " + code)
 
     def tearDown(self):
