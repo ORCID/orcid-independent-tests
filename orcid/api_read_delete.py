@@ -9,10 +9,10 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.orcid_id            = properties.orcidId
         self.client_id           = properties.memberClientId
         self.client_secret       = properties.memberClientSecret
-        self.webhook_access		 = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
+        self.webhook_access      = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
         self.code                = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        self.version			 ="/v2.0/"
+        self.version             ="/v2.0/"
 
     def test_get20_works(self):
         self.assertIsNotNone(self.token, "No token generated")
