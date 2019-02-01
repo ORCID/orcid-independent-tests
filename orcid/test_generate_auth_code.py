@@ -12,7 +12,7 @@ class GenerateAuthCode(OrcidBaseTest.OrcidBaseTest):
 
     def test_create_auth_code_with_scope(self):
         code = self.firefox.getAuthCode(self.user_login,self.user_pass,self.public_client_id)
-        self.assertIsNotNone(code, "oauth code: " + code)
+        self.assertIsNotNone(code, "oauth code returned is None")
 
     def tearDown(self):
         self.firefox.bye()

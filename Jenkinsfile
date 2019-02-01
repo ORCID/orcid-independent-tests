@@ -31,7 +31,7 @@ node {
         sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
     }
 
-    stage('Run Test scope methods'){
+    stage('Run Test Auth Code'){
         try {
             pytest 'test_generate_auth_code'
         } catch(Exception err) {
