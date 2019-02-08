@@ -145,7 +145,7 @@ def pytest(unit){
         def err_msg = err.getMessage()
         echo "Tests problem: $err_msg"
         throw err
-    } finally finally {
+    } finally {
         stopBrowser()
         junit 'results/*.xml'
         deleteDir()

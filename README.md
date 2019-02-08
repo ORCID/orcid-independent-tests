@@ -15,7 +15,7 @@ ORCID API provide and support data exchage using curl command line calls. This p
 
 Before executing the test suite prepare a virtual enviroment using the next commands
 
-    rm -rf .py_env results
+    rm -rf .py_env results *.secret
     mkdir results
     virtualenv .py_env
     . .py_env/bin/activate
