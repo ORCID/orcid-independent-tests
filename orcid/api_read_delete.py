@@ -77,7 +77,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(self.version, putcode, 'keyword')
-                
+
     def test_remove_externalids(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
@@ -89,7 +89,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(self.version, putcode, 'external-identifier')
-                
+
     def test_remove_country(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
@@ -113,7 +113,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(self.version, putcode, 'other-names')
-                
+
     def test_remove_websites(self):
         self.assertIsNotNone(self.token, "No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(self.token)]
@@ -125,12 +125,9 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
             for e in es:
                 putcode = e["put-code"]
                 delete_results = self.remove_by_putcode(self.version, putcode, 'researcher-urls')
-                
-    def test_remove_webhook(self):
-    	self.assertIsNotNone(self.webhook_access, "No token generated")
-    	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'DELETE']
-        response = self.orcid_curl("http://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
-    	
 
-                
-        
+    def test_remove_webhook(self):
+        self.assertIsNotNone(self.webhook_access, "No token generated")
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'DELETE']
+        response = self.orcid_curl("http://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
+

@@ -4,13 +4,13 @@ import properties
 class Refresh(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.orcid_id      = properties.orcidId
-        self.scope               = "/read-limited%20/activities/update"
-        self.code                = self.generate_auth_code(self.client_id, self.scope, "refresh_tokens")
-        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
-        self.version 		 	 = '/v2.0/'
+        self.client_id              = properties.memberClientId
+        self.client_secret          = properties.memberClientSecret
+        self.orcid_id               = properties.orcidId
+        self.scope                  = "/read-limited%20/activities/update"
+        self.code                   = self.generate_auth_code(self.client_id, self.scope, "refresh_tokens")
+        self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        self.version                = '/v2.0/'
 
     def test_1refresh_like_for_like(self):
         #Generate a new access_token
@@ -36,4 +36,4 @@ class Refresh(OrcidBaseTest.OrcidBaseTest):
         #Test that a disabled token can't be used to generate a refresh token
         self.disabled = self.orcid_refresh_token(self.client_id, self.client_secret, self.access, self.refresh)
         self.assertTrue("Parent token is disabled" in str(self.disabled), "Expected token disabled error instead " + str(self.disabled))
-        
+
