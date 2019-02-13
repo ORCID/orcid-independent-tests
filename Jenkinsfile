@@ -1,3 +1,26 @@
+def pytest(unit){
+    try {
+        startBrowser(unit)
+        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
+    } catch(Exception err) {
+        def err_msg = err.getMessage()
+        echo "PYTEST PROBLEM: $err_msg"
+        throw err
+    } finally {
+        junit 'results/*.xml'
+        stopBrowser(unit)
+    }
+}
+def startBrowser(unit){
+    echo "Creating xvfb..."
+    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir ${WORKSPACE}/xvfb & > /dev/null 2>&1 && echo \$! > /tmp/${unit}.pid"
+    sh "cat /tmp/${unit}.pid"
+}
+def stopBrowser(unit){
+    echo "Destroying xvfb..."
+    sh "XVFB_PID=\$(cat /tmp/${unit}.pid) ; kill \$XVFB_PID" 
+}
+
 node {
 
     properties([
@@ -10,7 +33,7 @@ node {
             string(name: 'user_login'            , defaultValue: 'ma_test_31052017'                               , description: 'Username'),
             string(name: 'user_pass'             , defaultValue: 'ma_test_31052017'                               , description: 'Password'),
             string(name: 'orcid_id'              , defaultValue: '0000-0002-6816-6010'                            , description: 'Latest orcid ID'),
-            string(name: 'search_value'          , defaultValue: '31052017'                                       , description: 'Family name query format'),            
+            string(name: 'search_value'          , defaultValue: '31052017'                                       , description: 'Family name query format'),
             string(name: 'client_secrets_file'   , defaultValue: '/var/lib/jenkins/orcidclients.py'               , description: 'Properties file with predefined secrets')
         ]),
         [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]
@@ -20,30 +43,17 @@ node {
 
     stage('Crate properties file'){
         sh "rm -f orcid/properties.py"
-        writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nsearchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\npassword=\"$user_pass\"\n"
+        writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nsearchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\nuser_pass=\"$user_pass\"\npassword=\"$user_pass\"\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
     }
 
     stage('Prepare Environment'){
-        sh "rm -rf .py_env results"
+        sh "rm -rf .py_env results *.secret ${WORKSPACE}/xvfb && mkdir results ${WORKSPACE}/xvfb"
         sh "virtualenv .py_env"
-        sh "mkdir results"
-        sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt"
+        sh ". .py_env/bin/activate && pip2 install -q -r orcid/requirements.txt"
     }
 
-    stage('Run Test scope methods'){
-        try {
-            pytest 'test_generate_auth_code'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        } finally {
-            junit 'results/*.xml'
-            deleteDir()
-        }
-    }
-
-    stage('Clean OrcidiD'){
+    /*stage('Clean OrcidiD'){
         def cleanup_orcid_record = false
         try {
             timeout(time:20,unit:'SECONDS'){
@@ -60,7 +70,25 @@ node {
         } else {
             echo "Continuing with existing record content."
         }
+    }*/
+
+    stage ('Clear orcid record'){
+        try {
+            pytest 'api_read_delete'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
     }
+
+    /*stage('Run Test Auth Code'){
+        try {
+            pytest 'test_generate_auth_code'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }*/
 
     stage('Run Test Public Read'){
         try {
@@ -137,26 +165,4 @@ node {
         }
     }
 }
-def pytest(unit){
-    try {
-        startBrowser()
-        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
-    } catch(Exception err) {
-        def err_msg = err.getMessage()
-        echo "Tests problem: $err_msg"
-        throw err
-    } finally finally {
-        stopBrowser()
-        junit 'results/*.xml'
-        deleteDir()
-    }
-}
-def startBrowser(){
-    echo "Creating xvfb..."
-    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir /var/lib/jenkins/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
-    sh "cat /tmp/xvfb_jenkins_py.pid"
-}
-def stopBrowser(){
-    echo "Destroying xvfb..."
-    sh "XVFB_PID=\$(cat /tmp/xvfb_jenkins_py.pid) ; kill \$XVFB_PID" 
-}
+

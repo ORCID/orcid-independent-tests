@@ -40,6 +40,7 @@ class OrcidBrowser:
             login_button.click()
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
             orcid_record = orcid_found.text
+            print "login OK with ID: %s" % orcid_record
             return str(orcid_record)
         except TimeoutException:
             raise ValueError("failed loading my orcid page.", "orcid: %s" % orcid_record)

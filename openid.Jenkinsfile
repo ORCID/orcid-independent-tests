@@ -27,7 +27,7 @@ node {
     stage('Prepare Environment'){
         sh "rm -rf .py_env results"
         sh "virtualenv .py_env"
-        sh "mkdir results"
+        sh "mkdir results ${WORKSPACE}/xvfb_jenkins_py"
         sh ". .py_env/bin/activate && pip2 install -r orcid/requirements.txt" 
     }
 
@@ -38,7 +38,7 @@ node {
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
-        } finally finally {
+        } finally {
             stopBrowser()
             junit 'results/*.xml'
             deleteDir()
@@ -54,7 +54,7 @@ def pytest(unit){
 }
 def startBrowser(){
     echo "Creating xvfb..."
-    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir /var/lib/jenkins/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
+    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir ${WORKSPACE}/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
     sh "cat /tmp/xvfb_jenkins_py.pid"
 }
 def stopBrowser(){
