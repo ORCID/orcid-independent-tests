@@ -1,21 +1,24 @@
 def pytest(unit){
     try {
         startBrowser(unit)
-        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
+        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test -v -r fxE --junitxml results/${unit}.xml orcid/${unit}.py"
     } catch(Exception err) {
         def err_msg = err.getMessage()
         echo "PYTEST PROBLEM: $err_msg"
         throw err
     } finally {
         junit 'results/*.xml'
+        sh 'rm -rf results/*.xml'
         stopBrowser(unit)
     }
 }
+
 def startBrowser(unit){
     echo "Creating xvfb..."
     sh "Xvfb :1 -screen 0 1024x758x16 -fbdir ${WORKSPACE}/xvfb & > /dev/null 2>&1 && echo \$! > /tmp/${unit}.pid"
     sh "cat /tmp/${unit}.pid"
 }
+
 def stopBrowser(unit){
     echo "Destroying xvfb..."
     sh "XVFB_PID=\$(cat /tmp/${unit}.pid) ; kill \$XVFB_PID" 
@@ -41,7 +44,7 @@ node {
 
     git url: 'https://github.com/ORCID/orcid-independent-tests.git', branch: params.branch_to_build
 
-    stage('Crate properties file'){
+    stage('Create properties file'){
         sh "rm -f orcid/properties.py"
         writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nsearchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\nuser_pass=\"$user_pass\"\npassword=\"$user_pass\"\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
@@ -53,24 +56,36 @@ node {
         sh ". .py_env/bin/activate && pip2 install -q -r orcid/requirements.txt"
     }
 
-    /*stage('Clean OrcidiD'){
-        def cleanup_orcid_record = false
+    /*
+    stage('Run Test Auth Code'){
         try {
-            timeout(time:20,unit:'SECONDS'){
-                cleanup_orcid_record = input message: 'Would you like to clean up orcid record before continue ?', 
-                                                  ok: 'Clean',
-                                          parameters: [booleanParam(defaultValue: false, description: '', name: 'Clean ?')]
-            }
-        } catch(err){
-            echo err.toString()
+            pytest 'test_generate_auth_code'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
         }
-        if (cleanup_orcid_record) {
-            echo "Removing activities from orcid record [$orcid_id]"
-            sh ". .py_env/bin/activate && pytest -v -r fEx orcid/api_read_delete.py"
-        } else {
-            echo "Continuing with existing record content."
+    }
+    */
+
+    stage('Run Limited Record Test'){
+        try {
+            pytest 'test_limited_record'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
         }
-    }*/
+    }
+
+    stage('Run Test scope methods'){
+        try {
+            pytest 'test_scope_methods'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        } finally {
+            deleteDir()
+        }
+    }
 
     stage ('Clear orcid record'){
         try {
@@ -78,33 +93,8 @@ node {
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
-        }
-    }
-
-    /*stage('Run Test Auth Code'){
-        try {
-            pytest 'test_generate_auth_code'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }*/
-
-    stage('Run Test Public Read'){
-        try {
-            pytest 'test_public_api_read_search'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run Test 2.0 post'){
-        try {
-            pytest 'test_member20_api_post_update'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
+            deleteDir()
+            throw err
         }
     }
 
@@ -126,6 +116,24 @@ node {
         }
     }
 
+    stage('Run Test Public Read'){
+        try {
+            pytest 'test_public_api_read_search'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }
+
+    stage('Run Test 2.0 post'){
+        try {
+            pytest 'test_member20_api_post_update'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }
+
     stage('Run Expected Errors Test'){
         try {
             pytest 'test_expected_errors'
@@ -135,16 +143,7 @@ node {
         }
     }
 
-    stage('Run Limited Record Test'){
-        try {
-            pytest 'test_limited_record'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run 2.0 All Endpoints'){
+    stage('Run 2.0 All Endpoints') {
         try {
             pytest 'test_20api_all_endpoints'
         } catch(Exception err) {
@@ -153,16 +152,5 @@ node {
         }
     }
 
-    stage('Run Test scope methods'){
-        try {
-            pytest 'test_scope_methods'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        } finally {
-            junit 'results/*.xml'
-            deleteDir()
-        }
-    }
 }
 

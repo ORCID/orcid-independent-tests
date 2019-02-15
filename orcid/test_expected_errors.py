@@ -17,12 +17,6 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.code2                = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
         self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
 
-    #def test_access_wrong_record1(self):
-        # TEST 112
-        #curl_params = ['-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: #application/xml', '-d', '@' + self.xml_data_files_path + 'ma_work.xml', '-L', '-i', '-k', '-X', 'POST']
-        #response = self.orcid_curl("http://api." + properties.test_server + "/v1.2/" + self.wrong_orcid_id + "/orcid-works", #curl_params)
-        #self.assertTrue("403 Forbidden" in response, "response: " + response)
-
     def test_access_wrong_record2(self):
         # TEST 113
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
@@ -93,12 +87,12 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
 
-	def test_member_http_read_20(self):
-		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("http://" + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
-		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
+    def test_member_http_read_20(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("http://" + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
+        self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
 
-	def test_member_http_read_21(self):
-		curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-		response = self.orcid_curl("http://" + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
-		self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
+    def test_member_http_read_21(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("http://" + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
+        self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
