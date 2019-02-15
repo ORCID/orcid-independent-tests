@@ -33,15 +33,6 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
 
-    # def test_read_public_record_with_12_member_api(self):
-    #     #TEST 132
-    #     curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
-    #     response = self.orcid_curl("https://api." + properties.test_server + "/v1.2/" + self.public_orcid_id + "/orcid-profile", curl_params)
-    #     response_body = response.partition('X-Frame-Options: DENY')[2]
-    #     response_body = re.sub('[ \t](.*)(\<last-modified-date\>|\<created-date\>)(.*)(\</last-modified-date\>|\</created-date\>)\\n','', response_body)
-    #     #Compare the body of the response to the saved file.
-    #     self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record12.xml','r').read(), 'response_body: ' + response_body)
-
     def test_read_public_record_with_20_member_api(self):
         #TEST 133
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
