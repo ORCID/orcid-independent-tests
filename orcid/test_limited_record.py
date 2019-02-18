@@ -116,7 +116,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_funding_with_21_public_token(self):
         # Test nothing is returned when limited funding is read with the pulic api
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "funding/1285", curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/funding/1285", curl_params)
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
 
     def test_read_limited_record_with_30_public_token(self):
