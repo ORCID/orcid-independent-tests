@@ -4,18 +4,20 @@ import properties
 class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id             = properties.memberClientId
-        self.client_secret         = properties.memberClientSecret
-        self.client_id2            = properties.premiumClientId
-        self.client_secret2        = properties.premiumClientSecret
-        self.orcid_id              = properties.orcidId
-        self.scope                 = "/authenticate"
-        self.code                  = self.generate_auth_code(self.client_id, self.scope, "api1PostUpdateCode")
-        self.wrong_orcid_id        = '0000-0002-2619-0514'
-        self.access,self.refresh   = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        self.scope2               = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
-        self.code2                = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
-        self.access2,self.refresh2 = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
+        self.client_id              = properties.memberClientId
+        self.client_secret          = properties.memberClientSecret
+        self.client_id2             = properties.premiumClientId
+        self.client_secret2         = properties.premiumClientSecret
+        self.orcid_id               = properties.orcidId
+        self.scope                  = "/authenticate"
+        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api1PostUpdateCode")
+        self.wrong_orcid_id         = '0000-0002-2619-0514'
+        self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+        self.scope2                 = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
+        self.code2                  = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
+        self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
+        self.static_access          = properties.staticAccess
+        self.static_orcid_id        = properties.staticId
 
     def test_access_wrong_record2(self):
         # TEST 113
@@ -89,10 +91,10 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
 
     def test_member_http_read_20(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://" + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
         self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
 
     def test_member_http_read_21(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://" + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
         self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
