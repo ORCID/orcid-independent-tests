@@ -3,17 +3,17 @@ import properties
 import re
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
-    
+
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
         self.client_id     = properties.memberClientId
         self.client_secret = properties.memberClientSecret
         self.notify_token  = properties.notifyToken
-        self.orcid_id    = properties.staticId
-        self.access      = properties.staticAccess
+        self.orcid_id      = properties.staticId
+        self.access        = properties.staticAccess
 
-#2.0
+    #2.0
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
@@ -156,4 +156,3 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
 
  
-#read the record: curl -H 'Content-Type: application/orcid+xml' -H 'Authorization: Bearer f4f35385-f903-451c-9a15-cde960dca66b' -X GET 'https://api.qa.orcid.org/v2.0/0000-0002-7361-1027/fundings' -L -i -k
