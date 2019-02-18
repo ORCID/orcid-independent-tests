@@ -44,13 +44,10 @@ node {
 
     git url: 'https://github.com/ORCID/orcid-independent-tests.git', branch: params.branch_to_build
 
-    stage('Create properties file'){
+    stage('Initialize'){
         sh "rm -f orcid/properties.py"
         writeFile file: 'testinputs.py', text: "test_server=\"$test_server\"\nsearchValue=\"$search_value\"\norcidId=\"$orcid_id\"\nuser_login=\"$user_login\"\nuser_pass=\"$user_pass\"\npassword=\"$user_pass\"\n"
         sh "cat $client_secrets_file testinputs.py > orcid/properties.py"
-    }
-
-    stage('Prepare Environment'){
         sh "rm -rf .py_env results *.secret ${WORKSPACE}/xvfb && mkdir results ${WORKSPACE}/xvfb"
         sh "virtualenv .py_env"
         sh ". .py_env/bin/activate && pip2 install -q -r orcid/requirements.txt"
