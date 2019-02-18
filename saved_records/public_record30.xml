@@ -11,18 +11,25 @@
     <history:history>
         <history:creation-method>Direct</history:creation-method>
         <history:submission-date>2016-03-03T18:26:06.956Z</history:submission-date>
+        <common:last-modified-date>2018-06-13T15:33:37.670Z</common:last-modified-date>
         <history:claimed>true</history:claimed>
         <history:verified-email>true</history:verified-email>
         <history:verified-primary-email>true</history:verified-primary-email>
     </history:history>
     <person:person path="/0000-0002-3874-7658/person">
+        <common:last-modified-date>2018-02-01T19:02:22.958Z</common:last-modified-date>
         <person:name visibility="public" path="0000-0002-3874-7658">
+            <common:created-date>2016-04-14T20:56:22.279Z</common:created-date>
+            <common:last-modified-date>2016-04-14T20:56:22.279Z</common:last-modified-date>
             <personal-details:given-names>Everything Public</personal-details:given-names>
             <personal-details:family-name>MA test</personal-details:family-name>
             <personal-details:credit-name>Published Name</personal-details:credit-name>
         </person:name>
         <other-name:other-names path="/0000-0002-3874-7658/other-names">
+            <common:last-modified-date>2016-04-12T18:17:56.576Z</common:last-modified-date>
             <other-name:other-name put-code="2685" visibility="public" path="/0000-0002-3874-7658/other-names/2685" display-index="1">
+                <common:created-date>2016-03-03T20:37:58.690Z</common:created-date>
+                <common:last-modified-date>2016-04-12T18:17:56.576Z</common:last-modified-date>
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -35,10 +42,15 @@
             </other-name:other-name>
         </other-name:other-names>
         <person:biography visibility="public" path="/0000-0002-3874-7658/biography">
+            <common:created-date>2016-04-14T20:56:22.281Z</common:created-date>
+            <common:last-modified-date>2016-04-14T20:56:22.281Z</common:last-modified-date>
             <personal-details:content>Biography</personal-details:content>
         </person:biography>
         <researcher-url:researcher-urls path="/0000-0002-3874-7658/researcher-urls">
+            <common:last-modified-date>2016-04-12T18:18:04.172Z</common:last-modified-date>
             <researcher-url:researcher-url put-code="7186" visibility="public" path="/0000-0002-3874-7658/researcher-urls/7186" display-index="1">
+                <common:created-date>2016-03-03T20:37:58.690Z</common:created-date>
+                <common:last-modified-date>2016-04-12T18:18:04.172Z</common:last-modified-date>
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -52,7 +64,10 @@
             </researcher-url:researcher-url>
         </researcher-url:researcher-urls>
         <email:emails path="/0000-0002-3874-7658/email">
+            <common:last-modified-date>2017-08-14T21:40:51.052Z</common:last-modified-date>
             <email:email visibility="public" verified="true" primary="true">
+                <common:created-date>2016-03-03T18:26:07.269Z</common:created-date>
+                <common:last-modified-date>2017-08-14T21:40:51.052Z</common:last-modified-date>
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -65,20 +80,26 @@
             </email:email>
         </email:emails>
         <address:addresses path="/0000-0002-3874-7658/address">
+            <common:last-modified-date>2017-11-02T17:11:10.831Z</common:last-modified-date>
             <address:address put-code="1069" visibility="public" path="/0000-0002-3874-7658/address/1069" display-index="1">
+                <common:created-date>2016-03-03T20:19:05.912Z</common:created-date>
+                <common:last-modified-date>2017-11-02T17:11:10.831Z</common:last-modified-date>
                 <common:source>
-                    <common:source-client-id>
-                        <common:uri>https://qa.orcid.org/client/0000-0002-6285-0954</common:uri>
+                    <common:source-orcid>
+                        <common:uri>https://qa.orcid.org/0000-0002-6285-0954</common:uri>
                         <common:path>0000-0002-6285-0954</common:path>
                         <common:host>qa.orcid.org</common:host>
-                    </common:source-client-id>
+                    </common:source-orcid>
                     <common:source-name>ORCID Test Credentials</common:source-name>
                 </common:source>
                 <address:country>US</address:country>
             </address:address>
         </address:addresses>
         <keyword:keywords path="/0000-0002-3874-7658/keywords">
+            <common:last-modified-date>2016-03-03T18:26:35.348Z</common:last-modified-date>
             <keyword:keyword put-code="1278" visibility="public" path="/0000-0002-3874-7658/keywords/1278" display-index="0">
+                <common:created-date>2016-03-03T18:26:35.344Z</common:created-date>
+                <common:last-modified-date>2016-03-03T18:26:35.345Z</common:last-modified-date>
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -90,6 +111,8 @@
                 <keyword:content>Keyword 1</keyword:content>
             </keyword:keyword>
             <keyword:keyword put-code="1279" visibility="public" path="/0000-0002-3874-7658/keywords/1279" display-index="0">
+                <common:created-date>2016-03-03T18:26:35.348Z</common:created-date>
+                <common:last-modified-date>2016-03-03T18:26:35.348Z</common:last-modified-date>
                 <common:source>
                     <common:source-orcid>
                         <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -102,7 +125,10 @@
             </keyword:keyword>
         </keyword:keywords>
         <external-identifier:external-identifiers path="/0000-0002-3874-7658/external-identifiers">
+            <common:last-modified-date>2018-02-01T19:02:22.958Z</common:last-modified-date>
             <external-identifier:external-identifier put-code="250" visibility="public" path="/0000-0002-3874-7658/external-identifiers/250" display-index="1">
+                <common:created-date>2016-03-03T20:37:58.688Z</common:created-date>
+                <common:last-modified-date>2018-02-01T19:02:22.958Z</common:last-modified-date>
                 <common:source>
                     <common:source-client-id>
                         <common:uri>https://qa.orcid.org/client/0000-0002-6285-0954</common:uri>
@@ -119,11 +145,16 @@
         </external-identifier:external-identifiers>
     </person:person>
     <activities:activities-summary path="/0000-0002-3874-7658/activities">
+        <common:last-modified-date>2018-06-13T15:33:37.793Z</common:last-modified-date>
         <activities:distinctions path="/0000-0002-3874-7658/distinctions"/>
         <activities:educations path="/0000-0002-3874-7658/educations">
+            <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
                 <common:external-ids/>
                 <education:education-summary put-code="1409" display-index="0" path="/0000-0002-3874-7658/education/1409" visibility="public">
+                    <common:created-date>2016-03-03T18:27:57.340Z</common:created-date>
+                    <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -160,9 +191,13 @@
             </activities:affiliation-group>
         </activities:educations>
         <activities:employments path="/0000-0002-3874-7658/employments">
+            <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
                 <common:external-ids/>
                 <employment:employment-summary put-code="1410" display-index="0" path="/0000-0002-3874-7658/employment/1410" visibility="public">
+                    <common:created-date>2016-03-03T18:28:17.874Z</common:created-date>
+                    <common:last-modified-date>2018-04-10T22:13:38.345Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -194,7 +229,9 @@
             </activities:affiliation-group>
         </activities:employments>
         <activities:fundings path="/0000-0002-3874-7658/fundings">
+            <common:last-modified-date>2018-04-10T22:13:21.944Z</common:last-modified-date>
             <activities:group>
+                <common:last-modified-date>2018-04-10T22:13:21.944Z</common:last-modified-date>
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>grant_number</common:external-id-type>
@@ -204,6 +241,8 @@
                     </common:external-id>
                 </common:external-ids>
                 <funding:funding-summary put-code="1284" path="/0000-0002-3874-7658/funding/1284" visibility="public" display-index="0">
+                    <common:created-date>2016-03-03T20:17:47.789Z</common:created-date>
+                    <common:last-modified-date>2018-04-10T22:13:21.944Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -249,9 +288,13 @@
             </activities:group>
         </activities:fundings>
         <activities:invited-positions path="/0000-0002-3874-7658/invited-positions">
+            <common:last-modified-date>2018-05-10T21:07:31.084Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-05-10T21:07:16.258Z</common:last-modified-date>
                 <common:external-ids/>
                 <invited-position:invited-position-summary put-code="4667" display-index="0" path="/0000-0002-3874-7658/invited-position/4667" visibility="public">
+                    <common:created-date>2018-05-10T21:07:16.258Z</common:created-date>
+                    <common:last-modified-date>2018-05-10T21:07:16.258Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -278,8 +321,11 @@
                 </invited-position:invited-position-summary>
             </activities:affiliation-group>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-05-10T21:07:31.084Z</common:last-modified-date>
                 <common:external-ids/>
                 <invited-position:invited-position-summary put-code="4668" display-index="0" path="/0000-0002-3874-7658/invited-position/4668" visibility="public">
+                    <common:created-date>2018-05-10T21:07:31.084Z</common:created-date>
+                    <common:last-modified-date>2018-05-10T21:07:31.084Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -307,9 +353,13 @@
             </activities:affiliation-group>
         </activities:invited-positions>
         <activities:memberships path="/0000-0002-3874-7658/memberships">
+            <common:last-modified-date>2018-05-10T21:08:49.321Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-05-10T21:08:49.321Z</common:last-modified-date>
                 <common:external-ids/>
                 <membership:membership-summary put-code="4670" display-index="0" path="/0000-0002-3874-7658/membership/4670" visibility="public">
+                    <common:created-date>2018-05-10T21:08:49.321Z</common:created-date>
+                    <common:last-modified-date>2018-05-10T21:08:49.321Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -337,7 +387,9 @@
             </activities:affiliation-group>
         </activities:memberships>
         <activities:peer-reviews path="/0000-0002-3874-7658/peer-reviews">
+            <common:last-modified-date>2016-03-03T20:20:47.119Z</common:last-modified-date>
             <activities:group>
+                <common:last-modified-date>2016-03-03T20:20:47.119Z</common:last-modified-date>
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>peer-review</common:external-id-type>
@@ -345,6 +397,7 @@
                     </common:external-id>
                 </common:external-ids>
                 <activities:peer-review-group>
+                    <common:last-modified-date>2016-03-03T20:20:47.119Z</common:last-modified-date>
                     <common:external-ids>
                         <common:external-id>
                             <common:external-id-type>source-work-id</common:external-id-type>
@@ -354,6 +407,8 @@
                         </common:external-id>
                     </common:external-ids>
                     <peer-review:peer-review-summary put-code="1076" path="/0000-0002-3874-7658/peer-review/1076" visibility="public" display-index="0">
+                        <common:created-date>2016-03-03T20:20:33.500Z</common:created-date>
+                        <common:last-modified-date>2016-03-03T20:20:47.119Z</common:last-modified-date>
                         <common:source>
                             <common:source-client-id>
                                 <common:uri>https://qa.orcid.org/client/APP-5G54N5YFOKGV5Z0X</common:uri>
@@ -390,9 +445,13 @@
             </activities:group>
         </activities:peer-reviews>
         <activities:qualifications path="/0000-0002-3874-7658/qualifications">
+            <common:last-modified-date>2018-05-10T21:06:51.592Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-05-10T21:06:51.592Z</common:last-modified-date>
                 <common:external-ids/>
                 <qualification:qualification-summary put-code="4666" display-index="0" path="/0000-0002-3874-7658/qualification/4666" visibility="public">
+                    <common:created-date>2018-05-10T21:06:51.592Z</common:created-date>
+                    <common:last-modified-date>2018-05-10T21:06:51.592Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -420,7 +479,9 @@
             </activities:affiliation-group>
         </activities:qualifications>
         <activities:research-resources path="/0000-0002-3874-7658/research-resources">
+            <common:last-modified-date>2018-06-13T15:33:37.793Z</common:last-modified-date>
             <activities:group>
+                <common:last-modified-date>2018-06-13T15:33:37.793Z</common:last-modified-date>
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>handle</common:external-id-type>
@@ -430,6 +491,8 @@
                     </common:external-id>
                 </common:external-ids>
                 <research-resource:research-resource-summary put-code="1006" path="/0000-0002-3874-7658/research-resource/1006" visibility="public" display-index="0">
+                    <common:created-date>2018-06-13T15:33:37.793Z</common:created-date>
+                    <common:last-modified-date>2018-06-13T15:33:37.793Z</common:last-modified-date>
                     <common:source>
                         <common:source-client-id>
                             <common:uri>https://qa.orcid.org/client/0000-0003-4223-0632</common:uri>
@@ -481,9 +544,13 @@
             </activities:group>
         </activities:research-resources>
         <activities:services path="/0000-0002-3874-7658/services">
+            <common:last-modified-date>2018-05-10T21:07:48.612Z</common:last-modified-date>
             <activities:affiliation-group>
+                <common:last-modified-date>2018-05-10T21:07:48.612Z</common:last-modified-date>
                 <common:external-ids/>
                 <service:service-summary put-code="4669" display-index="0" path="/0000-0002-3874-7658/service/4669" visibility="public">
+                    <common:created-date>2018-05-10T21:07:48.612Z</common:created-date>
+                    <common:last-modified-date>2018-05-10T21:07:48.612Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
@@ -511,7 +578,9 @@
             </activities:affiliation-group>
         </activities:services>
         <activities:works path="/0000-0002-3874-7658/works">
+            <common:last-modified-date>2017-08-14T21:42:51.186Z</common:last-modified-date>
             <activities:group>
+                <common:last-modified-date>2017-08-14T21:42:51.186Z</common:last-modified-date>
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>doi</common:external-id-type>
@@ -525,6 +594,8 @@
                     </common:external-id>
                 </common:external-ids>
                 <work:work-summary put-code="141941" path="/0000-0002-3874-7658/work/141941" visibility="public" display-index="0">
+                    <common:created-date>2016-03-03T21:42:51.181Z</common:created-date>
+                    <common:last-modified-date>2017-08-14T21:42:51.186Z</common:last-modified-date>
                     <common:source>
                         <common:source-orcid>
                             <common:uri>https://qa.orcid.org/0000-0002-3874-7658</common:uri>
