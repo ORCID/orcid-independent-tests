@@ -56,76 +56,7 @@ node {
         sh ". .py_env/bin/activate && pip2 install -q -r orcid/requirements.txt"
     }
 
-    /*
-    stage('Run Test Auth Code'){
-        try {
-            pytest 'test_generate_auth_code'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-    */
-
-    stage('Run Limited Record Test'){
-        try {
-            pytest 'test_limited_record'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run Test scope methods'){
-        try {
-            pytest 'test_scope_methods'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        } finally {
-            deleteDir()
-        }
-    }
-
-    stage ('Clear orcid record'){
-        try {
-            pytest 'api_read_delete'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-            deleteDir()
-            throw err
-        }
-    }
-
-    stage('Run Test Public Record'){
-        try {
-            pytest 'test_public_record'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run Test Private Record'){
-        try {
-            pytest 'test_private_record'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run Test Public Read'){
-        try {
-            pytest 'test_public_api_read_search'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
-    }
-
-    stage('Run Test 2.0 post'){
+    stage('TEST MEMBER 2.0 API POST UPDATE'){
         try {
             pytest 'test_member20_api_post_update'
         } catch(Exception err) {
@@ -134,7 +65,16 @@ node {
         }
     }
 
-    stage('Run Expected Errors Test'){
+    stage('TEST 2.0 API ALL ENDPOINTS') {
+        try {
+            pytest 'test_20api_all_endpoints'
+        } catch(Exception err) {
+            def err_msg = err.getMessage()
+            echo "Tests problem: $err_msg"
+        }
+    }
+
+    stage('TEST EXPECTED ERRORS'){
         try {
             pytest 'test_expected_errors'
         } catch(Exception err) {
@@ -143,13 +83,9 @@ node {
         }
     }
 
-    stage('Run 2.0 All Endpoints') {
-        try {
-            pytest 'test_20api_all_endpoints'
-        } catch(Exception err) {
-            def err_msg = err.getMessage()
-            echo "Tests problem: $err_msg"
-        }
+    stage ('Finalize'){
+        archive 'geckodriver.log'
+        deleteDir()
     }
 
 }
