@@ -29,7 +29,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + 'saved_file: ' + saved_file)
 
     def test_read_limited_record_with_21_public_api(self):
         #Test that reading a limited record with the 2.1 public api returns only the public info
