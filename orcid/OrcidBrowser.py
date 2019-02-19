@@ -40,12 +40,12 @@ class OrcidBrowser:
             login_button.click()
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
             orcid_record = orcid_found.text
-            print "login OK with ID: %s" % orcid_record
+            print "--- LOGIN OK WITH ID: %s" % orcid_record
             return str(orcid_record)
         except TimeoutException:
             raise ValueError("failed loading my orcid page.", "orcid: %s" % orcid_record)
 
-    def getImplicitToken(self, usrname, secret, client_id, scope='/authenticate'):
+    def getImplicitTokenStep1(self, usrname, secret, client_id, scope='/authenticate'):
         orcid_record = ''
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=token&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, scope)
         try:
@@ -56,6 +56,26 @@ class OrcidBrowser:
             wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
             token_input = self.ff.find_element_by_id('for_access_token')
             token_val = token_input.get_attribute('value')
+            print "--- ABOUT TO SEND TOKEN: %s" % token_val
+            return token_val
+        except TimeoutException:
+            raise ValueError("Waiting for token failed.", "url: %s" % oauth_page, orcid_record)
+
+    def getImplicitToken(self, usrname, secret, client_id, scope='/authenticate',auth_window = False):
+        orcid_record = ''
+        oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=token&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, scope)
+        try:
+            orcid_record = self.orcidlogin(usrname, secret)
+            time.sleep(3)
+            self.ff.get(oauth_page)
+            wait = WebDriverWait(self.ff, 10)
+            if auth_window:
+                authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
+                authorize_button.click()
+            button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
+            token_input = self.ff.find_element_by_id('for_access_token')
+            token_val = token_input.get_attribute('value')
+            print "--- ABOUT TO SEND TOKEN: %s" % token_val
             return token_val
         except TimeoutException:
             raise ValueError("Waiting for token failed.", "url: %s" % oauth_page, orcid_record)
