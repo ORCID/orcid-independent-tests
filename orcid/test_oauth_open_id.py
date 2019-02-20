@@ -16,7 +16,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_00_grant_implicit_and_call_userinfo(self):
         # default scope='/authenticate'
         token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id,'/authenticate', True)
-        self.assertTrue("-" in token, "failure getting implicit token: " + token)
+        self.assertIsNotNone(token, "Token not recovered")
         #test_call_user_info
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + token]
         response = self.orcid_curl('https://' + self.server_name + '/oauth/userinfo', curl_params)
@@ -39,7 +39,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_04_generate_revoke(self):
         token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id)
-        self.assertTrue("-" in token, "failure getting implicit token: " + token)
+        self.assertIsNotNone(token, "Token not recovered")
         data = 'client_id=' + self.user_api_id + '&client_secret=' + self.user_api_pass + '&token=' + token
         curl_params = ['-i', '--data', data, '-X' ,'POST']
         response = self.orcid_curl('https://' + self.server_name + '/oauth/revoke', curl_params)
