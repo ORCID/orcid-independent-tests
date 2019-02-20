@@ -13,25 +13,32 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.usrname       = properties.user_login
         self.secret        = properties.user_pass
 
-    """def test_grant_with_implicit_request(self):
-        token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id, '/authenticate', True)
+    def test_00_grant_implicit_and_call_userinfo(self):
+        # default scope='/authenticate'
+        token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id,'/authenticate', True)
         self.assertTrue("-" in token, "failure getting implicit token: " + token)
-
-    def test_call_user_info(self):
-        token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id)
-        self.assertTrue("-" in token, "failure getting implicit token: " + token)
+        #test_call_user_info
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + token]
         response = self.orcid_curl('https://' + self.server_name + '/oauth/userinfo', curl_params)
-        self.assertTrue(self.orcid_id in  response, "user information not returned, got: " + response)"""
+        self.assertTrue(self.orcid_id in response, "user information not returned, got: " + response)
+
+    def test_01_all_endpoints(self):
+        self._check_endpoint('qa.orcid.org')
+        #self._check_endpoint('api.qa.orcid.org')
+        #self._check_endpoint('pub.qa.orcid.org')
+
+    def _check_endpoint(self, srvname):
+        self.firefox.setServerName(srvname)
+        token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id)
+        self.assertIsNotNone(token, "failure getting implicit token with server: " + srvname)
 
     #error=invalid_scope&error_description=Invalid%20scope:%20/read-limited
-    def test_generate_read_limited(self):
+    def test_03_generate_read_limited(self):
         token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id, '/read-limited')
-        self.assertFalse("-" in token, "failure getting token with /read-limited scope: " + token)
+        self.assertIsNone(token, "Somehow we got a token with /read-limited scope")
 
-    """def test_generate_revoke(self):
+    def test_04_generate_revoke(self):
         token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id)
-        self.firefox.bye()
         self.assertTrue("-" in token, "failure getting implicit token: " + token)
         data = 'client_id=' + self.user_api_id + '&client_secret=' + self.user_api_pass + '&token=' + token
         curl_params = ['-i', '--data', data, '-X' ,'POST']
@@ -46,16 +53,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_generate_exchange(self):
         self.assertTrue(1)
-
-    def test_all_endpoints(self):
-        self._check_endpoint('qa.orcid.org')
-        #self._check_endpoint('api.qa.orcid.org')
-        #self._check_endpoint('pub.qa.orcid.org')
-
-    def _check_endpoint(self, srvname):
-        self.firefox.setServerName(srvname)
-        token = self.firefox.getImplicitToken(self.usrname, self.secret, self.user_api_id)
-        self.assertTrue("-" in token, "failure getting implicit token: " + token + " with server: " + srvname)"""
 
     def tearDown(self):
         self.firefox.bye()
