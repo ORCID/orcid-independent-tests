@@ -24,7 +24,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     #Test no information is returned using the public API
     def test_read_limited_record_with_20_public_api(self):
         #Test that reading a limited record with the 2.0 public api returns only the public info
-        curl_params = ['-H', "Accept: application/Ωxml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
@@ -45,7 +45,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Test that reading a limited record with the 3.0 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
-        response_body = response.partition('X-Content-Type-Options: nosniff')[2]
+        response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
