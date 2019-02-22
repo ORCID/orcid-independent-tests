@@ -27,7 +27,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         saved_file = open('saved_records/empty_limited_record20.xml','r').read()
         self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + 'saved_file: ' + saved_file)
@@ -37,7 +37,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -46,7 +46,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
 
@@ -75,7 +75,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -97,7 +97,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -124,7 +124,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
 
@@ -247,7 +247,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -268,7 +268,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -289,7 +289,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
 
@@ -331,7 +331,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -340,7 +340,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_work20.json','r').read(), 'response_body: ' + response_body)
 
@@ -349,7 +349,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_email20.json','r').read(), 'response_body: ' + response_body)
 
@@ -358,7 +358,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -367,7 +367,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_work21.json','r').read(), 'response_body: ' + response_body)
 
@@ -376,7 +376,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_email21.json','r').read(), 'response_body: ' + response_body)
 
@@ -385,7 +385,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record30.xml','r').read(), 'response_body: ' + response_body)
 
@@ -394,7 +394,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_work30.json','r').read(), 'response_body: ' + response_body)
 
@@ -403,7 +403,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_email30.json','r').read(), 'response_body: ' + response_body)
 
