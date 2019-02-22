@@ -19,8 +19,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 131
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -28,8 +28,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 131
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -37,8 +37,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 133
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
 
@@ -46,8 +46,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 133
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
-        response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
 
@@ -56,8 +56,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.public_orcid_id + "/record", curl_params)
         response_body = response
-        #response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        #response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        #response_body = response.partition('X-Frame-Options: DENY')[2]
+        #response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         """try:
             xml3 = open("/tmp/public_record30.xml", 'w')
@@ -71,8 +71,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #TEST 133
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-k', '-X', 'GET']
         response_body = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.public_orcid_id + "/record", curl_params)
-        #response_body = response.partition('X-Content-Type-Options: nosniff')[2]
-        #response_body = re.sub('[ \t](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\\n','', response_body)
+        #response_body = response.partition('X-Frame-Options: DENY')[2]
+        #response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
 
