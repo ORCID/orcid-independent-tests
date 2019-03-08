@@ -1,3 +1,19 @@
+def pytest(unit){
+    try{
+        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
+    } catch(Exception err) {
+        throw err
+    }
+}
+def startBrowser(){
+    echo "Creating xvfb..."
+    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir ${WORKSPACE}/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
+    sh "cat /tmp/xvfb_jenkins_py.pid"
+}
+def stopBrowser(){
+    echo "Destroying xvfb..."
+    sh "XVFB_PID=\$(cat /tmp/xvfb_jenkins_py.pid) ; kill \$XVFB_PID" 
+}
 node {
 
     properties([
@@ -35,27 +51,12 @@ node {
         } catch(Exception err) {
             def err_msg = err.getMessage()
             echo "Tests problem: $err_msg"
+            throw err
         } finally {
+            archive 'geckodriver.log'
             stopBrowser()
             junit 'results/*.xml'
             deleteDir()
-            throw err
         }
     }
-}
-def pytest(unit){
-    try{
-        sh "export DISPLAY=:1.0 ; . .py_env/bin/activate && py.test --junitxml results/${unit}.xml orcid/${unit}.py"
-    } catch(Exception err) {
-        throw err
-    }
-}
-def startBrowser(){
-    echo "Creating xvfb..."
-    sh "Xvfb :1 -screen 0 1024x758x16 -fbdir ${WORKSPACE}/xvfb_jenkins_py & > /dev/null 2>&1 && echo \$! > /tmp/xvfb_jenkins_py.pid"
-    sh "cat /tmp/xvfb_jenkins_py.pid"
-}
-def stopBrowser(){
-    echo "Destroying xvfb..."
-    sh "XVFB_PID=\$(cat /tmp/xvfb_jenkins_py.pid) ; kill \$XVFB_PID" 
 }
