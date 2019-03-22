@@ -258,14 +258,14 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
        	#Check record has deactivated date
-        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30.xml','r').read(), "No deactivate date " + response_body.strip())
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read(), "No deactivate date " + response_body.strip())
 
     def test_read_deactivated_record_public_api_30(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
        	#Check record has deactivated date
-        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30.xml','r').read(), "No deactivate date " + response_body.strip())
+        self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read(), "No deactivate date " + response_body.strip())
 
     def test_read_locked_record_member_api_30(self):
         curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
