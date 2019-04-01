@@ -515,8 +515,7 @@
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>doi</common:external-id-type>
-                        <common:external-id-value>123</common:external-id-value>
-                        <common:external-id-normalized transient="true"></common:external-id-normalized>
+                        <common:external-id-value>123</common:external-id-value>                        
                         <common:external-id-normalized-error transient="true">
                             <common:error-code>8001</common:error-code>
                             <common:error-message>Cannot normalize identifier value doi:123</common:error-message>
@@ -539,8 +538,7 @@
                     <common:external-ids>
                         <common:external-id>
                             <common:external-id-type>doi</common:external-id-type>
-                            <common:external-id-value>123</common:external-id-value>
-                            <common:external-id-normalized transient="true"></common:external-id-normalized>
+                            <common:external-id-value>123</common:external-id-value>                            
                             <common:external-id-normalized-error transient="true">
                                 <common:error-code>8001</common:error-code>
                                 <common:error-message>Cannot normalize identifier value doi:123</common:error-message>
