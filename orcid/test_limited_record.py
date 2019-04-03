@@ -518,7 +518,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
+        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
 
     def test_read_limited_work_with_30rc2_limited_token(self):
         # TEST 161
