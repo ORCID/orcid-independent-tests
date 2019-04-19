@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<address:address xmlns:address="http://www.orcid.org/ns/address"
+	xmlns:common="http://www.orcid.org/ns/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.orcid.org/ns/address https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc2/address-3.0_rc2.xsd ">			
+		<address:country>PT</address:country>
+</address:address>

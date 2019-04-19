@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<research-resource:research-resource
+	xmlns:common="http://www.orcid.org/ns/common" xmlns:research-resource="http://www.orcid.org/ns/research-resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.orcid.org/ns/research-resource ../research-resource-3.0_rc2.xsd ">
+	<research-resource:proposal>
+		<research-resource:title>
+			<common:title>The best ever Giant Laser Award 3</common:title>
+			<common:translated-title language-code="en">Giant Laser Award</common:translated-title>
+		</research-resource:title>
+		<research-resource:hosts>
+			<common:organization>
+        	<common:name>National Science Foundation</common:name>
+        	<common:address>
+            <common:city>Arlington</common:city>
+            <common:region>VA</common:region>
+            <common:country>US</common:country>
+        	</common:address>
+        	<common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.431093.c</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        	</common:disambiguated-organization>
+			</common:organization>
+		</research-resource:hosts>
+		   <common:external-ids>
+			<common:external-id>
+				<common:external-id-type>handle</common:external-id-type>
+				<common:external-id-value>https://grants.net/1234567</common:external-id-value>
+				<common:external-id-relationship>self</common:external-id-relationship>
+			</common:external-id>
+		</common:external-ids>
+			<common:start-date>
+				<common:year>2019</common:year>
+				<common:month>02</common:month>
+				<common:day>02</common:day>
+			</common:start-date>
+			<common:end-date>
+				<common:year>2019</common:year>
+				<common:month>02</common:month>
+				<common:day>10</common:day>
+			</common:end-date>
+			<common:url>http://xsede.org/GiantLaserAward</common:url>
+		</research-resource:proposal>
+			<research-resource:resource-items>
+				<research-resource:resource-item>
+					<research-resource:resource-name>Giant Laser 1</research-resource:resource-name>
+					<research-resource:resource-type>infrastructures</research-resource:resource-type>
+					<research-resource:hosts>
+						<common:organization>
+        <common:name>Statistical and Applied Mathematical Sciences Institute</common:name>
+        <common:address>
+            <common:city>Durham</common:city>
+            <common:region>NC</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.438085.2</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+			</common:organization>
+					</research-resource:hosts>
+					<common:external-ids>
+						<common:external-id>
+							<common:external-id-type>rrid</common:external-id-type>
+							<common:external-id-value>rrid:giantLASER</common:external-id-value>
+							<common:external-id-relationship>self</common:external-id-relationship>
+						</common:external-id>
+						<common:external-id>
+							<common:external-id-type>doi</common:external-id-type>
+							<common:external-id-value>https://doi.org/10.123/giantlaser</common:external-id-value>
+							<common:external-id-relationship>self</common:external-id-relationship>
+						</common:external-id>
+					</common:external-ids>
+				</research-resource:resource-item>
+				<research-resource:resource-item>
+					<research-resource:resource-name>Giant Laser 2</research-resource:resource-name>
+					<research-resource:resource-type>infrastructures</research-resource:resource-type>
+					<research-resource:hosts>
+						<common:organization>
+        <common:name>Statistical and Applied Mathematical Sciences Institute</common:name>
+        <common:address>
+            <common:city>Durham</common:city>
+            <common:region>NC</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.438085.2</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+			</common:organization>
+					</research-resource:hosts>
+					<common:external-ids>
+						<common:external-id>
+							<common:external-id-type>uri</common:external-id-type>
+							<common:external-id-value>https://moon.org/targetOnTheMoon</common:external-id-value>
+							<common:external-id-relationship>part-of</common:external-id-relationship>
+						</common:external-id>
+					</common:external-ids>
+					<common:url>http://laser2.com</common:url>
+				</research-resource:resource-item>
+								<research-resource:resource-item>
+					<research-resource:resource-name>Giant Laser 3</research-resource:resource-name>
+					<research-resource:resource-type>infrastructures</research-resource:resource-type>
+					<research-resource:hosts>
+						<common:organization>
+        <common:name>Mathers</common:name>
+        <common:address>
+            <common:city>Durham</common:city>
+            <common:region>NC</common:region>
+            <common:country>US</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>grid.438085.2</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>GRID</common:disambiguation-source>
+        </common:disambiguated-organization>
+			</common:organization>
+					</research-resource:hosts>
+					<common:external-ids>
+						<common:external-id>
+							<common:external-id-type>uri</common:external-id-type>
+							<common:external-id-value>https://moon.org/targetOnTheMoon</common:external-id-value>
+							<common:external-id-relationship>part-of</common:external-id-relationship>
+						</common:external-id>
+					</common:external-ids>
+					<common:url>http://laser2.com2</common:url>
+				</research-resource:resource-item>
+			</research-resource:resource-items>
+</research-resource:research-resource>
