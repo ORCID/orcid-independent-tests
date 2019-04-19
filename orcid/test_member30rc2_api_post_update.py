@@ -4,16 +4,16 @@ import properties
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        #self.client_id     = properties.memberClientId
-        #self.client_secret = properties.memberClientSecret
-        self.notify_token  = 'eafafe49-b5bf-41db-9fb5-ad3a6cba575b'
-        self.orcid_id      = '0000-0002-3127-5088'
+        self.client_id     = properties.memberClientId
+        self.client_secret = properties.memberClientSecret
+        self.notify_token  = properties.notifyToken
+        self.orcid_id      = properties.orcidId
         self.version	   = "/v3.0_rc2/"
         self.scope               = "/read-limited%20/activities/update%20/person/update"
-        #self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
-        #self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
+        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         #Use below when testing locally
-        self.access = '931b7cc5-52da-4575-b09b-cccc2bd4646a'
+		#self.access = properties.oauthToken 
 
 
     
