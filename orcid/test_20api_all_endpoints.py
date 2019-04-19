@@ -25,9 +25,9 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         return put_response
 
     def read20(self, endpoint):
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-	read_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
-	return read_response
+    	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+    	read_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+    	return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
@@ -153,6 +153,19 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_peerreview_group(self):
         self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         self.group(self.group_access, 'group.xml', 'group-id-record', '0000-0005')
+        
+    def test_client_endpoint(self):
+    	#check response of the client endpoint
+    	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
+        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/client/APP-7M3CGDKMQE36J56N", curl_params)
+        self.assertTrue("secret" not in response, "Unexpected response: " + response)
+        
+    def test_client_endpoint(self):
+    	#check response of the client endpoint in xml
+    	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
+        response = self.orcid_curl("https://pub.qa.orcid.org/v2.0/client/APP-7M3CGDKMQE36J56N", curl_params)
+        self.assertTrue("secret" not in response, "Unexpected response: " + response)
+    	
 
 
  
