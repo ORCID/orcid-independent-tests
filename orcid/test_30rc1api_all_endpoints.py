@@ -136,39 +136,39 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def test_education30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2000"}},"organization":{"name":"Massachusetts Institute of Technology","address":{"city":"Cambridge","region":"MA","country":"US"},"disambiguated-organization" : {"disambiguated-organization-identifier":"2167","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30rc1postedu.xml', 'education', 'educations', jsontext, 'Art History', 'Rocket Science', 'Car Repair')
+        self.bio20('30postedu.xml', 'education', 'educations', jsontext, 'Art History', 'Rocket Science', 'Car Repair')
         
     def test_employ30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30rc1postemploy.xml', 'employment', 'employments', jsontext, 'Annapolis', 'Oxford', 'ORCID')
+        self.bio20('30postemploy.xml', 'employment', 'employments', jsontext, 'Annapolis', 'Oxford', 'ORCID')
         
     def test_distinction30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"},"month" : {"value" : "07"},"day" : {"value" : "02"}},"organization":{"name":"University of Oxford","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"grid.4991.5","disambiguation-source" : "GRID"}}}'
-        self.bio20('30rc1postdistinct.xml', 'distinction', 'distinctions', jsontext, 'Annapolis', 'Oxford', 'Swarthmore')
+        self.bio20('30postdistinct.xml', 'distinction', 'distinctions', jsontext, 'Annapolis', 'Oxford', 'Swarthmore')
         
     def test_invited30(self):
         jsontext = '"start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"Harvard University","address":{"city":"Cambridge","region":"MA","country":"US"},"disambiguated-organization" : {"disambiguated-organization-identifier":"grid.38142.3c","disambiguation-source" : "GRID"}},"external-ids" : {"external-id" : [ {"external-id-type" : "grant_number","external-id-value" : "external-identifier-value3","external-id-relationship" : "self"}]}}'
-        self.bio20('30rc1postinvited.xml', 'invited-position', 'invited-positions', jsontext, 'Digital', 'Harvard', 'Oberlin')
+        self.bio20('30postinvited.xml', 'invited-position', 'invited-positions', jsontext, 'Digital', 'Harvard', 'Oberlin')
         
     def test_membership30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30rc1postmembership.xml', 'membership', 'memberships', jsontext, 'Annapolis', 'Oxford', 'AARP')
+        self.bio20('30postmembership.xml', 'membership', 'memberships', jsontext, 'Annapolis', 'Oxford', 'AARP')
         
     def test_qualification30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30rc1postqualify.xml', 'qualification', 'qualifications', jsontext, 'Annapolis', 'Oxford', 'AFL-CIO')
+        self.bio20('30postqualify.xml', 'qualification', 'qualifications', jsontext, 'Annapolis', 'Oxford', 'AFL-CIO')
         
     def test_service30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30rc1postservice.xml', 'service', 'services', jsontext, 'Annapolis', 'Oxford', 'ORCID')
+        self.bio20('30postservice.xml', 'service', 'services', jsontext, 'Annapolis', 'Oxford', 'ORCID')
 
     def test_funding30(self):
         jsontext = '"title":{"title":{"value":"Funding to researcher identifiers"}},"external-ids":{"external-id":[{"external-id-type":"grant_number","external-id-value":"7777","external-id-url":null,"external-id-relationship":"self"}]},"type":"grant","organization":{"name":"Wellcome Trust","address":{"city":"London","region":null,"country":"GB"},"disambiguated-organization":{"disambiguated-organization-identifier":"http://dx.doi.org/10.13039/100004440","disambiguation-source":"FUNDREF"}}}'
-        self.works20('30rc1postfund.xml', 'funding', 'fundings', jsontext, '6666', '7777', '8888')
+        self.works20('30postfund.xml', 'funding', 'fundings', jsontext, '6666', '7777', '8888')
 
     def test_researchresource30(self):
         jsontext = '"proposal":{"title":{"title":{"value":"Special Collections Access Request"}},"hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1004","external-id-relationship":"self"}]}},"resource-item":[{"resource-name":"Special Collection","resource-type":"collections","hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1100","external-id-relationship":"self"}]}}]}'
-        self.works20('30rc1postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
+        self.works20('30postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
 
     def test_works20(self):
         jsontext = '"title":{"title":{"value":"Catcher in the Rye"}},"type":"book","external-ids":{"external-id":[{"external-id-type":"doi","external-id-value":"1234","external-id-url":null,"external-id-relationship":"self"}]}}'
@@ -177,6 +177,18 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_peerreview_group(self):
         self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         self.group(self.group_access, 'group.xml', 'group-id-record', '0000-0005')
+        
+    def test_client_endpoint(self):
+    	#check response of the client endpoint
+    	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
+        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
+        self.assertTrue("secret" not in response, "Unexpected response: " + response)
+        
+    def test_client_endpoint(self):
+    	#check response of the client endpoint in xml
+    	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
+        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
+        self.assertTrue("secret" not in response, "Unexpected response: " + response)
 
 
  
