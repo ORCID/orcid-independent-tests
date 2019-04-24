@@ -7,6 +7,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.client_id     = properties.memberClientId
         self.client_secret = properties.memberClientSecret
         self.notify_token  = properties.notifyToken
+        self.webhook_access= self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
         self.version	   = "/v3.0/"
         #Comment out below when testing locally
         self.orcid_id      = properties.orcidId
@@ -16,8 +17,6 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         #Use below when testing locally
 		#self.access = ""
 		#self.orcid_id = ""
-
-
     
     def test_post_update_work(self):
         #Post a work using 3.0 to the record created for testing today
@@ -96,5 +95,11 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Post a notification using 3.0 to the record created for testing today. Use the existing notify token.
         response = self.post_activity(self.version, "notification-permission", "ma30_notify.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        
+    def test_post_webhook(self):
+    #Post a webhook for the ORCID iD. This test is not version dependent
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'PUT']
+        response = self.orcid_curl("http://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
+        self.assertTrue("201 Created" in response, "response: " + response)
         
         
