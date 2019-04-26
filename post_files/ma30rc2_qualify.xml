@@ -2,11 +2,9 @@
 <qualification:qualification
     xmlns:common="http://www.orcid.org/ns/common" xmlns:qualification="http://www.orcid.org/ns/qualification"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/qualification https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0/qualification-3.0.xsd ">
-     	<common:department-name>3.0 Department</common:department-name>
-		<common:role-title>Role #3</common:role-title>
+    xsi:schemaLocation="http://www.orcid.org/ns/qualification https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc2/qualification-3.0_rc2.xsd ">
      <common:start-date>
-		<common:year>2009</common:year>
+		<common:year>2008</common:year>
 	</common:start-date>	
     <common:organization>
         <common:name>NASA Education</common:name>

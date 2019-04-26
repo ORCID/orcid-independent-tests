@@ -3,18 +3,20 @@
  xmlns:common="http://www.orcid.org/ns/common"
     xmlns:peer-review="http://www.orcid.org/ns/peer-review" xmlns:work="http://www.orcid.org/ns/work"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.orcid.org/ns/peer-review https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0/peer-review-3.0.xsd">		
+    xsi:schemaLocation="http://www.orcid.org/ns/peer-review https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0_rc2/peer-review-3.0_rc2.xsd">		
     <peer-review:reviewer-role>reviewer</peer-review:reviewer-role>
 <peer-review:review-identifiers>
     <common:external-id>
         <common:external-id-type>source-work-id</common:external-id-type>
-        <common:external-id-value>000005</common:external-id-value>
+        <common:external-id-value>000004</common:external-id-value>
         <common:external-id-relationship>self</common:external-id-relationship>
     </common:external-id>
 </peer-review:review-identifiers>
     <peer-review:review-type>review</peer-review:review-type>
     <peer-review:review-completion-date>
-        <common:year>2019</common:year>
+        <common:year>2018</common:year>
+        <common:month>02</common:month>
+        <common:day>02</common:day>
     </peer-review:review-completion-date>
     <peer-review:review-group-id>orcid-generated:grid.470008.b</peer-review:review-group-id>
     <peer-review:subject-type>journal-article</peer-review:subject-type>

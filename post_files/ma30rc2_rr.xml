@@ -2,10 +2,10 @@
 <research-resource:research-resource
 	xmlns:common="http://www.orcid.org/ns/common" xmlns:research-resource="http://www.orcid.org/ns/research-resource"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.orcid.org/ns/research-resource ../research-resource-3.0.xsd ">
+	xsi:schemaLocation="http://www.orcid.org/ns/research-resource ../research-resource-3.0_rc2.xsd ">
 	<research-resource:proposal>
 		<research-resource:title>
-			<common:title>The best ever Giant Laser Award 4</common:title>
+			<common:title>The best ever Giant Laser Award 3</common:title>
 			<common:translated-title language-code="en">Giant Laser Award</common:translated-title>
 		</research-resource:title>
 		<research-resource:hosts>
@@ -25,13 +25,20 @@
 		   <common:external-ids>
 			<common:external-id>
 				<common:external-id-type>handle</common:external-id-type>
-				<common:external-id-value>https://grants.net/12345678</common:external-id-value>
+				<common:external-id-value>https://grants.net/1234567</common:external-id-value>
 				<common:external-id-relationship>self</common:external-id-relationship>
 			</common:external-id>
 		</common:external-ids>
 			<common:start-date>
-				<common:year>2020</common:year>
+				<common:year>2019</common:year>
+				<common:month>02</common:month>
+				<common:day>02</common:day>
 			</common:start-date>
+			<common:end-date>
+				<common:year>2019</common:year>
+				<common:month>02</common:month>
+				<common:day>10</common:day>
+			</common:end-date>
 			<common:url>http://xsede.org/GiantLaserAward</common:url>
 		</research-resource:proposal>
 			<research-resource:resource-items>

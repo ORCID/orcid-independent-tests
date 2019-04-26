@@ -16,22 +16,22 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 #3.0_rc1
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s" % (self.orcid_id, endpoint), curl_params)
+        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)
         return post_response
 
     def put20(self, putjson, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+json', '-H', 'Accept: application/json', '-d', self.putjson, '-X', 'PUT']
-        put_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        put_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return put_response
 
     def read20(self, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-	read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s" % (self.orcid_id, endpoint), curl_params)
+	read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)
 	return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return delete_response
 
     def getputcode(self, post_response):
@@ -43,17 +43,17 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def post_group(self, group_access, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s" % endpoint, curl_params)
+        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s" % endpoint, curl_params)
         return post_response
 
     def delete_group(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s" % (endpoint, putcode), curl_params)
+        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s" % (endpoint, putcode), curl_params)
         return delete_response
 
     def read_group(self, grou_access, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', 'GET']
-        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/%s/%s" % (endpoint, putcode), curl_params)
+        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s" % (endpoint, putcode), curl_params)
         return read_response
 
     def group(self, group_access, xmlfile, postendpoint, group_id):
@@ -181,15 +181,15 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_client_endpoint(self):
     	#check response of the client endpoint
     	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
+        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc2/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
         
     def test_client_endpoint(self):
     	#check response of the client endpoint in xml
     	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
-        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
+        response = self.orcid_curl("https://pub.qa.orcid.org/v3.0_rc2/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
 
 
  
-#read the record: curl -H 'Content-Type: application/orcid+xml' -H 'Authorization: Bearer f4f35385-f903-451c-9a15-cde960dca66b' -X GET 'https://api.qa.orcid.org/v3.0_rc1/0000-0002-7361-1027/fundings' -L -i -k
+#read the record: curl -H 'Content-Type: application/orcid+xml' -H 'Authorization: Bearer f4f35385-f903-451c-9a15-cde960dca66b' -X GET 'https://api.qa.orcid.org/v3.0_rc2/0000-0002-7361-1027/fundings' -L -i -k
