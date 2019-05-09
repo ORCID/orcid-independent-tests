@@ -19,12 +19,12 @@ class ReadEndPoints(OrcidBaseTest.OrcidBaseTest):
         
     def read_members(self, version, orcid_id, token, endpoint):
     	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + token, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-    	read_response = self.orcid_curl("https://api.qa.orcid.org/%s/%s/%s" % (version, orcid_id, endpoint), curl_params)
+    	read_response = self.orcid_curl("https://api." + properties.test_server + "/%s/%s/%s" % (version, orcid_id, endpoint), curl_params)
     	return read_response
     	
     def read_public(self, version, orcid_id, token, endpoint):
     	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + token, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-    	read_response = self.orcid_curl("https://pub.qa.orcid.org/%s/%s/%s" % (version, orcid_id, endpoint), curl_params)
+    	read_response = self.orcid_curl("https://pub." + properties.test_server + "/%s/%s/%s" % (version, orcid_id, endpoint), curl_params)
     	return read_response
         
         

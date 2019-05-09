@@ -5,7 +5,7 @@ import properties
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.server_name   = 'qa.orcid.org'
+        self.server_name   = properties.test_server
         self.firefox       = OrcidBrowser()
         self.orcid_id      = properties.user_orcid_id
         self.user_api_id   = properties.user_api_id
@@ -23,7 +23,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(self.orcid_id in response, "user information not returned, got: " + response)
 
     def test_01_all_endpoints(self):
-        self._check_endpoint('qa.orcid.org')
+        self._check_endpoint(self.server_name )
         #self._check_endpoint('api.qa.orcid.org')
         #self._check_endpoint('pub.qa.orcid.org')
 
