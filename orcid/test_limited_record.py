@@ -542,7 +542,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     #Test public json expecting server errors
     def test_limited_public_json_server_error(self):
         for item in self.public_json_items:
-            work_url = ('http://qa.orcid.org/' + self.limited_orcid_id + '/' + item)
+            work_url = ('http://" + properties.test_server + "/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
             self.assertTrue("There has been a problem with the server" in response, "Expected server error instead: " + response)
@@ -550,14 +550,14 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     #Test public json expecting empty page
     def test_limited_public_json_empty(self):
         for item in self.public_json_work:
-            work_url = ('http://qa.orcid.org/' + self.limited_orcid_id + '/' + item)
+            work_url = ('http://" + properties.test_server + "/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
             self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
-        work_url = 'http://qa.orcid.org/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005'
+        work_url = 'http://" + properties.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005'
         response = urllib.urlopen(work_url).read()
         print work_url
         self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response, "Expected empty brackets instead: " + response)
