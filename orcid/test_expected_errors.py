@@ -18,39 +18,40 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
         self.static_access          = properties.staticAccess
         self.static_orcid_id        = properties.staticId
-
+		
+        #This batch of tests check to see if the API throws expected errors for incorrect actions
     def test_access_wrong_record2(self):
-        # TEST 113
+        # Test that posting a work to the wrong orcid record with the 2.0 API returns the expected 401 unauthorized error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
 
     def test_access_wrong_record21(self):
-        # TEST 113
+        # Test that posting a work to the wrong orcid record with the 2.1 API returns the expected 401 unauthorized error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
 
     def test_access_wrong_record30rc1(self):
-        # Post a work using an access token for another record
+        # Post a work using an access token for another record using the 3.0_rc1 API
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("401 Unauthorized" in response, "Non 401 returned: " + response)
 
     def test_access_record2_without_token(self):
-        # TEST 114
+        # Test posting a work using 2.0 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
 
     def test_access_record21_without_token(self):
-        # TEST 114
+        # Test posting a work using 2.1 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
 
     def test_access_record30rc1_without_token(self):
-        # Post a work without an access token
+        # Test posting the ma30_work.xml work using 3.0_rc1 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
@@ -64,7 +65,6 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = "{'put-code':'%s','title':{'title':'APITestTitleUpdated'},'type':'JOURNAL_ARTICLE','external-ids':{'external-id':[{'external-id-value':'123456','external-id-type':'doi','external-id-relationship':'SELF'}]}}" %  str(putcode)
-        # TEST 115
         activity_type = "work"
         update_curl_params = ['-i', '-L', '-k', '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
@@ -90,11 +90,13 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
 
     def test_member_http_read_20(self):
+        #Test making a call with 2.0 API using http not https returns the expected 9012 error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
         self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
 
     def test_member_http_read_21(self):
+        #Test making a call with 2.0 API using http not https returns the expected 9012 error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("http://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
         self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)

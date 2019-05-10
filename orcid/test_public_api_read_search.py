@@ -11,40 +11,47 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
 
     def test_read(self):
+		# Test read the private record (public without a token) and check no error returned
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/0000-0001-6085-8875/record", ['-i', '-k', '-H', "Accept: application/xml"])
         self.assertFalse("error-code" in response, "error-code Not found on json response")
 
     def test_search_my_record_20(self):
+		# Test search for the record with the 2.0 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/search?q=" + self.seach_value, curl_params)
         self.assertTrue("http://" + properties.test_server + "/" + self.orcid_id in response, "Record not retuned in search" + response)
 
     def test_read_record_with_20_api(self):
+		# Test read record with the public 2.0 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.orcid_id + "/record", curl_params)
         self.assertTrue("http://" + properties.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
 
     def test_search_my_record_21(self):
+		# Test search for orcid with the 2.1 public api and check it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/search?q=" + self.seach_value, curl_params)
         self.assertTrue("https://" + properties.test_server + "/" + self.orcid_id in response, "Record not retuned in search" + response)
 
     def test_read_record_with_21_api(self):
+		# Test read record with the public 2.1 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.orcid_id + "/record", curl_params)
         self.assertTrue("https://" + properties.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
 
     def test_search_my_record_30(self):
+		# Test search for orcid with the 3.0_rc1 public api and check it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/search?q=" + self.seach_value, curl_params)
         self.assertTrue("https://" + properties.test_server + "/" + self.orcid_id in response, "Record not retuned in search" + response)
 
     def test_read_record_with_30_api(self):
+		# Test read record with the public 3.0_rc1 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.orcid_id + "/record", curl_params)

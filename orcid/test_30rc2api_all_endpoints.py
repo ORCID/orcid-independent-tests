@@ -13,7 +13,8 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.orcid_id    = properties.staticId
         self.access      = properties.staticAccess
 
-#3.0_rc1
+#3.0_rc2
+	# The following tests post, get put code for , read and check post is in response, then delete for every end-point on the 3.0_rc2 API
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)
