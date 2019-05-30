@@ -87,6 +87,6 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Post a bulk works item using 2.1 api to the record created for testing today
         response = self.post_activity(self.version, "works", "ma20_bulkworks.xml")
         self.assertTrue("200 OK" in response, "Response missing \"Created\" tag: " + response)
-	self.assertFalse("error" in response, "error in response" + respose)
+	self.assertFalse("error" in response, "error in response" + response)
         
         
