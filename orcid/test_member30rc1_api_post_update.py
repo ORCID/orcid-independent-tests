@@ -96,5 +96,12 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Post a notification using 3.0_rc1 to the record created for testing today. Use the existing notify token.
         response = self.post_activity(self.version, "notification-permission", "ma30rc1_notify.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+
+    def test_post_bulk_works(self):
+        # Post a bulk works item using 3.0_rc1 to the record created for testing today
+        response = self.post_activity(self.version, "works", "ma30rc1_bulkworks.xml")
+        self.assertTrue("200 OK" in response, "Response missing \"Created\" tag: " + response)
+	self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
+	self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
         
         
