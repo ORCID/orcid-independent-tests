@@ -106,4 +106,6 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Post a bulk works item using 3.0 to the record created for testing today
         response = self.post_activity(self.version, "works", "ma30_bulkworks.xml")
         self.assertTrue("200 OK" in response, "Response missing \"Created\" tag: " + response)
+	self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
+	self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
         
