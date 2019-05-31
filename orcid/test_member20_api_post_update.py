@@ -82,5 +82,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Test Post a notification to the record created for testing today. Use the existing notify token.
         response = self.post_activity(self.version, "notification-permission", "ma2_notify.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+	self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
+	self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
         
         
