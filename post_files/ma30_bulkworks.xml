@@ -4,7 +4,7 @@
 	xmlns:bulk="http://www.orcid.org/ns/bulk"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.orcid.org/ns/bulk ../bulk-3.0_rc2.xsd">
-	<work:work>
+	<!--<work:work>
 		<work:title>
 			<common:title>Bulk Work 3.0 #1</common:title>
 		</work:title>
@@ -42,6 +42,6 @@
 				<common:external-id-url>http://extId/3</common:external-id-url>
 				<common:external-id-relationship>self</common:external-id-relationship>
 			</common:external-id>
-		</common:external-ids>
+		</common:external-ids>-->
 	</work:work>
 </bulk:bulk>
