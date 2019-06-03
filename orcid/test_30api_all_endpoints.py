@@ -14,7 +14,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.access      = properties.staticAccess
 
 #3.0
-# The following tests post, get put code for , read and check post is in response, then delete for every end-point on the 3.0 API
+# The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
         post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
@@ -26,9 +26,9 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         return put_response
 
     def read20(self, endpoint):
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-	read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
-	return read_response
+    	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+    	read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+    	return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
@@ -115,6 +115,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)
 
+# Each test has josn to put and the parameters are: xml file to post, endpoint to post to, endpoint to read, json to put, text that is in the posted file, text that is in the json put update, manually added text
     def test_othername30(self):
         jsontext = '"display-index":0,"content":"Second Name"}'
         self.bio20('20postname.xml', 'other-names', 'other-names', jsontext, 'First name', 'Second Name', 'Other name')
@@ -171,13 +172,17 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"proposal":{"title":{"title":{"value":"Special Collections Access Request"}},"hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1004","external-id-relationship":"self"}]}},"resource-item":[{"resource-name":"Special Collection","resource-type":"collections","hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1100","external-id-relationship":"self"}]}}]}'
         self.works20('30postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
 
-    def test_works20(self):
+    def test_works30(self):
         jsontext = '"title":{"title":{"value":"Catcher in the Rye"}},"type":"book","external-ids":{"external-id":[{"external-id-type":"doi","external-id-value":"1234","external-id-url":null,"external-id-relationship":"self"}]}}'
         self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')
+        
+    def test_peer30(self):
+    	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
+        self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
         self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-        self.group(self.group_access, 'group.xml', 'group-id-record', '0000-0005')
+        self.group(self.group_access, 'group.xml', 'group-id-record', '00001')
         
     def test_client_endpoint(self):
     	#check response of the client endpoint
