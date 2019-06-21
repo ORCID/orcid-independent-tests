@@ -175,8 +175,8 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')     
     
     def test_peer20(self):
-    	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
-        self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
+    	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:1741-4857", "convening-organization" : { "name" : "Crossref", "address" : { "city" : "Lynnfield", "region" : "MA", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "grid.466633.2", "disambiguation-source" : "GRID" }}}'
+        self.bio20('30postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
     #search for and read a peer-review group with an issn group id
