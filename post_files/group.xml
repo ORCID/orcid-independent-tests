@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <group-id:group-id-record xmlns:common="http://www.orcid.org/ns/common" xmlns:group-id="http://www.orcid.org/ns/group-id" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.orcid.org/ns/peer-review https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/group-id-2.0_rc3/group-id-2.0_rc3.xsd">
-  <group-id:name>Idenpendent Test</group-id:name>
-  <group-id:group-id>orcid-generated:00001</group-id:group-id>
+  <group-id:name>Idenpendent Test Group</group-id:name>
+  <group-id:group-id>orcid-generated:ind</group-id:group-id>
   <group-id:description>Group created by the independent test</group-id:description>
     <group-id:type>journal</group-id:type>
 </group-id:group-id-record>
