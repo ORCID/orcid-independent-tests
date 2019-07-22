@@ -71,9 +71,11 @@ class OrcidBaseTest(unittest.TestCase):
 	    try:
             	json_response = json.loads(response)
 	    except:
-		print("no json in response: " + response)
+		raise ValueError("no json in response: " + response)
+	    print "new response: " + json_response
         else:
             json_response = self.load_secrets_from_file(code)
+	    print "loaded respone: " + json_response
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             return [json_response['access_token'],json_response['refresh_token']]
