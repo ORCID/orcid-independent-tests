@@ -68,7 +68,10 @@ class OrcidBaseTest(unittest.TestCase):
         if not os.path.isfile(os.path.join(self.secrets_file_path, code + self.secrets_file_extension)):
             exchange_data = ["-L", "-H", "Accept: application/json", "--data", "client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=authorization_code" + "&code=" + code + "&redirect_uri=https://developers.google.com/oauthplayground"]
             response = self.orcid_curl("https://pub." + properties.test_server + "/oauth/token", exchange_data)
-            json_response = json.loads(response)
+	    try:
+            	json_response = json.loads(response)
+	    except:
+		print("no json in response: " + response)
         else:
             json_response = self.load_secrets_from_file(code)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
