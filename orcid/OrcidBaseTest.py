@@ -18,6 +18,8 @@ class OrcidBaseTest(unittest.TestCase):
             p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(subprocess.list2cmdline(curl_call))
             output,err = p.communicate()
+	    print "output: " output
+	    print "err: " err
             return output
         except Exception as e:
             raise Exception(e)
@@ -72,10 +74,8 @@ class OrcidBaseTest(unittest.TestCase):
             	json_response = json.loads(response)
 	    except:
 		raise ValueError("no json in response: " + response)
-	    print "new response: " + json_response
         else:
             json_response = self.load_secrets_from_file(code)
-	    print "loaded respone: " + json_response
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             return [json_response['access_token'],json_response['refresh_token']]
