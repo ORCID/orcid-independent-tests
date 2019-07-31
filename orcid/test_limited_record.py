@@ -62,7 +62,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_work_with_20_public_api(self):
         # Test read limited work with the public api and make sure it returns error 9039
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942"curl_params )
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params )
         self.assertTrue("<error-code>9039</error-code>" in response, "Expected error code 9039 instead: " + response)
 
     def test_read_limited_email_with_20_public_api(self):
