@@ -80,7 +80,7 @@ class OrcidBaseTest(unittest.TestCase):
         return [None, None]
 
     def orcid_generate_token(self, client_id, client_secret, scope="/read-public"):
-        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
+        data = ['-L', '-H', '-k', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
@@ -91,7 +91,7 @@ class OrcidBaseTest(unittest.TestCase):
         return None
 
     def orcid_generate_member_token(self, client_id, client_secret, scope="/read-public"):
-        data = ['-L', '-H', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
+        data = ['-L', '-H', '-k', 'Accept: application/json', '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', 'scope=' + scope, '-d', 'grant_type=client_credentials']
         response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
@@ -102,7 +102,7 @@ class OrcidBaseTest(unittest.TestCase):
         return [None, None]
 
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
-        data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
+        data = ['-L', '-H', '-k', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
         response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
@@ -115,7 +115,7 @@ class OrcidBaseTest(unittest.TestCase):
 		return [None, None]
 
     def orcid_refresh_token(self, client_id, client_secret, access_token, refresh_token, scope="/read-limited%20/activities/update", revoke_old="false"):
-        data = ['-L', '-H', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
+        data = ['-L', '-H', '-k', 'Accept: application/json', '-H', 'Authorization: Bearer ' + str(access_token), '-d', "client_id=" + client_id, '-d', "client_secret=" + client_secret, '-d', "refresh_token=" + refresh_token, '-d', 'scope=' + scope, '-d', "revoke_old=" + revoke_old, '-d', 'grant_type=refresh_token']
         response = self.orcid_curl("https://api." + properties.test_server + "/oauth/token", data)
         json_response = json.loads(response)
         if('access_token' in json_response):
@@ -129,7 +129,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def remove_by_putcode(self, version, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
-        curl_params = ['-L', '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
+        curl_params = ['-L', '-H', '-k', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
         try:
             response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
             return response
@@ -146,7 +146,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def post_activity(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        curl_params = ['-i', '-L', '-H', '-k', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
@@ -161,22 +161,22 @@ class OrcidBaseTest(unittest.TestCase):
         return delete_response
 
     def read_record(self, version, token, endpoint = "record"):
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+        curl_params = ['-i', '-L', '-H', '-k', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
 
     def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        curl_params = ['-i', '-L', '-H', '-k', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
     def read_record(self, version, token, endpoint = "record"):
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+        curl_params = ['-i', '-L', '-H', '-k', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, endpoint) , curl_params)
         return response
 
     def post_activity_refresh(self, version, access_token, activity_type = "work", xml_file = "ma2_work.xml"):
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        curl_params = ['-i', '-L', '-H', '-k', 'Authorization: Bearer ' + str(access_token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
