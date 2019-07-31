@@ -25,7 +25,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_public_api(self):
         #Test that reading a limited record with the 2.0 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record/"curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record/", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -35,7 +35,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_21_public_api(self):
         #Test that reading a limited record with the 2.1 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -44,7 +44,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc1_public_api(self):
         #Test that reading a limited record with the 3.0 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -53,7 +53,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc2_public_api(self):
         #Test that reading a limited record with the 3.0_rc2 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[	 ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -89,7 +89,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_public_token(self):
         #Test that reading a limited record with the 2.0 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -111,7 +111,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_21_public_token(self):
         #Test that reading a limited record with the 2.1 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -138,7 +138,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     def test_read_limited_record_with_30_rc1_public_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -167,7 +167,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30rc2_public_token(self):
 		#Test when limited record is read with the 3.0_rc2 public api it matches the saved file
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -195,7 +195,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_revoked_token(self):
         #TEST 147
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_20_revoked_token(self):
@@ -210,7 +210,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     def test_read_limited_record_with_21_revoked_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_21_revoked_token(self):
@@ -225,7 +225,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     def test_read_limited_record_with_30_rc1_revoked_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_30_rc1_revoked_token(self):
@@ -240,7 +240,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     
     def test_read_limited_record_with_30rc2_revoked_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
     def test_read_limited_work_with_30rc2_revoked_token(self):
@@ -256,7 +256,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_wrong_token(self):
         #TEST 149
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
 
     def test_read_limited_work_with_20_wrong_token(self):
@@ -274,7 +274,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_21_wrong_token(self):
         #TEST 149
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
 
     def test_read_limited_work_with_21_wrong_token(self):
@@ -292,7 +292,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc1_wrong_token(self):
         #TEST 149
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
 
     def test_read_limited_work_with_30_rc1_wrong_token(self):
@@ -329,7 +329,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_update_token(self):
         #TEST 153
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -350,7 +350,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_21_update_token(self):
         #TEST 153
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -371,7 +371,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc1_update_token(self):
         #TEST 153
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -392,7 +392,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30rc2_update_token(self):
         #TEST 153
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -415,7 +415,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_create_token(self):
         #TEST 156
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.create_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         self.assertTrue("<error-code>9005</error-code>" in response, "Expected error code 9005 instead: " + response)
 
     def test_read_limited_work_with_20_create_token(self):
@@ -434,7 +434,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_20_limited_token(self):
         #TEST 160
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -461,7 +461,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_21_limited_token(self):
         #TEST 160
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -488,7 +488,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc1_limited_token(self):
         #TEST 160
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
@@ -515,7 +515,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     def test_read_limited_record_with_30_rc2_limited_token(self):
         #TEST 160
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record"curl_params )
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params )
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
