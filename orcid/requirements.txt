@@ -1,3 +1,4 @@
 junit_xml
 pytest
 selenium
+simplejson

@@ -1,6 +1,6 @@
 import unittest
 import subprocess
-import simplejson as json
+import json
 import os.path
 import urllib
 import properties
