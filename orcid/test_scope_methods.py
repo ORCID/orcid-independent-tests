@@ -11,7 +11,7 @@ class ScopeMethods(OrcidBaseTest.OrcidBaseTest):
 
     def test_get_read_limited_token_with_basic(self):
         #Test you can't get a /read-limited token with a public client
-        curl_params = ['-L', '-s', '-D', '-', '-o', '/dev/null']
+        curl_params = ['-k', '-L', '-s', '-D', '-', '-o', '/dev/null']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/authorize?client_id=%s&response_type=code&scope=/read-limited&redirect_uri=https://developers.google.com/oauthplayground" % (self.public_client_id), curl_params)
         self.assertTrue("Invalid scope" in response, "Unexpected response: " + response)
 
