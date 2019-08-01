@@ -18,6 +18,8 @@ class OrcidBaseTest(unittest.TestCase):
             p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(subprocess.list2cmdline(curl_call))
             output,err = p.communicate()
+            print "output: " + output
+            print "err: " + err
             return output
         except Exception as e:
             raise Exception(e)
