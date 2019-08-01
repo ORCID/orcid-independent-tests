@@ -20,7 +20,7 @@ class OrcidBrowser:
         caps = DesiredCapabilities.FIREFOX.copy()
         caps['acceptInsecureCerts'] = True
         ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+        self.ff = webdriver.Firefox(firefox_binary=ff_bin, capabilities=caps)
 
     def bye(self):
         return self.ff.quit()
