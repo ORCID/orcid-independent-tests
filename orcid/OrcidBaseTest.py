@@ -146,7 +146,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def post_activity(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
-        curl_params = ['-i', '-k','-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        curl_params = ['-i', '-k', '-L', '-H', 'Authorization: Bearer ' + str(self.access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
