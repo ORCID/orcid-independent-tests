@@ -129,7 +129,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def remove_by_putcode(self, version, putcode, activity_type = "work"):
         print "Deleting putcode: %s" % putcode
-        curl_params = ['-k','-L','-H', Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
+        curl_params = ['-k','-L','-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-H', 'Authorization: Bearer ' + str(self.token), '-X', 'DELETE']
         try:
             response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s/%s" % (self.orcid_id, activity_type, putcode), curl_params)
             return response
