@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 import time
 
@@ -16,7 +17,9 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        ff_bin = FirefoxBinary(accept_untrusted_certs = True,'/opt/firefox-56.0.2/firefox')
+        caps = DesiredCapabilities.FIREFOX.copy()
+        caps['acceptInsecureCerts'] = True
+        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
         self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
