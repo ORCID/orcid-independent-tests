@@ -17,8 +17,10 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
+        caps = DesiredCapabilities.FIREFOX.copy()
+        caps['acceptInsecureCerts'] = True
         ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+        self.ff = webdriver.Firefox(firefox_binary=ff_bin, capabilities=caps)
 
     def bye(self):
         return self.ff.quit()
