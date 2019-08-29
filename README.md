@@ -67,7 +67,9 @@ At CI server create a job to load this repo and execute the test
 * Thanks to the `junit` build-in method the results will be available as a report on jenkins build results
 
 ## Run automated tests on Jenkins
+
 https://ci.orcid.org/job/ORCID-independent-tests-step1/
+
 https://ci.orcid.org/job/ORCID-independent-tests-step2/
 
 Click 'Build with parameters' to run each set of tests
