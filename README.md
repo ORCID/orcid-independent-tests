@@ -30,15 +30,17 @@ Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file contai
     password=abcxyz
     orcidId=0000-0003-4248-6064
     searchValue=13feb2017
+    publicClientId=[CLIENT ID]
+    publicClientSecret=[CLIENT SECRET]
 
 In order to execute the test suite against the target server
 
     source .py_env/bin/activate
     py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
 
-## Implement Automated Execution At Jenkins
+## Configure Automated Execution with Jenkins
 
-At CI server lets create a job to load this repo and execute the test
+At CI server create a job to load this repo and execute the test
 
 * Create new job of type `pipeline`
 
@@ -62,8 +64,10 @@ At CI server lets create a job to load this repo and execute the test
     }
 ```
 
-[full test](http://ci-3.orcid.org:8383/job/ORCID-independent-tests)
-
 * Thanks to the `junit` build-in method the results will be available as a report on jenkins build results
 
+## Run automated tests on Jenkins
+https://ci.orcid.org/job/ORCID-independent-tests-step1/
+https://ci.orcid.org/job/ORCID-independent-tests-step2/
 
+Click 'Build with parameters' to run each set of tests
