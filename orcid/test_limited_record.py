@@ -156,8 +156,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
         #Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
-    
-    
+
+
     def test_read_limited_funding_with_30_rc1_public_token(self):
         # Test nothing is returned when limited funding is read with the public api
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
@@ -185,7 +185,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
         #Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
-    
+
     def test_read_limited_funding_with_30rc2_public_token(self):
         # Test nothing is returned when limited funding is read with the public api
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-i', '-k', '-X', 'GET']
@@ -237,7 +237,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-    
+
     def test_read_limited_record_with_30rc2_revoked_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
@@ -306,7 +306,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-    
+
     def test_read_limited_record_with_30rc2_wrong_token(self):
         #TEST 149
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-i', '-k', '-X', 'GET']
@@ -342,9 +342,9 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
 
     def test_read_limited_email_with_20_update_token(self):
-    	curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
+        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
-       	#Check an empty email sections is returned
+        #Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
     def test_read_limited_record_with_21_update_token(self):
@@ -403,7 +403,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X',   'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942",   curl_params)
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-  
+
     def test_read_limited_email_with_30rc2_update_token(self):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
@@ -511,7 +511,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/limited_record_email30_rc1.json','r').read(), 'response_body: ' + response_body)
-    
+
     def test_read_limited_record_with_30_rc2_limited_token(self):
         #TEST 160
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
@@ -519,7 +519,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
+        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
 
     def test_read_limited_work_with_30rc2_limited_token(self):
         # TEST 161
@@ -562,3 +562,40 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = urllib.urlopen(work_url).read()
         print work_url
         self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response, "Expected empty brackets instead: " + response)
+
+    # Check if the work has been posted on behalf of another member
+    def test_member_obo_rc2(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/works/179580", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
+
+    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    def test_member_obo_rc1(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/works/179580", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
+
+    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    def test_member_obo_20(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/works/179580", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
+
+    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    def test_member_obo_10(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v1.0/" + self.limited_orcid_id + "/works/179580", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
+

@@ -494,6 +494,12 @@
                             <common:host>qa.orcid.org</common:host>
                         </common:source-client-id>
                         <common:source-name>Crossref</common:source-name>
+                        <common:assertion-origin-client-id>
+                            <common:uri>https://qa.orcid.org/client/APP-BFU1564HNFNRSX21</common:uri>
+                            <common:path>APP-BFU1564HNFNRSX21</common:path>
+                            <common:host>qa.orcid.org</common:host>
+                        </common:assertion-origin-client-id>
+                        <common:assertion-origin-name>Small publisher</common:assertion-origin-name>
                     </common:source>
                     <work:title>
                         <common:title>Work Title</common:title>
