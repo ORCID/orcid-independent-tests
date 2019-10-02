@@ -578,8 +578,10 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-client-id>'
+        workTag = '<work:work put-code="179580" visibility="limited">'
         #Compare the body of the response to the saved file.
-        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
+        self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
     def test_member_obo_20(self):
@@ -587,15 +589,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-client-id>'
+        workTag = '<work:work put-code="179580" visibility="limited">'
         #Compare the body of the response to the saved file.
-        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
-
-    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
-    def test_member_obo_10(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + properties.test_server + "/v1.0/" + self.limited_orcid_id + "/works/179580", curl_params)
-        response_body = response.partition('X-Frame-Options: DENY')[2]
-        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
-        #Compare the body of the response to the saved file.
-        self.assertTrue("<common:assertion-origin-client-id>" not in response_body, 'response_body: ' + response_body)
+        self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
