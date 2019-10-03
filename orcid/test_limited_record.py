@@ -572,7 +572,16 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
 
-    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    # Check if the work has been posted on behalf of another member
+    def test_member_obo_30(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/" + self.limited_orcid_id + "/works/179580", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
+
+    # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
     def test_member_obo_rc1(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/works/179580", curl_params)
@@ -583,7 +592,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
-    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
     def test_member_obo_20(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/works/179580", curl_params)
@@ -594,7 +603,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
-    # Assertion / OBO tag should be missing from releases prior to 3.0_rc2
+    # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
     def test_member_obo_21(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/works/179580", curl_params)
@@ -605,3 +614,53 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
+    # Check if the work has been posted on behalf of another member
+    def test_user_obo_rc2(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/works/179625", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-orcid>" in response_body, 'response_body: ' + response_body)
+
+    # Check if the work has been posted on behalf of another member
+    def test_user_obo_30(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/" + self.limited_orcid_id + "/works/179625", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue("<common:assertion-origin-orcid>" in response_body, 'response_body: ' + response_body)
+
+    # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
+    def test_user_obo_rc1(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/works/179625", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-orcid>'
+        workTag = '<work:work put-code="179625" visibility="limited">'
+        #Compare the body of the response to the saved file.
+        self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
+
+    # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
+    def test_user_obo_20(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/works/179625", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-orcid>'
+        workTag = '<work:work put-code="179625" visibility="limited">'
+        #Compare the body of the response to the saved file.
+        self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
+
+    # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
+    def test_user_obo_21(self):
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.limited_orcid_id + "/works/179625", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-orcid>'
+        workTag = '<work:work put-code="179625" visibility="limited">'
+        #Compare the body of the response to the saved file.
+        self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
