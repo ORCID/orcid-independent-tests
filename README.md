@@ -10,7 +10,7 @@ The tests are divided into two group Step 1 tests read and write to static recor
 
 * test_public_record.py : test reading public information
 * test_limited_record.py : test reading limited information
-* test_public_record.py : test that private items are not returned
+* test_private_record.py : test that private items are not returned
 * test_VERSIONapi_all_endpoints.py : test post, put, read and delete for every API endpoint
 * test_scope_methods : test that API scopes behave as expected
 * test_read_endpoints : test reading every endpoint
