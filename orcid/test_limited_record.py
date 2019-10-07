@@ -620,8 +620,10 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/works/179625", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-orcid>'
+        originNameTag = '<common:assertion-origin-name>'
         #Compare the body of the response to the saved file.
-        self.assertTrue("<common:assertion-origin-orcid>" in response_body, 'response_body: ' + response_body)
+        self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
     def test_user_obo_30(self):
@@ -629,8 +631,10 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/" + self.limited_orcid_id + "/works/179625", curl_params)
         response_body = response.partition('X-Frame-Options: DENY')[2]
         response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        assertionTag = '<common:assertion-origin-orcid>'
+        originNameTag = '<common:assertion-origin-name>'
         #Compare the body of the response to the saved file.
-        self.assertTrue("<common:assertion-origin-orcid>" in response_body, 'response_body: ' + response_body)
+        self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
     def test_user_obo_rc1(self):
