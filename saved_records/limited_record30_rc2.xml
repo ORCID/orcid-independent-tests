@@ -494,6 +494,12 @@
                             <common:host>qa.orcid.org</common:host>
                         </common:source-client-id>
                         <common:source-name>Crossref</common:source-name>
+                        <common:assertion-origin-client-id>
+                            <common:uri>https://qa.orcid.org/client/APP-BFU1564HNFNRSX21</common:uri>
+                            <common:path>APP-BFU1564HNFNRSX21</common:path>
+                            <common:host>qa.orcid.org</common:host>
+                        </common:assertion-origin-client-id>
+                        <common:assertion-origin-name>Small publisher</common:assertion-origin-name>
                     </common:source>
                     <work:title>
                         <common:title>Work Title</common:title>
@@ -522,6 +528,13 @@
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>doi</common:external-id-type>
+                        <common:external-id-value>10.1087/20120403</common:external-id-value>
+                        <common:external-id-normalized transient="true">10.1087/20120403</common:external-id-normalized>
+                        <common:external-id-url>https://doi.org/10.1087/20120404</common:external-id-url>
+                        <common:external-id-relationship>version-of</common:external-id-relationship>
+                    </common:external-id>
+                    <common:external-id>
+                        <common:external-id-type>doi</common:external-id-type>
                         <common:external-id-value>work:doi</common:external-id-value>
                         <common:external-id-normalized-error transient="true">
                             <common:error-code>8001</common:error-code>
@@ -539,12 +552,24 @@
                             <common:host>qa.orcid.org</common:host>
                         </common:source-client-id>
                         <common:source-name>Gnome Aggregator</common:source-name>
+                        <common:assertion-origin-orcid>
+                            <common:uri>https://qa.orcid.org/0000-0001-7325-5491</common:uri>
+                            <common:path>0000-0001-7325-5491</common:path>
+                            <common:host>qa.orcid.org</common:host>
+                        </common:assertion-origin-orcid>
                     </common:source>
                     <work:title>
                         <common:title>Work Title For User OBO Testing</common:title>
                         <common:translated-title language-code="en">Translated-title</common:translated-title>
                     </work:title>
                     <common:external-ids>
+                        <common:external-id>
+                            <common:external-id-type>doi</common:external-id-type>
+                            <common:external-id-value>10.1087/20120403</common:external-id-value>
+                            <common:external-id-normalized transient="true">10.1087/20120403</common:external-id-normalized>
+                            <common:external-id-url>https://doi.org/10.1087/20120404</common:external-id-url>
+                            <common:external-id-relationship>version-of</common:external-id-relationship>
+                        </common:external-id>
                         <common:external-id>
                             <common:external-id-type>doi</common:external-id-type>
                             <common:external-id-value>work:doi</common:external-id-value>

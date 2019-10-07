@@ -272,6 +272,82 @@
                 <common:external-ids>
                     <common:external-id>
                         <common:external-id-type>doi</common:external-id-type>
+                        <common:external-id-value>10.1087/20120404</common:external-id-value>
+                        <common:external-id-url>https://doi.org/10.1087/20120404</common:external-id-url>
+                        <common:external-id-relationship>self</common:external-id-relationship>
+                    </common:external-id>
+                </common:external-ids>
+                <work:work-summary put-code="179580" path="/0000-0001-7325-5491/work/179580" visibility="limited" display-index="0">
+                    <common:source>
+                        <common:source-client-id>
+                            <common:uri>http://qa.orcid.org/client/0000-0003-4223-0632</common:uri>
+                            <common:path>0000-0003-4223-0632</common:path>
+                            <common:host>qa.orcid.org</common:host>
+                        </common:source-client-id>
+                        <common:source-name>Crossref</common:source-name>
+                    </common:source>
+                    <work:title>
+                        <common:title>Work Title</common:title>
+                        <common:translated-title language-code="en">Translated-title</common:translated-title>
+                    </work:title>
+                    <common:external-ids>
+                        <common:external-id>
+                            <common:external-id-type>doi</common:external-id-type>
+                            <common:external-id-value>10.1087/20120404</common:external-id-value>
+                            <common:external-id-url>https://doi.org/10.1087/20120404</common:external-id-url>
+                            <common:external-id-relationship>self</common:external-id-relationship>
+                        </common:external-id>
+                    </common:external-ids>
+                    <work:type>journal-article</work:type>
+                    <common:publication-date>
+                        <common:year>2012</common:year>
+                        <common:month>10</common:month>
+                        <common:day>01</common:day>
+                    </common:publication-date>
+                </work:work-summary>
+            </activities:group>
+            <activities:group>
+                <common:external-ids>
+                    <common:external-id>
+                        <common:external-id-type>doi</common:external-id-type>
+                        <common:external-id-value>work:doi</common:external-id-value>
+                        <common:external-id-url>http://orcid.org</common:external-id-url>
+                        <common:external-id-relationship>self</common:external-id-relationship>
+                    </common:external-id>
+                </common:external-ids>
+                <work:work-summary put-code="179625" path="/0000-0001-7325-5491/work/179625" visibility="limited" display-index="0">
+                    <common:source>
+                        <common:source-client-id>
+                            <common:uri>http://qa.orcid.org/client/APP-52PDPI669AHFVT3V</common:uri>
+                            <common:path>APP-52PDPI669AHFVT3V</common:path>
+                            <common:host>qa.orcid.org</common:host>
+                        </common:source-client-id>
+                        <common:source-name>Gnome Aggregator</common:source-name>
+                    </common:source>
+                    <work:title>
+                        <common:title>Work Title For User OBO Testing</common:title>
+                        <common:translated-title language-code="en">Translated-title</common:translated-title>
+                    </work:title>
+                    <common:external-ids>
+                        <common:external-id>
+                            <common:external-id-type>doi</common:external-id-type>
+                            <common:external-id-value>work:doi</common:external-id-value>
+                            <common:external-id-url>http://orcid.org</common:external-id-url>
+                            <common:external-id-relationship>self</common:external-id-relationship>
+                        </common:external-id>
+                    </common:external-ids>
+                    <work:type>journal-article</work:type>
+                    <common:publication-date>
+                        <common:year>2012</common:year>
+                        <common:month>10</common:month>
+                        <common:day>01</common:day>
+                    </common:publication-date>
+                </work:work-summary>
+            </activities:group>
+            <activities:group>
+                <common:external-ids>
+                    <common:external-id>
+                        <common:external-id-type>doi</common:external-id-type>
                         <common:external-id-value>123</common:external-id-value>
                         <common:external-id-relationship>self</common:external-id-relationship>
                     </common:external-id>
