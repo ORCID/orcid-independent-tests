@@ -59,6 +59,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
 
+
     def test_read_limited_record_with_30_public_api(self):
         #Test that reading a limited record with the 3.0 public api returns only the public info
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
@@ -85,6 +86,13 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         self.assertTrue("<error-code>9039</error-code>" in response, "Expected error code 9039 instead: " + response)
+
+    def test_read_limited_email_with_20_public_api(self):
+        # Test read the limted record email make sure it doesn't return anything
+        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
+        #Check an empty email sections is returned
+        self.assertTrue(self.empty_email in response, "Non-empty email retruned " + response)
 
     def test_read_limited_email_with_21_public_api(self):
         # Test read the limited record email make sure it doesn't return anything
