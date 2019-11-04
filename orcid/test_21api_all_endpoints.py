@@ -94,8 +94,6 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #Read Check for group
         read_response = self.read20(readendpoint)
-        # Capture creation date
-        creation_date_post = re.search('<common:created-date>(.*)</common:created-date>', read_response)
         self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)
         print read_response
         #Get put-code
@@ -106,10 +104,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
-        # Make sure creation date is not changed after updating the record
-        creation_date_put = re.search('<common:created-date>(.*)</common:created-date>', read_response)
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
-        self.assertTrue(creation_date_post.group(1) == creation_date_put.group(1), "response: " + read_response)
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
