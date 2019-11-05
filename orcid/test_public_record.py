@@ -87,6 +87,24 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
 
+    def test_read_public_record_with_30_public_api(self):
+        #Read the record with the public API with 3.0
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.pubapi_public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/" + self.public_orcid_id + "/record", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+
+    def test_read_public_record_with_30_member_api(self):
+        #Read the record with the member API with 3.0
+        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/" + self.public_orcid_id + "/record", curl_params)
+        response_body = response.partition('X-Frame-Options: DENY')[2]
+        response_body = re.sub('(.*)(X-Content-Type-Options: nosniff)|[ 	](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response_body)
+        #Compare the body of the response to the saved file.
+        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+
     def test_public_last_modified(self):
     	#Check the last modified date on the record has not changed
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-i', '-k', '-X', 'GET']
