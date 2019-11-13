@@ -1,14 +1,21 @@
 import OrcidBaseTest
 import properties
+import test_type
 
 class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
+
+      if (test_type.arg == "jenkins"):
         self.client_id     = properties.publicClientId
         self.client_secret = properties.publicClientSecret
         self.seach_value   = properties.searchValue
         self.orcid_id      = properties.orcidId
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
+      else:
+        self.token = "299e0132-623d-4024-9b47-6c9a0e042b39"
+        self.seach_value   = properties.searchValue
+        self.orcid_id      = properties.orcidId
 
     def test_read(self):
     # Test read the private record (public without a token) and check no error returned

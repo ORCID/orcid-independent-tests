@@ -1,18 +1,23 @@
 import OrcidBaseTest
 import properties
-
+import test_type
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id              = properties.memberClientId
-        self.client_secret          = properties.memberClientSecret
-        self.notify_token           = properties.notifyToken
-        self.orcid_id               = properties.orcidId
-        self.version	            = "/v2.0/"
-        self.scope                  = "/read-limited%20/activities/update%20/person/update"
-        self.code                   = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
-        self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        print "Using code: %s | access: %s " % (self.code,self.access)
+      self.version = "/v2.0/"
+      if (test_type.arg == "jenkins"):
+        self.client_id = properties.memberClientId
+        self.client_secret = properties.memberClientSecret
+        self.notify_token = properties.notifyToken
+        self.orcid_id = properties.orcidId
+        self.scope = "/read-limited%20/activities/update%20/person/update"
+        self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+        self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        print "Using code: %s | access: %s " % (self.code, self.access)
+      else:
+        self.access = "299e0132-623d-4024-9b47-6c9a0e042b39"
+        self.orcid_id = "0000-0001-6009-1985"
+        # self.notify_token = properties.notifyToken
 
     def test_post_update_work(self):
         # Test Post the ma test work 2

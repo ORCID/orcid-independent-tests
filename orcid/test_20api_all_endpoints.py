@@ -1,18 +1,26 @@
 import OrcidBaseTest
 import properties
 import re
+import test_type
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.notify_token  = properties.notifyToken
-        self.orcid_id    = properties.staticId
-        self.access      = properties.staticAccess
-        #0000-0002-7361-1027
+        if (test_type.arg == "jenkins"):
+          self.client_id     = properties.memberClientId
+          self.client_secret = properties.memberClientSecret
+          self.notify_token  = properties.notifyToken
+          self.orcid_id    = properties.staticId
+          self.access      = properties.staticAccess
+          #0000-0002-7361-1027
+        else:
+          self.client_id     = "APP-BFU1564HNFNRSX21"
+          self.client_secret = "c67ea427-aa74-43f0-8a67-4a31834958bc"
+          self.orcid_id    = "0000-0002-7361-1027"
+          self.access      = "b644e5fe-006d-47dc-b3b3-334f06ddfac3"
+          self.group_access = "6b00136d-b878-4b3b-991f-4ea8ecb34465"
 
 #2.0
     def post20(self, file_name, endpoint):
@@ -27,8 +35,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def read20(self, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-	read_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
-	return read_response
+        read_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+        return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
@@ -65,7 +73,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #delete
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/group-id-record/%s" % (putcode), delete_params)
-        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)    
+        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
         
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
@@ -149,15 +157,15 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')
         
     def test_peer20(self):
-    	jsontext = '"reviewer-role" : "REVIEWER", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "SELF"} ] }, "review-url" : null, "review-type" : "REVIEW", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
+        jsontext = '"reviewer-role" : "REVIEWER", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "SELF"} ] }, "review-url" : null, "review-type" : "REVIEW", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
     #search for and read a peer-review group with an issn group id
-        self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+   #     self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         self.issn_group(self.group_access, '1741-4857')
         
     def test_other_group(self):
     #create, read, delete a peer-review group with a non issn group id
-    	self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-    	self.other_group(self.group_access, 'group.xml')
+    #  	self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        self.other_group(self.group_access, 'group.xml')

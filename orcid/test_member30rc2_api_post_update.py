@@ -1,19 +1,27 @@
 import OrcidBaseTest
 import properties
+import test_type
 
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.client_id     = properties.memberClientId
+      self.version = "/v3.0_rc2/"
+      if (test_type.arg == "jenkins"):
+        self.client_id = properties.memberClientId
         self.client_secret = properties.memberClientSecret
-        self.notify_token  = properties.notifyToken
-        self.orcid_id      = properties.orcidId
-        self.version	   = "/v3.0_rc2/"
-        self.scope               = "/read-limited%20/activities/update%20/person/update"
-        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
-        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        #Use below when testing locally
-		#self.access = properties.oauthToken 
+        self.notify_token = properties.notifyToken
+        self.webhook_access = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
+        # Comment out below when testing locally
+        self.orcid_id = properties.orcidId
+        self.scope = "/read-limited%20/activities/update%20/person/update"
+        self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+        self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        # Use below when testing locally
+      else:
+        self.access = "299e0132-623d-4024-9b47-6c9a0e042b39"
+        self.orcid_id = "0000-0001-6009-1985"
+        self.webhook_access = "af36161d-0971-4ac6-b860-5bb3f7cdef64"
+      # self.notify_token = properties.notifyToken
 
 
     
