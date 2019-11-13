@@ -14,6 +14,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.notify_token = properties.notifyToken
         self.orcid_id = properties.staticId
         self.access = properties.staticAccess
+        self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         # 0000-0002-7361-1027
       else:
         self.client_id = "APP-BFU1564HNFNRSX21"
@@ -35,9 +36,9 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         return put_response
 
     def read20(self, endpoint):
-    	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-    	read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
-    	return read_response
+      curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+      read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+      return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
@@ -188,12 +189,10 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def test_peerreview_group(self):
     #search for and read a peer-review group with an issn group id
-    #    self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         self.issn_group(self.group_access, '1741-4857')
         
     def test_other_group(self):
     #create, read, delete a peer-review group with a non issn group id
-   # 	self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
     	self.other_group(self.group_access, 'group.xml')
 
     def test_client_endpoint(self):
