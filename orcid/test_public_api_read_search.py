@@ -1,19 +1,19 @@
 import OrcidBaseTest
 import properties
-import test_type
+import local_properties
 
 class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
 
-      if (test_type.arg == "jenkins"):
+      if local_properties.type == "jenkins":
         self.client_id     = properties.publicClientId
         self.client_secret = properties.publicClientSecret
         self.seach_value   = properties.searchValue
         self.orcid_id      = properties.orcidId
         self.token         = self.orcid_generate_token(self.client_id, self.client_secret)
       else:
-        self.token = "299e0132-623d-4024-9b47-6c9a0e042b39"
+        self.token = local_properties.access_member
         self.seach_value   = properties.searchValue
         self.orcid_id      = properties.orcidId
 

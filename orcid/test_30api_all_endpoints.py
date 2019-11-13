@@ -1,14 +1,14 @@
 import OrcidBaseTest
 import properties
 import re
-import test_type
+import local_properties
 
 class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-      if (test_type.arg == "jenkins"):
+      if local_properties.type == "jenkins":
         self.client_id = properties.memberClientId
         self.client_secret = properties.memberClientSecret
         self.notify_token = properties.notifyToken
@@ -17,11 +17,9 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         # 0000-0002-7361-1027
       else:
-        self.client_id = "APP-BFU1564HNFNRSX21"
-        self.client_secret = "c67ea427-aa74-43f0-8a67-4a31834958bc"
-        self.orcid_id = "0000-0002-7361-1027"
-        self.access = "b644e5fe-006d-47dc-b3b3-334f06ddfac3"
-        self.group_access = "6b00136d-b878-4b3b-991f-4ea8ecb34465"
+        self.orcid_id = local_properties.orcid_id
+        self.access = local_properties.access
+        self.group_access = local_properties.group_access
 
 #3.0
 # The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
