@@ -21,7 +21,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.access = "299e0132-623d-4024-9b47-6c9a0e042b39"
         self.orcid_id = "0000-0001-6009-1985"
         self.webhook_access = "af36161d-0971-4ac6-b860-5bb3f7cdef64"
-       # self.notify_token = properties.notifyToken
+        self.notify_token = "eafafe49-b5bf-41db-9fb5-ad3a6cba575b"
     
     def test_post_update_work(self):
         #Post a work using 3.0 to the record created for testing today
@@ -95,11 +95,11 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)   
 
     def test_post_update_notification(self):
-        self.access = "a"
+        self.access = self.notify_token
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
         # Post a notification using 3.0 to the record created for testing today. Use the existing notify token.
         response = self.post_activity(self.version, "notification-permission", "ma30_notify.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + self.notify_token)
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         
     def test_post_webhook(self):
     #Post a webhook for the ORCID iD. This test is not version dependent

@@ -18,7 +18,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
       else:
         self.access = "299e0132-623d-4024-9b47-6c9a0e042b39"
         self.orcid_id = "0000-0001-6009-1985"
-        # self.notify_token = properties.notifyToken
+        self.notify_token = "eafafe49-b5bf-41db-9fb5-ad3a6cba575b"
     
     def test_post_update_work(self):
         # Test Post the ma test work 2
