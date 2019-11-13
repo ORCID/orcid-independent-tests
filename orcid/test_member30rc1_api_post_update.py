@@ -41,9 +41,8 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         
     def test_post_education(self):
         # Post an education item using 3.0_rc1 to the record created for testing today
-     #   response = self.post_activity(self.version, "education", "ma30rc1_edu.xml")
-        response = "a"
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + self.access + " " + self.client_id)
+        response = self.post_activity(self.version, "education", "ma30rc1_edu.xml")
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         
     def test_post_qualification(self):
         # Post a qualification item using 3.0_rc1 to the record created for testing today
