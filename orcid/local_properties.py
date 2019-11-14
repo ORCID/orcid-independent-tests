@@ -1,4 +1,4 @@
-type="jenkins2"
+type="jenkins"
 
 orcid_id = "0000-0002-7361-1027"
 access = "b644e5fe-006d-47dc-b3b3-334f06ddfac3"
