@@ -18,7 +18,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           #0000-0002-7361-1027
         else:
           self.orcid_id    = local_properties.orcid_id
-          self.access      = local_properties.access
+          self.access      = local_properties.step_1_access
           self.group_access = local_properties.group_access
 
 #2.0
