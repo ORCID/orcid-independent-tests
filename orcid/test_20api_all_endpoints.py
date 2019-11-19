@@ -97,13 +97,23 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Get put-code
         putcode = self.getputcode(post_response)
+        # Check creation date after posting the item
+        search_pattern = "%s(.+?)</common:created-date>" % putcode
+        creation_date_post = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_post = creation_date_post.group(1)
+        creation_date_post = creation_date_post.split('<common:created-date>')[1]
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
         self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
+        # Check creation date after updating the item
+        creation_date_put = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_put = creation_date_put.group(1)
+        creation_date_put = creation_date_put.split('<common:created-date>')[1]
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
