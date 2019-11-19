@@ -62,6 +62,9 @@ class OrcidBaseTest(unittest.TestCase):
             return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
+        print client_id
+        print client_secret
+        print code
         if not code:
             return [None, None]
         json_response = None

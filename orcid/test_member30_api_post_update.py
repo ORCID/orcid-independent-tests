@@ -127,7 +127,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
    # def test_user_obo(self):
     def test_USER_OBO(self):
         #Post a work using 3.0 to the record created for testing today
-        response = self.post_user_obo(self.version, "work", "ma30_work.xml")
+        response = self.post_user_obo(self.version, "work", "ma21_work.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
 
     def post_user_obo(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
