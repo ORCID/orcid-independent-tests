@@ -51,6 +51,7 @@ class OrcidBaseTest(unittest.TestCase):
         print scope
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name)
+        print who
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
             code = self.generate_auth_code_selenium(client_id, scope, auth_code_name="readPublicCode")
             if code:
