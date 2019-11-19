@@ -47,6 +47,8 @@ class OrcidBaseTest(unittest.TestCase):
         return code
 
     def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
+        print client_id
+        print scope
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name)
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
@@ -62,9 +64,6 @@ class OrcidBaseTest(unittest.TestCase):
             return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
-        print client_id
-        print client_secret
-        print code
         if not code:
             return [None, None]
         json_response = None
