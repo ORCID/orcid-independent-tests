@@ -15,6 +15,12 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.scope               = "/read-limited%20/activities/update%20/person/update"
         self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
         self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
+
+        self.user_obo_id = "APP-52PDPI669AHFVT3V"
+        self.user_obo_secret = "8e242970-5d2a-4b47-b7d3-c88165a10bfb"
+        self.user_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
+        self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope, "api2PostUpdateCode")
+        self.user_obo_access, self.user_obo_refresh = self.orcid_exchange_auth_token(self.user_obo_id, self.user_obo_secret, self.user_obo_code)
       else:
         self.orcid_id = local_properties.orcid_id_member
         self.access = local_properties.access_member
