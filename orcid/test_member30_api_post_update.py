@@ -125,7 +125,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
 
    # def test_user_obo(self):
-    def test_post_update_work(self):
+    def test_USER_OBO(self):
         #Post a work using 3.0 to the record created for testing today
         response = self.post_user_obo(self.version, "work", "ma30_work.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
