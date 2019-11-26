@@ -24,6 +24,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def save_secrets_to_file(self, content, code):
         with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'w') as secrets_file:
+            print secrets_file
             json.dump(content, secrets_file)
 
     def load_secrets_from_file(self, code):
