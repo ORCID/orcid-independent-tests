@@ -51,7 +51,7 @@ class OrcidBaseTest(unittest.TestCase):
         print client_id
         print scope
         # returns [No JSON object could be decoded | 6 digits ]
-        who = str(auth_code_name)
+        who = str(auth_code_name) + "_" + client_id
         print who
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
             code = self.generate_auth_code_selenium(client_id, scope, auth_code_name="readPublicCode")
@@ -60,7 +60,7 @@ class OrcidBaseTest(unittest.TestCase):
             print "Using fresh code: %s" % code
             return code
         else:
-            code = self.load_secrets_from_file(who)
+            code = self.load_secrets_from_file(who + "_" + client_id)
             code = str(code).strip()
             print "Using local code: %s" % code
             return code
