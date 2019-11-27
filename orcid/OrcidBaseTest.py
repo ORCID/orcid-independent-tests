@@ -60,7 +60,7 @@ class OrcidBaseTest(unittest.TestCase):
             print "Using fresh code: %s" % code
             return code
         else:
-            code = self.load_secrets_from_file(who + "_" + client_id)
+            code = self.load_secrets_from_file(who)
             code = str(code).strip()
             print "Using local code: %s" % code
             return code
