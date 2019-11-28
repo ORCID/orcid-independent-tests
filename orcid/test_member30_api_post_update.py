@@ -134,11 +134,11 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         print url
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
-        print putcode
-        print response
-        print re.sub('[\s+]', '', response)
+        print putcode.group(1)
         url += putcode.group(1)
+        print url
         read_response = self.orcid_curl(url, curl_params)
+        print read_response
         assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
         self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + response)
 
