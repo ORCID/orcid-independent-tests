@@ -1,6 +1,7 @@
 import OrcidBaseTest
 import properties
 import local_properties
+import re
 
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
 
@@ -32,7 +33,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope, "api2PostUpdateCode")
         self.user_obo_access, self.user_obo_refresh = self.orcid_exchange_auth_token(self.user_obo_id, self.user_obo_secret, self.user_obo_code)
 
-    
+
     def test_post_update_work(self):
         #Post a work using 3.0 to the record created for testing today
         response = self.post_activity(self.version, "work", "ma30_work.xml")
@@ -125,13 +126,13 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
 
    # def test_user_obo(self):
-    def test_USER_OBO(self):
+    def test_post_user_obo(self):
         #Post a work using 3.0 to the record created for testing today
-        response = self.post_user_obo(self.version, "work", "ma21_work.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
-
-    def post_user_obo(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
-        self.assertIsNotNone(self.user_obo_access,"Bearer not recovered: " + str(self.user_obo_access))
-        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.user_obo_access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
-        return response
+        response = self.post_user_obo(self.version, "work", "ma30_work_user_obo.xml")
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
+        url = "https://api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        putcode = re.search("%s(.?)Expires" % url, re.sub('[\s+]', '', response))
+        url += putcode.group(1)
+        read_response = self.orcid_curl(url, curl_params)
+        assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
+        self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + response)
