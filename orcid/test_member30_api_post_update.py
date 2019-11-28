@@ -135,6 +135,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         putcode = re.search("%s(.?)Expires" % url, re.sub('[\s+]', '', response))
         print putcode
         print response
+        print re.sub('[\s+]', '', response)
         url += putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
         assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
