@@ -131,12 +131,9 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_user_obo(self.version, "work", "ma30_work_user_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        print url
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
-        print putcode.group(1)
-        url += putcode.group(1)
-        print url
+        url = "https://" + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
         print read_response
         assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
