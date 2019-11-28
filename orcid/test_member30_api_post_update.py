@@ -130,7 +130,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         #Post a work using 3.0 to the record created for testing today
         response = self.post_user_obo(self.version, "work", "ma30_work_user_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
-        url = "http://api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         print url
         putcode = re.search("%s(.?)Expires" % url, re.sub('[\s+]', '', response))
         url += putcode.group(1)
