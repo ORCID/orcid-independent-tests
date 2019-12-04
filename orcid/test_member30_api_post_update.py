@@ -9,7 +9,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.client_id = "APP-52PDPI669AHFVT3V"
         self.scope = "openid"
         self.client_secret = "8e242970-5d2a-4b47-b7d3-c88165a10bfb"
-        self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+        self.code = self.generate_auth_code(self.client_id, self.scope, "open")
         self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
 
     def test_aaa(self):
@@ -18,4 +18,4 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print self.code
         print " "
         print self.access
-        self.assertTrue(1+2==2, "code: " + self.code + ", access = " + self.access)
+        self.assertTrue(1==2, "code: " + self.code + ", access = " + self.access)
