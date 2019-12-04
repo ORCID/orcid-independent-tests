@@ -11,11 +11,14 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.client_secret = "8e242970-5d2a-4b47-b7d3-c88165a10bfb"
         self.code = self.generate_auth_code(self.client_id, self.scope, "open")
         self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        self.implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
 
-    def test_aaa(self):
-
-
+    def test_oauth_token(self):
         print self.code
-        print " "
         print self.access
-        self.assertTrue(1==2, "code: " + self.code + ", access = " + self.access)
+        self.assertTrue(self.access, "code: " + self.code + ", access = " + self.access)
+
+    def test_implicit_token(self):
+        print self.code
+        print self.access
+        self.assertTrue(self.implicit, "Implicit token failed")
