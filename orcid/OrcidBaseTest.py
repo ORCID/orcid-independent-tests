@@ -24,7 +24,6 @@ class OrcidBaseTest(unittest.TestCase):
 
     def save_secrets_to_file(self, content, code):
         with open(os.path.join(self.secrets_file_path, code + self.secrets_file_extension), 'w') as secrets_file:
-            print secrets_file
             json.dump(content, secrets_file)
 
     def load_secrets_from_file(self, code):
@@ -47,12 +46,15 @@ class OrcidBaseTest(unittest.TestCase):
         firefox.bye()
         return code
 
+    def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(properties.user_login,properties.user_pass,public_client_id,scope)
+        firefox.bye()
+        return code
+
     def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
-        print client_id
-        print scope
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name) + "_" + client_id
-        print who
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
             code = self.generate_auth_code_selenium(client_id, scope, auth_code_name="readPublicCode")
             if code:
