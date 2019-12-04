@@ -19,6 +19,5 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(self.access, "code: " + self.code + ", access = " + self.access)
 
     def test_implicit_token(self):
-        print self.code
-        print self.access
+        print self.implicit
         self.assertTrue(self.implicit, "Implicit token failed")
