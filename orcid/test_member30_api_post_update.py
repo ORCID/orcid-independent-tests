@@ -1,11 +1,10 @@
 import OrcidBaseTest
+from OrcidBrowser import OrcidBrowser
 import properties
-import local_properties
-import re
 
-class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
+class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
-        def setUp(self):
+    def setUp(self):
         self.firefox = OrcidBrowser()
         self.client_id = "APP-52PDPI669AHFVT3V"
         self.scope = "openid"
