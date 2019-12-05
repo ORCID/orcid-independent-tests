@@ -47,6 +47,8 @@ class OrcidBrowser:
 
     def getImplicitToken(self, usrname, secret, client_id, scope='/authenticate',auth_window = False):
         orcid_record = ''
+        print "usrname: " + usrname
+        print "secret(pwrd): " + secret
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=token&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, scope)
         try:
             orcid_record = self.orcidlogin(usrname, secret)
