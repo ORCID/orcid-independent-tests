@@ -14,6 +14,12 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.scope = "openid"
         self.wrong_scope = "/read-limited%20/activities/update%20/person/update"
 
+    def revoke_token(self, token):
+        self.assertIsNotNone(token, "Bearer not recovered: " + str(token))
+        curl_params = ['-i', '-L', '-H', "Accept: application/json", '--data','client_id=' + self.client_id + "&client_secret=" + self.client_secret + "&token=" + str(token)]
+        response = self.orcid_curl("https://" + properties.test_server + "/oauth/revoke", curl_params)
+        return response
+
     def get_user_info(self, token):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token)]
@@ -22,7 +28,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_oauth_token(self):
         code = self.generate_auth_code(self.client_id, self.scope, "open")
-        access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
+        access, refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
         self.assertTrue(access, "Failed to retrieve access token")
 
     def test_public_record_info(self):
@@ -44,6 +50,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
         print "implicit: " + implicit
         self.assertTrue(implicit, "Failed to retrieve implicit token")
+        self.revoke_token(implicit)
 
     def test_wrong_scope_token(self):
         wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
@@ -51,3 +58,4 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         user_info = self.get_user_info(wrong_implicit)
         print "user_info: " + user_info
         self.assertTrue("access_denied" in user_info, "Wrong scope test failed: " + user_info)
+        self.revoke_token(wrong_implicit)

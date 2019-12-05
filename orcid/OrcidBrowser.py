@@ -70,6 +70,7 @@ class OrcidBrowser:
         try:
             orcid_record = self.orcidlogin(usrname, secret)
             time.sleep(3)
+            print oauth_page
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
             authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
