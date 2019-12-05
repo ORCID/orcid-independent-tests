@@ -9,8 +9,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.public_record_id    = properties.staticId
         self.public_record_token = "c9974dc3-451b-420f-ae6e-b76d7009062e"
         self.limited_record_token = "2fe47c3c-aae6-4a80-981b-fc221a067abe"
-        self.client_id = "APP-65EZ9U59WOGRH6G7"
-        self.client_secret = "ec4a1d7d-9f75-4823-880e-2c980e586d5b"
+        self.client_id = properties.OpenClientId
+        self.client_secret = properties.OpenClientSecret
         self.scope = "openid"
         self.wrong_scope = "/read-limited%20/activities/update%20/person/update"
 
@@ -50,7 +50,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
         print "implicit: " + implicit
         self.assertTrue(implicit, "Failed to retrieve implicit token")
-        self.revoke_token(implicit)
 
     def test_wrong_scope_token(self):
         wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
@@ -58,4 +57,3 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         user_info = self.get_user_info(wrong_implicit)
         print "user_info: " + user_info
         self.assertTrue("access_denied" in user_info, "Wrong scope test failed: " + user_info)
-        self.revoke_token(wrong_implicit)
