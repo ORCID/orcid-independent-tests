@@ -47,19 +47,13 @@ class OrcidBrowser:
 
     def getImplicitToken(self, usrname, secret, client_id, scope='/authenticate',auth_window = False):
         orcid_record = ''
-        print "usrname: " + usrname
-        print "secret(pwrd): " + secret
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=token&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, scope)
         try:
             orcid_record = self.orcidlogin(usrname, secret)
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            print "yep"
-            print self.ff.find_element(By.ID("authorize")).size()
-            print self.ff.find_element(By.ID("authorize"))
-            print self.ff.find_element_by_id('authorize')
-            if self.ff.find_element(By.ID("authorize")).size() != 0:
+            if self.ff.find_element_by_id('authorize'):
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
