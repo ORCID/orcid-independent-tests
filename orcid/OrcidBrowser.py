@@ -53,16 +53,16 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            if auth_window:
-                authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
-                authorize_button.click()
+            authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
+            authorize_button.click()
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
             token_input = self.ff.find_element_by_id('for_access_token')
             token_val = token_input.get_attribute('value')
             print "--- ABOUT TO SEND TOKEN: %s" % token_val
             return token_val
-        except Exception:
+        except Exception as e:
             print "Waiting for token failed. url: %s, orcid: %s" % (oauth_page, orcid_record)
+            print e
 
     def getAuthCode(self, usrname, secret, client_id, scope='/authenticate',response_type='code',orcid_record='0'):
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id,response_type, scope)
@@ -70,6 +70,7 @@ class OrcidBrowser:
         try:
             orcid_record = self.orcidlogin(usrname, secret)
             time.sleep(3)
+            print oauth_page
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
             authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
