@@ -53,12 +53,9 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            authorizeButton = self.ff.find_element_by_id('authorize')
-            print "yep"
             print self.ff.find_element_by_id('authorize')
-            print authorizeButton
-            print authorizeButton.size()
             if self.ff.find_element_by_id('authorize'):
+                print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
@@ -78,12 +75,9 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            authorizeButton = self.ff.find_element_by_id('authorize')
-            print "yep"
             print self.ff.find_element_by_id('authorize')
-            print authorizeButton
-            print authorizeButton.size()
             if self.ff.find_element_by_id('authorize'):
+                print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
             exchangeCode_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'exchangeCode')))
