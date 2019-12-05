@@ -55,6 +55,10 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
+            print "yep"
+            print self.ff.find_element(By.ID("authorize")).size()
+            print self.ff.find_element(By.ID("authorize"))
+            print self.ff.find_element_by_id('authorize')
             if self.ff.find_element(By.ID("authorize")).size() != 0:
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
