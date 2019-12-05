@@ -61,8 +61,9 @@ class OrcidBrowser:
             token_val = token_input.get_attribute('value')
             print "--- ABOUT TO SEND TOKEN: %s" % token_val
             return token_val
-        except Exception:
+        except Exception as e:
             print "Waiting for token failed. url: %s, orcid: %s" % (oauth_page, orcid_record)
+            print e
 
     def getAuthCode(self, usrname, secret, client_id, scope='/authenticate',response_type='code',orcid_record='0'):
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id,response_type, scope)
