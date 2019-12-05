@@ -53,7 +53,8 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            print self.ff.find_element_by_id('authorize')
+            testo = self.ff.find_element_by_id('authorize')
+            print testo
             if self.ff.find_element_by_id('authorize'):
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
@@ -74,7 +75,8 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            print self.ff.find_element_by_id('authorize')
+            testo = self.ff.find_element_by_id('authorize')
+            print testo
             if self.ff.find_element_by_id('authorize'):
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
