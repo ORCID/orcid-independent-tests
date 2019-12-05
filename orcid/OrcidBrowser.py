@@ -53,10 +53,13 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            if self.ff.find_element_by_id('authorize'):
+            try:
+                self.ff.find_element_by_id('authorize')
                 print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
+            except Exception:
+                print "Permission already granted"
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
             token_input = self.ff.find_element_by_id('for_access_token')
             token_val = token_input.get_attribute('value')
@@ -74,10 +77,13 @@ class OrcidBrowser:
             time.sleep(3)
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
-            if self.ff.find_element_by_id('authorize'):
+            try:
+                self.ff.find_element_by_id('authorize')
                 print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
+            except Exception:
+                print "Permission already granted"
             exchangeCode_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'exchangeCode')))
             code_input = self.ff.find_element_by_id('auth_code')
             auth_code_val = code_input.get_attribute('value')
