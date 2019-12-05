@@ -6,18 +6,45 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         self.firefox = OrcidBrowser()
-        self.client_id = "APP-52PDPI669AHFVT3V"
+        self.public_record_id    = properties.staticId
+        self.public_record_token = "c9974dc3-451b-420f-ae6e-b76d7009062e"
+        self.limited_record_token = "2fe47c3c-aae6-4a80-981b-fc221a067abe"
+        self.client_id = "APP-65EZ9U59WOGRH6G7"
+        self.client_secret = "ec4a1d7d-9f75-4823-880e-2c980e586d5b"
         self.scope = "openid"
-        self.client_secret = "8e242970-5d2a-4b47-b7d3-c88165a10bfb"
-        self.code = self.generate_auth_code(self.client_id, self.scope, "open")
-        self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
-        self.implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
+        self.wrong_scope = "/read-limited%20/activities/update%20/person/update"
+
+    def get_user_info(self, token):
+        self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token)]
+        response = self.orcid_curl("https://" + properties.test_server + "/oauth/userinfo", curl_params)
+        return response
 
     def test_oauth_token(self):
-        print self.code
-        print self.access
-        self.assertTrue(self.access, "code: " + self.code + ", access = " + self.access)
+        code = self.generate_auth_code(self.client_id, self.scope, "open")
+        access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
+        self.assertTrue(access, "Failed to retrieve access token")
+
+    def test_public_record_info(self):
+        user_info = self.get_user_info(self.public_record_token)
+        print "user_info: " + user_info
+        user_info_body = user_info.partition('X-Frame-Options: DENY')[2]
+        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info)
+
+    def test_limited_record_info(self):
+        user_info = self.get_user_info(self.limited_record_token)
+        print "user_info: " + user_info
+        user_info_body = user_info.partition('X-Frame-Options: DENY')[2]
+        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info)
 
     def test_implicit_token(self):
-        print self.implicit
-        self.assertTrue(self.implicit, "Implicit token failed")
+        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
+        print "implicit: " + implicit
+        self.assertTrue(implicit, "Failed to retrieve implicit token")
+
+    def test_wrong_scope_token(self):
+        wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
+        print "wrong_implicit: " + wrong_implicit
+        user_info = self.get_user_info(wrong_implicit)
+        print "user_info: " + user_info
+        self.assertTrue("access_denied" in user_info, "Wrong scope test failed: " + user_info)
