@@ -13,8 +13,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.client_secret = properties.memberClientSecret
         self.openid_scope = "openid"
         self.member_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
-        self.member_obo_code = self.generate_auth_code(self.member_obo_id, self.member_obo_scope, "api2PostUpdateCode")
-        self.member_obo_access, self.member_obo_refresh, self.member_obo_id_token = self.orcid_exchange_auth_token(self.member_obo_id,self.member_obo_secret,self.member_obo_code)
+        self.code = self.generate_auth_code(self.client_id, self.openid_scope, "api2PostUpdateCode")
+        self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
         self.member_obo_code = self.generate_auth_code(self.member_obo_id, self.member_obo_scope, "api2PostUpdateCode")
         self.member_obo_access, self.member_obo_refresh, self.member_obo_id_token = self.orcid_exchange_auth_token(self.member_obo_id, self.member_obo_secret, self.member_obo_code)
 
@@ -27,15 +27,15 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print newaccess
 
     def get_id_token(self):
-        self.assertIsNotNone(self.member_obo_access,"Bearer not recovered: " + str(self.member_obo_access))
-        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.member_obo_id + '&client_secret=' + self.member_obo_secret + '&subject_token=' + self.member_obo_access +
+        self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access ))
+        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.client_id + '&client_secret=' + self.client_secret + '&subject_token=' + self.access +
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         json_response = json.loads(response)
         return json_response
 
     def get_obo_token(self, id_token):
-        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.client_id + '&client_secret=' + self.client_secret +
+        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.member_obo_id + '&client_secret=' + self.member_obo_secret +
                      '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' + id_token +
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
