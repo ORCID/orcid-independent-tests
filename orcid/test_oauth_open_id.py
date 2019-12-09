@@ -21,8 +21,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_existing_token_flow(self):
         id_token = self.get_id_token()
         print "id_token: " + id_token
-        newaccess = self.get_obo_token(id_token)
-        print "new access token: " + newaccess
+       # newaccess = self.get_obo_token(id_token)
+       # print "new access token: " + newaccess
 
     def get_id_token(self):
         self.assertIsNotNone(self.member_obo_access,"Bearer not recovered: " + str(self.member_obo_access))
@@ -30,7 +30,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         json_response = json.loads(response)
-        return json_response['id_token']
+        return response
 
     def get_obo_token(self, id_token):
         curl_params = ['-i', '-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.client_id + '&client_secret=' + self.client_secret +
