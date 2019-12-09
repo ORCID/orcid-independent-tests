@@ -27,17 +27,14 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_public_record_info(self):
         user_info = self.get_user_info(self.public_record_token)
-        print "user_info: " + user_info
-        user_info_body = user_info.partition('X-Frame-Options: DENY')[2]
-        print user_info_body
-        print open('saved_records/user_info_limited.json', 'r').read()
+        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
+        print "response: " + user_info_body
         self.assertTrue(user_info_body.strip() == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info)
 
     def test_limited_record_info(self):
         user_info = self.get_user_info(self.limited_record_token)
-        user_info_body = user_info.partition('X-Frame-Options: DENY')[2]
-        print user_info_body
-        print open('saved_records/user_info_limited.json', 'r').read()
+        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
+        print "response: " + user_info_body
         self.assertTrue(user_info_body.strip() == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info)
 
     def test_implicit_token(self):
