@@ -46,6 +46,12 @@ class OrcidBaseTest(unittest.TestCase):
         firefox.bye()
         return code
 
+    def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(properties.user_login,properties.user_pass,public_client_id,scope)
+        firefox.bye()
+        return code
+
     def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name) + "_" + client_id
