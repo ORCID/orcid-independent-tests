@@ -79,7 +79,10 @@ class OrcidBaseTest(unittest.TestCase):
             json_response = self.load_secrets_from_file(code)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
-            return [json_response['access_token'],json_response['refresh_token']]
+            if json_response['id_token']:
+                return [json_response['access_token'], json_response['refresh_token'], json_response['id_token']]
+            else:
+                return [json_response['access_token'], json_response['refresh_token']]
         else: 
             if('error' in json_response):
                 raise ValueError("No tokens found in response: " + json_response['error']['value'])
