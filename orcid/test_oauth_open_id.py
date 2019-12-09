@@ -29,7 +29,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-i', '-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.member_obo_id + '&client_secret=' + self.member_obo_secret + '&subject_token=' + self.member_obo_access +
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        json_response = json.loads(response)
+       # json_response = json.loads(response)
         return response
 
     def get_obo_token(self, id_token):
