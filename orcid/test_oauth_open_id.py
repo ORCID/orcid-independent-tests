@@ -14,7 +14,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.openid_scope = "openid"
         self.member_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
         self.code = self.generate_auth_code(self.client_id, self.openid_scope, "api2PostUpdateCode")
-        self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        self.access, self.refresh, self.id_token = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
         self.member_obo_code = self.generate_auth_code(self.member_obo_id, self.member_obo_scope, "api2PostUpdateCode")
         self.member_obo_access, self.member_obo_refresh, self.member_obo_id_token = self.orcid_exchange_auth_token(self.member_obo_id, self.member_obo_secret, self.member_obo_code)
 
