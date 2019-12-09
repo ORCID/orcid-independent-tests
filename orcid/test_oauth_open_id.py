@@ -20,9 +20,11 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_existing_token_flow(self):
         id_token = self.get_id_token()
-        print "id_token: " + id_token
+        print "id_token: "
+        print id_token
         newaccess = self.get_obo_token(id_token['access_token'])
-        print "new access token: " + newaccess
+        print "new access token: "
+        print newaccess
 
     def get_id_token(self):
         self.assertIsNotNone(self.member_obo_access,"Bearer not recovered: " + str(self.member_obo_access))
