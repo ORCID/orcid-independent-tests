@@ -55,7 +55,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         OauthOpenId.obo_token = obo_token['access_token']
 
     def test_011_openid_post_work(self):
-        response = self.post_member_obo(obo_token,self.version, "work", "ma30_work_member_obo.xml")
+        response = self.post_member_obo(OauthOpenId.obo_token,self.version, "work", "ma30_work_member_obo.xml")
         response_error = "409 Conflict: The item has a limited or private visibility and your request doesn't have the required scope."
         self.assertTrue(response_error in response, "Expected error is missing: " + response)
 
@@ -73,6 +73,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
+        print response
+        print putcode
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
         assertionCheck = "<common:assertion-origin-name>Member OBO Testing Client</common:assertion-origin-name>"
