@@ -13,7 +13,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.first_obo_id = properties.OBOMemberClientId
         self.first_obo_secret = properties.OBOMemberClientSecret
         self.first_obo_scope = "openid"
-        self.first_obo_code = self.generate_auth_code(self.client_id, self.openid_scope, "api2PostUpdateCode")
+        self.first_obo_code = self.generate_auth_code(self.first_obo_id, self.first_obo_scope, "api2PostUpdateCode")
         self.first_obo_access, self.first_obo_refresh, self.first_obo_id_token = self.orcid_exchange_auth_token(self.first_obo_id, self.first_obo_secret, self.first_obo_code)
 
         self.second_obo_id     = properties.OBOMemberSecondId
