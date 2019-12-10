@@ -39,8 +39,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token +
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        json_response = json.loads(response)
-        return json_response
+        return response
 
     def get_obo_token(self, token, id, secret):
         curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret +
@@ -50,18 +49,19 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         print "response from obo token: "
         print response
-        json_response = json.loads(response)
-        return json_response
+        return response
 
     def test_010_existing_token_flow(self):
-        id_token = self.get_id_token(self.first_obo_access, self.first_obo_id, self.first_obo_secret)
+        id_token_response = self.get_id_token(self.first_obo_access, self.first_obo_id, self.first_obo_secret)
+        id_token = json.loads(id_token_response)
         print "id_token: "
         print id_token
-        self.assertTrue(id_token['access_token'], "Unable to generate id_token from existing token: " + id_token)
-        obo_token = self.get_obo_token(id_token['access_token'], self.second_obo_id, self.second_obo_secret)
+        self.assertTrue(id_token['access_token'], "Unable to generate id_token from existing token: " + id_token_response)
+        obo_token_response = self.get_obo_token(id_token['access_token'], self.second_obo_id, self.second_obo_secret)
+        obo_token = json.loads(obo_token_response)
         print "new access token: "
         print obo_token['access_token']
-        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token)
+        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         self.obo_token = obo_token['access_token']
 
     def test_011_openid_post_work(self):
@@ -70,10 +70,11 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(response_error in response, "Expected error is missing: " + response)
 
     def test_012_full_scope_obo(self):
-        obo_token = self.get_obo_token(self.second_obo_id_token, self.first_obo_id, self.first_obo_secret)
+        obo_token_response = self.get_obo_token(self.second_obo_id_token, self.first_obo_id, self.first_obo_secret)
+        obo_token = json.loads(obo_token_response)
         print "new access token: "
         print obo_token['access_token']
-        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token)
+        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         self.obo_token = obo_token['access_token']
 
     def test_013_full_scope_post_work(self):
