@@ -4,8 +4,6 @@ import properties
 import json
 import re
 
-
-
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     obo_token = ""
 
