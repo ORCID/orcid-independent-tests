@@ -22,7 +22,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_oauth_token(self):
         code = self.generate_auth_code(self.client_id, self.scope, "open")
-        access, refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
+        access, refresh, id_token = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
         self.assertTrue(access, "Failed to retrieve access token")
 
     def test_public_record_info(self):
