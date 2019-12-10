@@ -40,6 +40,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
+        print "response from obo token: "
+        print response
         json_response = json.loads(response)
         return json_response['access_token']
 '''
