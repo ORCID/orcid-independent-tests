@@ -37,20 +37,14 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        print "response from obo token: "
-        print response
         return response
 
     def test_010_existing_token_flow(self):
         id_token_response = self.get_id_token(self.first_obo_access, self.first_obo_id, self.first_obo_secret)
         id_token = json.loads(id_token_response)
-        print "id_token: "
-        print id_token
         self.assertTrue(id_token['access_token'], "Unable to generate id_token from existing token: " + id_token_response)
         obo_token_response = self.get_obo_token(id_token['access_token'], self.second_obo_id, self.second_obo_secret)
         obo_token = json.loads(obo_token_response)
-        print "new access token: "
-        print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         OauthOpenId.obo_token = obo_token['access_token']
 
@@ -62,8 +56,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_012_full_scope_obo(self):
         obo_token_response = self.get_obo_token(self.second_obo_id_token, self.first_obo_id, self.first_obo_secret)
         obo_token = json.loads(obo_token_response)
-        print "new access token: "
-        print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         OauthOpenId.obo_token = obo_token['access_token']
 
@@ -73,8 +65,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
-        print response
-        print putcode
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
         assertion_check = "<common:assertion-origin-name>Member OBO Second Client</common:assertion-origin-name>"
