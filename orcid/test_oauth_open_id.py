@@ -53,6 +53,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         self.obo_token = obo_token['access_token']
+        return self.obo_token
 
     def test_011_openid_post_work(self):
         response = self.post_member_obo(self.obo_token,self.version, "work", "ma30_work_member_obo.xml")
@@ -66,6 +67,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
         self.obo_token = obo_token['access_token']
+        return self.obo_token
 
     def test_013_full_scope_post_work(self):
         response = self.post_member_obo(self.obo_token, self.version, "work", "ma30_work_member_obo.xml")
