@@ -8,6 +8,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         self.firefox = OrcidBrowser()
+        self.orcid_id = properties.orcidId
         self.version = "/v3.0/"
         self.obo_token = ""
 
@@ -22,18 +23,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.second_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
         self.second_obo_code = self.generate_auth_code(self.second_obo_id, self.second_obo_scope, "api2PostUpdateCode")
         self.second_obo_access, self.second_obo_refresh, self.second_obo_id_token = self.orcid_exchange_auth_token(self.second_obo_id, self.second_obo_secret, self.second_obo_code)
-
-    def post_member_obonope(self):
-        #Post a work using 3.0 to the record created for testing today
-        response = self.post_member_obo(self.version, "work", "ma30_work_member_obo.xml")
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
-        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        search_pattern = "%s(.+?)Expires" % url
-        putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
-        url = "https://" + url + putcode.group(1)
-        read_response = self.orcid_curl(url, curl_params)
-        assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
-        self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + response)
 
     def get_id_token(self, token, id, secret):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
