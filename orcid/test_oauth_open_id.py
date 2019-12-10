@@ -4,13 +4,15 @@ import properties
 import json
 import re
 
+
+
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
+    obo_token = ""
 
     def setUp(self):
         self.firefox = OrcidBrowser()
         self.orcid_id = properties.orcidId
         self.version = "/v3.0/"
-        self.obo_token = ""
 
         self.first_obo_id = properties.OBOMemberClientId
         self.first_obo_secret = properties.OBOMemberClientSecret
@@ -52,11 +54,10 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print "new access token: "
         print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
-        self.obo_token = obo_token['access_token']
-        return self.obo_token
+        OauthOpenId.obo_token = obo_token['access_token']
 
     def test_011_openid_post_work(self):
-        response = self.post_member_obo(self.obo_token,self.version, "work", "ma30_work_member_obo.xml")
+        response = self.post_member_obo(obo_token,self.version, "work", "ma30_work_member_obo.xml")
         response_error = "409 Conflict: The item has a limited or private visibility and your request doesn't have the required scope."
         self.assertTrue(response_error in response, "Expected error is missing: " + response)
 
@@ -66,11 +67,10 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print "new access token: "
         print obo_token['access_token']
         self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
-        self.obo_token = obo_token['access_token']
-        return self.obo_token
+        OauthOpenId.obo_token = obo_token['access_token']
 
     def test_013_full_scope_post_work(self):
-        response = self.post_member_obo(self.obo_token, self.version, "work", "ma30_work_member_obo.xml")
+        response = self.post_member_obo(OauthOpenId.obo_token, self.version, "work", "ma30_work_member_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "%s(.+?)Expires" % url
