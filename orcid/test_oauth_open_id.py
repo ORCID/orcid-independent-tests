@@ -2,75 +2,87 @@ import OrcidBaseTest
 from OrcidBrowser import OrcidBrowser
 import properties
 import json
+import re
 
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         self.firefox = OrcidBrowser()
-        self.member_obo_id = properties.OBOMemberClientId
-        self.member_obo_secret = properties.OBOMemberClientSecret
-        self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.openid_scope = "openid"
-        self.member_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
-        self.code = self.generate_auth_code(self.client_id, self.openid_scope, "api2PostUpdateCode")
-        self.access, self.refresh, self.id_token = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
-        self.member_obo_code = self.generate_auth_code(self.member_obo_id, self.member_obo_scope, "api2PostUpdateCode")
-        self.member_obo_access, self.member_obo_refresh, self.member_obo_id_token = self.orcid_exchange_auth_token(self.member_obo_id, self.member_obo_secret, self.member_obo_code)
+        self.version = "/v3.0/"
 
-    def test_existing_token_flow(self):
-        id_token = self.get_id_token()
-        print "id_token: "
-        print id_token
-        newaccess = self.get_obo_token(id_token['access_token'])
-        print "new access token: "
-        print newaccess
+        self.first_obo_id = properties.OBOMemberClientId
+        self.first_obo_secret = properties.OBOMemberClientSecret
+        self.first_obo_scope = "openid"
+        self.first_obo_code = self.generate_auth_code(self.client_id, self.openid_scope, "api2PostUpdateCode")
+        self.first_obo_access, self.first_obo_refresh, self.first_obo_id_token = self.orcid_exchange_auth_token(self.first_obo_id, self.first_obo_secret, self.first_obo_code)
 
-    def get_id_token(self):
-        self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access ))
-        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.member_obo_id + '&client_secret=' + self.member_obo_secret + '&subject_token=' + self.member_obo_access +
+        self.second_obo_id     = properties.OBOMemberSecondId
+        self.second_obo_secret = properties.OBOMemberSecondSecret
+        self.second_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
+        self.second_obo_code = self.generate_auth_code(self.second_obo_id, self.second_obo_scope, "api2PostUpdateCode")
+        self.second_obo_access, self.second_obo_refresh, self.second_obo_id_token = self.orcid_exchange_auth_token(self.second_obo_id, self.second_obo_secret, self.second_obo_code)
+
+    def post_member_obonope(self):
+        #Post a work using 3.0 to the record created for testing today
+        response = self.post_member_obo(self.version, "work", "ma30_work_member_obo.xml")
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
+        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        search_pattern = "%s(.+?)Expires" % url
+        putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
+        url = "https://" + url + putcode.group(1)
+        read_response = self.orcid_curl(url, curl_params)
+        assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
+        self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + response)
+
+    def get_id_token(self, token, id, secret):
+        self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
+        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token +
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         json_response = json.loads(response)
         return json_response
 
-    def get_obo_token(self, id_token):
-        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + self.client_id + '&client_secret=' + self.client_secret +
-                     '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' + id_token +
+    def get_obo_token(self, token, id, secret):
+        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret +
+                     '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' + token +
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         print "response from obo token: "
         print response
         json_response = json.loads(response)
-        return json_response['access_token']
-'''
-    def test_oauth_token(self):
-        code = self.generate_auth_code(self.client_id, self.scope, "open")
-        access, refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
-        self.assertTrue(access, "Failed to retrieve access token")
+        return json_response
 
-    def test_public_record_info(self):
-        user_info = self.get_user_info(self.public_record_token)
-        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
-        print "response: " + user_info_body
-        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info)
+    def test_010_existing_token_flow(self):
+        id_token = self.get_id_token(self.first_obo_access, self.first_obo_id, self.first_obo_secret)
+        print "id_token: "
+        print id_token
+        self.assertTrue(id_token['access_token'], "Unable to generate id_token from existing token: " + id_token)
+        obo_token = self.get_obo_token(id_token['access_token'], self.second_obo_id, self.second_obo_secret)
+        print "new access token: "
+        print obo_token['access_token']
+        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token)
+        self.obo_token = obo_token['access_token']
 
-    def test_limited_record_info(self):
-        user_info = self.get_user_info(self.limited_record_token)
-        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
-        print "response: " + user_info_body
-        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info)
+    def test_011_openid_post_work(self):
+        response = self.post_member_obo(self.obo_token,self.version, "work", "ma30_work_member_obo.xml")
+        response_error = "409 Conflict: The item has a limited or private visibility and your request doesn't have the required scope."
+        self.assertTrue(response_error in response, "Expected error is missing: " + response)
 
-    def test_implicit_token(self):
-        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
-        print "implicit: " + implicit
-        self.assertTrue(implicit, "Failed to retrieve implicit token")
+    def test_012_full_scope_obo(self):
+        obo_token = self.get_obo_token(self.second_obo_id_token, self.first_obo_id, self.first_obo_secret)
+        print "new access token: "
+        print obo_token['access_token']
+        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token)
+        self.obo_token = obo_token['access_token']
 
-    def test_wrong_scope_token(self):
-        wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
-        print "wrong_implicit: " + wrong_implicit
-        user_info = self.get_user_info(wrong_implicit)
-        print "user_info: " + user_info
-        self.assertTrue("access_denied" in user_info, "Wrong scope test failed: " + user_info)
-'''
+    def test_013_full_scope_post_work(self):
+        response = self.post_member_obo(self.obo_token, self.version, "work", "ma30_work_member_obo.xml")
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
+        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        search_pattern = "%s(.+?)Expires" % url
+        putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
+        url = "https://" + url + putcode.group(1)
+        read_response = self.orcid_curl(url, curl_params)
+        assertionCheck = "<common:assertion-origin-name>Member OBO Testing Client</common:assertion-origin-name>"
+        self.assertTrue(assertionCheck in read_response, "Unexpected result: " + response)
