@@ -8,7 +8,7 @@
 		<common:subtitle>Sub title</common:subtitle>
 		<common:translated-title language-code="es">Translated-title</common:translated-title>
 	</work:title>
-	<work:journal-title>Jounral Title</work:journal-title>
+	<work:journal-title>Journal Title</work:journal-title>
 	<work:short-description>Short description</work:short-description>
 	<work:citation>
 		<work:citation-type>bibtex</work:citation-type>
