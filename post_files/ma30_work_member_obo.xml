@@ -22,8 +22,8 @@
 	</work:citation>
 	<work:type>journal-article</work:type>
 	<common:publication-date>
-		<common:year>2012</common:year>
-		<common:month>10</common:month>
+		<common:year>2020</common:year>
+		<common:month>01</common:month>
 		<common:day>01</common:day>
 	</common:publication-date>
 	<common:external-ids>
@@ -37,7 +37,7 @@
 			<common:external-id-type>doi</common:external-id-type>
 			<common:external-id-value>work:doi</common:external-id-value>			
 			<common:external-id-url>http://orcid.org</common:external-id-url>
-			<common:external-id-relationship>self</common:external-id-relationship>
+			<common:external-id-relationship>part-of</common:external-id-relationship>
 		</common:external-id>
 	</common:external-ids>
 	<common:url>http://alt-uri.org</common:url>
