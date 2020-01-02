@@ -79,7 +79,10 @@ class OrcidBaseTest(unittest.TestCase):
             json_response = self.load_secrets_from_file(code)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
-            return [json_response['access_token'],json_response['refresh_token']]
+            if ('id_token' in json_response):
+                return [json_response['access_token'], json_response['refresh_token'], json_response['id_token']]
+            else:
+                return [json_response['access_token'], json_response['refresh_token']]
         else: 
             if('error' in json_response):
                 raise ValueError("No tokens found in response: " + json_response['error']['value'])
@@ -159,6 +162,12 @@ class OrcidBaseTest(unittest.TestCase):
     def post_user_obo(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.user_obo_access,"Bearer not recovered: " + str(self.user_obo_access))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.user_obo_access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        return response
+
+    def post_member_obo(self, token, version, activity_type = "work", xml_file = "ma2_work.xml"):
+        self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
