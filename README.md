@@ -19,12 +19,11 @@ The tests are divided into two group Step 1 tests read and write to static recor
  * test_memberVERSION_api_post_update : Post items to a record
  * test_public_api_read_search : test the record is in search results
 
-## Required Python Libraries
+## Setup
 
-* pytest
-* junit-xml
-
-> Already included on _requirements.txt_ file
+* [Install python 2.7.17](https://www.python.org/downloads/release/python-2717/) (make sure to include pip and add to environment variables)
+* Download the independent tests source code
+* Navigate to the orcid folder within the source and run 'pip install -r requirements.txt'
 
 ## Dev Environment Setup
 
@@ -46,10 +45,27 @@ Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file contai
     orcidId=0000-0003-4248-6064
     searchValue=13feb2017
 
-In order to execute the test suite against the target server
+Run the required line in the source folder to execute a given test:
+  
+    py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
 
-    source .py_env/bin/activate
-    py.test --junitxml results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_public_record.xml orcid/test_public_record.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_limited_record.xml orcid/test_limited_record.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_private_record.xml orcid/test_private_record.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_20api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_21api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_30api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_30rc1api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_30rc2api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
+
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member21_api_post_update.xml orcid/test_member21_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member30_api_post_update.xml orcid/test_member30_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc1_api_post_update.xml orcid/test_member30rc1_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc2_api_post_update.xml orcid/test_member30rc2_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
 
 ## Configure Automated Execution with Jenkins
 
