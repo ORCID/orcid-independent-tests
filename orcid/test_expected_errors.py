@@ -42,19 +42,19 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Test posting a work using 2.0 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.orcid_id + "/work", curl_params)
-        self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
+        self.assertTrue("HTTP/1.1 403" in response, "Non 401 returned: " + response)
 
     def test_access_record21_without_token(self):
         # Test posting a work using 2.1 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.orcid_id + "/work", curl_params)
-        self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
+        self.assertTrue("HTTP/1.1 403" in response, "Non 401 returned: " + response)
 
     def test_access_record30rc1_without_token(self):
         # Test posting the ma30_work.xml work using 3.0_rc1 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.orcid_id + "/work", curl_params)
-        self.assertTrue("403 Forbidden" in response, "Non 401 returned: " + response)
+        self.assertTrue("HTTP/1.1 403" in response, "Non 401 returned: " + response)
 
     def test_update_record2_without_token(self):
         # Post the ma test work 2 using the basic client
@@ -68,7 +68,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         activity_type = "work"
         update_curl_params = ['-i', '-L', '-k', '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%d" % (self.orcid_id, activity_type, int(putcode)), update_curl_params)
-        self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 403" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("HTTP/1.1 204" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
@@ -84,7 +84,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         updated_data = '{"put-code":' + str(putcode).strip() + ',"title":{"title":"APITestTitleUpdated"},"type":"JOURNAL_ARTICLE","external-ids":{"external-id":[{"external-id-value":"12345","external-id-type":"doi","external-id-relationship":"SELF"}]}}'
         update_curl_params = ['-i', '-L', '-k', '-H', 'Authorization: Bearer ' + str(self.access2), '-H', 'Content-Type: application/orcid+json', '-H', 'Accept: application/json', '-d', updated_data, '-X', 'PUT']
         update_response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/%s/%s/%s" % (self.orcid_id, "work", str(putcode).strip()), update_curl_params)
-        self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 403" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
         self.assertTrue("HTTP/1.1 204" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
