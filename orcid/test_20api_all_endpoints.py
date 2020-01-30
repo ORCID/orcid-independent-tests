@@ -3,7 +3,7 @@ import properties
 import re
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
-    
+
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
@@ -65,8 +65,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #delete
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api.qa.orcid.org/v2.0/group-id-record/%s" % (putcode), delete_params)
-        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)    
-        
+        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
+
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
@@ -82,7 +82,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(putname in read_response and manualname in read_response and postname not in read_response, "response: " + read_response)
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
-        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
+        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
         #Read check it was deleted
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)
@@ -117,7 +117,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
-        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
+        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
         #Read check it was deleted
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)

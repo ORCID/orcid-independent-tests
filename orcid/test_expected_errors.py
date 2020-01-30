@@ -71,7 +71,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
-        self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
+        self.assertTrue("HTTP/1.1 204" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
 
     def test_update_record2_from_other_source(self):
         # Post the ma test work 2 using the basic client
@@ -87,7 +87,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("403 Forbidden" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         # Delete the work
         delete_response = self.delete_activity("/v2.0/", putcode, "work")
-        self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
+        self.assertTrue("HTTP/1.1 204" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
 
     def test_member_http_read_20(self):
         #Test making a call with 2.0 API using http not https returns the expected 9012 error
