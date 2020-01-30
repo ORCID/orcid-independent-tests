@@ -199,16 +199,16 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #create, read, delete a peer-review group with a non issn group id
         self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
         self.other_group(self.group_access, 'group.xml')
-
+        
     def test_client_endpoint(self):
         #check response of the client endpoint
-        curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
+    	  curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
         
     def test_client_endpoint(self):
         #check response of the client endpoint in xml
-        curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
+    	  curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
 
