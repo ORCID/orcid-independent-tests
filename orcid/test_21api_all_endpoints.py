@@ -54,7 +54,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         
     def other_group(self, group_access, xmlfile):
         #post new group
-    	  post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
+        post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record", post_params)
         self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #put-code
