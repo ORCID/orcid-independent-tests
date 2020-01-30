@@ -28,7 +28,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = '{"put-code":' + str(putcode) + ',"title":{"title":"APITestTitleUpdated30rc2"},"type":"journal-article","external-ids":{"external-id":[{"external-id-value":"15","external-id-type":"doi","external-id-relationship":"self"}]}}'
         update_response = self.update_activity(self.version, putcode, updated_data, "work")
-        self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 200" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         
         
     def test_post_education(self):
@@ -66,7 +66,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = '{"put-code":' + str(putcode) + ',"content":"coconuts"}'
         update_response = self.update_activity(self.version, putcode, updated_data, "keywords")
-        self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 200" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
              
     def test_post_othername(self):
     	# Post an other name using 3.0_rc2 to the record created for testing today
@@ -98,7 +98,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def test_post_bulk_works(self):
         # Post a bulk works item using 3.0_rc2 to the record created for testing today
         response = self.post_activity(self.version, "works", "ma30rc2_bulkworks.xml")
-        self.assertTrue("200 OK" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 200" in response, "Response missing \"Created\" tag: " + response)
 	self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
 	self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
         

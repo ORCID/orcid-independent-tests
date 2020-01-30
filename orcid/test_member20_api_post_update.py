@@ -25,7 +25,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = '{"put-code":' + str(putcode) + ',"title":{"title":"APITestTitleUpdated"},"type":"JOURNAL_ARTICLE","external-ids":{"external-id":[{"external-id-value":"1234","external-id-type":"doi","external-id-relationship":"SELF"}]}}'
         update_response = self.update_activity(self.version, putcode, updated_data, "work")
-        self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 200" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
         
         
     def test_post_education(self):
@@ -53,7 +53,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertFalse("" == putcode, "Empty putcode in url")
         updated_data = '{"put-code":' + str(putcode) + ',"content":"oranges"}'
         update_response = self.update_activity(self.version, putcode, updated_data, "keywords")
-        self.assertTrue("200 OK" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+        self.assertTrue("HTTP/1.1 200" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
              
     def test_post_othername(self):
 		# Test Post other name to the record created today using the 2.0 api

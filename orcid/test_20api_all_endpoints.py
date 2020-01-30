@@ -76,7 +76,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
-        self.assertTrue("200 OK" in put_response, "response: " + put_response)
+        self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
         #Read check it was updated
         read_response = self.read20(readendpoint)
         self.assertTrue(putname in read_response and manualname in read_response and postname not in read_response, "response: " + read_response)
@@ -105,7 +105,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
-        self.assertTrue("200 OK" in put_response, "response: " + put_response)
+        self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
         # Check creation date after updating the item
