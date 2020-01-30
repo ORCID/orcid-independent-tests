@@ -56,7 +56,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     	#post new group
     	post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record", post_params)
-    	self.assertTrue("201 Created" in post_response, "response: " + post_response)
+    	self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #put-code
         putcode = self.getputcode(post_response)
         #read
@@ -71,7 +71,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
-        self.assertTrue("201 Created" in post_response, "response: " + post_response)
+        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #Get put-code
         putcode = self.getputcode(post_response)
         #Update
@@ -91,7 +91,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def works20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
-        self.assertTrue("201 Created" in post_response, "response: " + post_response)
+        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #Read Check for group
         read_response = self.read20(readendpoint)
         self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)

@@ -17,7 +17,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def test_post_update_work(self):
         # Test Post the ma test work 2
         response = self.post_activity(self.version, "work", "ma21_work.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
         print putcode
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
@@ -31,22 +31,22 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def test_post_education(self):
         # Test Post education item to the record created today using the 2.1 api 
         response = self.post_activity(self.version, "education", "ma21_edu.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
         
     def test_post_funding(self):
 		# Test Post funding to the record created today using the 2.1 api 
         response = self.post_activity(self.version, "funding", "ma21_fund2.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
         
     def test_post_peerreview(self):
 		# Test Post peer review to the record created today using the 2.1 api 
         response = self.post_activity(self.version, "peer-review", "ma21_peer2.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
         
     def test_post_update_keyword(self):
         # Test Post keyword to the record created today using the 2.1 api and test updating using put
         response = self.post_activity(self.version, "keywords", "ma21_keyword.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
         #Update the keyword from Kiwi to grapes
@@ -58,22 +58,22 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def test_post_othername(self):
 		# Test post other name to the record created today using the 2.1 api
         response = self.post_activity(self.version, "other-names", "ma21_othername.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response) 
         
     def test_post_country(self):
 		# Test Post country to the record created today using the 2.1 api
         response = self.post_activity(self.version, "address", "ma21_country.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response) 
         
     def test_post_website(self):
 		# Test Post website to the record created today using the 2.1 api
         response = self.post_activity(self.version, "researcher-urls", "ma21_website.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response) 
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response) 
         
     def test_post_identifier(self):
         # Test Post personal identifier to the record created today using the 2.1 api
         response = self.post_activity(self.version, "external-identifiers", "ma21_identifier.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)     
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)     
 
     def test_post_update_notification(self):
 		# Test Post notification to the record created today using the 2.1 api
@@ -81,7 +81,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.access,"Bearer not recovered: " + str(self.access))
         # Test Post a notification to the record created for testing today. Use the existing notify token.
         response = self.post_activity(self.version, "notification-permission", "ma21_notify.xml")
-        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
 
     def test_post_bulk_works(self):
         # Post a bulk works item using 2.1 api to the record created for testing today
