@@ -59,7 +59,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
     def test_update_record2_without_token(self):
         # Post the ma test work 2 using the basic client
         response = self.post_activity("/v2.0/", "work", "ma2_work.xml")
-        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         putcode = str(self.get_putcode_from_response(response)).strip()
         self.assertIsNotNone(putcode,"No valid putcode returned: [%s]" % str(putcode))
         # Update the work with JSON
@@ -76,7 +76,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
     def test_update_record2_from_other_source(self):
         # Post the ma test work 2 using the basic client
         response = self.post_activity("/v2.0/", "work", "ma2_work.xml")
-        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"Created\" tag: " + response)
+        self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
         self.assertIsNotNone(putcode,"No valid putcode returned: [%s]" % str(putcode))
         # TEST 116 Attempt to update the work using the premium client with old scopes
