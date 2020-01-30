@@ -62,7 +62,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #post new group
         post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record", post_params)
-        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
+        self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #put-code
         putcode = self.getputcode(post_response)
         #read
@@ -72,24 +72,24 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #delete
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record/%s" % (putcode), delete_params)
-        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
+        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
     
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
-        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
+        self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #Get put-code
         putcode = self.getputcode(post_response)
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
-        self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
+        self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read check it was updated
         read_response = self.read20(readendpoint)
         self.assertTrue(putname in read_response and manualname in read_response and postname not in read_response, "response: " + read_response)
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
-        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
+        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
         #Read check it was deleted
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)
@@ -97,7 +97,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def works20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
-        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
+        self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #Read Check for group
         read_response = self.read20(readendpoint)
         self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)
@@ -112,7 +112,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
-        self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
+        self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
         # Check creation date after updating the item
@@ -124,7 +124,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
-        self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
+        self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
         #Read check it was deleted
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)

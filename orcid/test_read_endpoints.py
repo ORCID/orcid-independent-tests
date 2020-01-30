@@ -32,53 +32,53 @@ class ReadEndPoints(OrcidBaseTest.OrcidBaseTest):
     	#Call the endpoint for each section of the limited ORCID record using 3.0
     	for item in self.sections:
     		response = self.read_members('v3.0', self.limited_orcid_id, self.limited_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
     		
     def test_read_limited_items(self):
     	#Call the endpoint for each item of the limited ORCID record using 3.0
     	for item in self.limited_items:
     		response = self.read_members('v3.0', self.limited_orcid_id, self.limited_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_limited_summaries(self):
     	#Call the endpoint for the summary of each item of the limited ORCID record using 3.0
     	for item in self.limited_summaries:
     		response = self.read_members('v3.0', self.limited_orcid_id, self.limited_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
     		
     def test_read_public_sections_member_api(self):
     	#Call the endpoint for each section of the public ORCID record using 3.0 in the public API
     	for item in self.sections:
     		response = self.read_members('v3.0', self.public_orcid_id, self.memapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_public_items_member_api(self):
     	#Call the endpoint for each item of the limited ORCID record using 3.0 in the member API
     	for item in self.public_items:
     		response = self.read_members('v3.0', self.public_orcid_id, self.memapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_public_summaries_member_api(self):
     	#Call the endpoint for the summary of each item of the public ORCID record using 3.0 in the member API
     	for item in self.public_summaries:
     		response = self.read_members('v3.0', self.public_orcid_id, self.memapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_public_sections_public_token(self):
     	#Call the endpoint for each section of the public ORCID record using 3.0 in the public API
     	for item in self.sections:
     		response = self.read_public('v3.0', self.public_orcid_id, self.pubapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_public_items_public_token(self):
     	#Call the endpoint for each item of the public ORCID record using 3.0 and the public API
     	for item in self.public_items:
     		response = self.read_public('v3.0', self.public_orcid_id, self.pubapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
     def test_read_public_summaries_public_token(self):
     	#Call the endpoint for the summary of each item of the public ORCID record using 3.0 and public API
     	for item in self.public_summaries:
     		response = self.read_public('v3.0', self.public_orcid_id, self.pubapi_public_token, item)
-    		self.assertTrue("HTTP/1.1 200" in response, "Read response: " + response)
+    		self.assertTrue("200 OK" in response, "Read response: " + response)
 
