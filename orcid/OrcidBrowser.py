@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time
+import local_properties
 
 class OrcidBrowser:
 
@@ -12,7 +13,10 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
+        if local_properties.type == "jenkins":
+            ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
+        else:
+            ff_bin = FirefoxBinary('c:/Program Files/Mozilla Firefox/firefox.exe')
         self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
@@ -55,7 +59,6 @@ class OrcidBrowser:
             wait = WebDriverWait(self.ff, 10)
             try:
                 self.ff.find_element_by_id('authorize')
-                print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
             except Exception:
@@ -79,7 +82,6 @@ class OrcidBrowser:
             wait = WebDriverWait(self.ff, 10)
             try:
                 self.ff.find_element_by_id('authorize')
-                print "yep"
                 authorize_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'authorize')))
                 authorize_button.click()
             except Exception:

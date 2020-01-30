@@ -4,7 +4,11 @@ import json
 # Choose which records gets cleared, 
 # 1 for step 1 tests ("Independent Test Record") 
 # 2 for step 2 tests ("Testing Searchvalue")
-step = 2
+# USER OBO
+#    member_name = "OBO User Testing Client"
+#    orcid_id = "0000-0002-7361-1027"
+#    access_token = "7da424d0-ea30-46f9-9154-c9a80139ec63"
+step = 1
 if step == 1:
     member_name = "Manual Testing Client"
     orcid_id = "0000-0002-7361-1027"
@@ -64,28 +68,54 @@ def delete_bio(record, endpoint, endpoint_value, source_name):
 
 def delete_work(record, source_name):
     for x in record['educations']['affiliation-group']:
-        if x['summaries'][0]['education-summary']['source']['source-name']['value'] == source_name:
-            delete(x['summaries'][0]['education-summary']['put-code'], "education")
+        for y in x['summaries']:
+            if y['education-summary']['source']['source-name']['value'] == source_name:
+                delete(y['education-summary']['put-code'], "education")
 
     for x in record['employments']['affiliation-group']:
-        if x['summaries'][0]['employment-summary']['source']['source-name']['value'] == source_name:
-            delete(x['summaries'][0]['put-code'], "employment")
+        for y in x['summaries']:
+            if y['employment-summary']['source']['source-name']['value'] == source_name:
+                delete(y['employment-summary']['put-code'], "employment")
+
+    for x in record['distinctions']['affiliation-group']:
+        for y in x['summaries']:
+            if y['distinction-summary']['source']['source-name']['value'] == source_name:
+                delete(y['distinction-summary']['put-code'], "distinction")
+
+    for x in record['services']['affiliation-group']:
+        for y in x['summaries']:
+            if y['service-summary']['source']['source-name']['value'] == source_name:
+                delete(y['service-summary']['put-code'], "service")
 
     for x in record['fundings']['group']:
-        if x['funding-summary'][0]['source']['source-name']['value'] == source_name:
-            delete(x['funding-summary'][0]['put-code'], "funding")
+        for y in x['funding-summary']:
+            if y['source']['source-name']['value'] == source_name:
+                delete(y['put-code'], "funding")
 
     for x in record['research-resources']['group']:
-        if x['research-resource-summary'][0]['source']['source-name']['value'] == source_name:
-            delete(x['research-resource-summary'][0]['put-code'], "research-resource")
+        for y in x['research-resource-summary']:
+            if y['source']['source-name']['value'] == source_name:
+                delete(y['put-code'], "research-resource")
+
+    for x in record['invited-positions']['affiliation-group']:
+        for y in x['summaries']:
+            if y['invited-position-summary']['source']['source-name']['value'] == source_name:
+               delete(y['invited-position-summary']['put-code'], "invited-position")
 
     for x in record['works']['group']:
-        if x['work-summary'][0]['source']['source-name']['value'] == source_name:
-            delete(x['work-summary'][0]['put-code'], "work")
+        for y in x['work-summary']:
+            if y['source']['source-name']['value'] == source_name:
+                delete(y['put-code'], "work")
+
+    for x in record['memberships']['affiliation-group']:
+        for y in x['summaries']:
+            if y['membership-summary']['source']['source-name']['value'] == source_name:
+                delete(y['membership-summary']['put-code'], "membership")
 
     for x in record['qualifications']['affiliation-group']:
-        if x['summaries'][0]['qualification-summary']['source']['source-name']['value'] == source_name:
-            delete(x['summaries'][0]['qualification-summary']['put-code'], "qualification")
+        for y in x['summaries']:
+            if y['qualification-summary']['source']['source-name']['value'] == source_name:
+                delete(y['qualification-summary']['put-code'], "qualification")
 
     for x in record['peer-reviews']['group']:
         for y in x['peer-review-group']:

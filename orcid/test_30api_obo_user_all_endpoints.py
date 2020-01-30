@@ -8,38 +8,33 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        #0000-0002-7361-1027
-        if local_properties.type == "jenkins":
-          self.client_id = properties.memberClientId
-          self.client_secret = properties.memberClientSecret
-          self.notify_token = properties.notifyToken
-          self.orcid_id = properties.staticId
-          self.access = properties.staticAccess
-          self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-        else:
-          self.orcid_id = local_properties.orcid_id
-          self.access = local_properties.step_1_access
-          self.group_access = local_properties.group_access
+        self.client_id = properties.memberClientId
+        self.client_secret = properties.memberClientSecret
+        self.notify_token = properties.notifyToken
+        self.orcid_id = properties.staticId
+        self.access = properties.staticOBOUserAccess
+        # 0000-0002-7361-1027
 
-    #3.0_rc1
+#3.0
+# The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
-        post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)
+        post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
         return post_response
 
     def put20(self, putjson, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+json', '-H', 'Accept: application/json', '-d', self.putjson, '-X', 'PUT']
-        put_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        put_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return put_response
 
     def read20(self, endpoint):
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-        read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)
-        return read_response
+      curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
+      read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+      return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        delete_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return delete_response
 
     def getputcode(self, post_response):
@@ -50,31 +45,30 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         return putcode
 
     def issn_group(self, group_access, issn):
-        #search
+    	#search
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/group-id-record/?group-id=%s" % (issn), curl_params)
+        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record/?group-id=%s" % (issn), curl_params)
         self.assertTrue("group-id" in post_response, "response: " + post_response)
         #read
-        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/group-id-record/1104", curl_params)
+        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record/1104", curl_params)
         self.assertTrue("<group-id:group-id>issn:love</group-id:group-id>" in read_response, "response: " + read_response)
         
     def other_group(self, group_access, xmlfile):
-        #post new group
-        post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/group-id-record", post_params)
-        self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
+    	#post new group
+    	post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
+        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record", post_params)
+    	self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #put-code
         putcode = self.getputcode(post_response)
         #read
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', 'GET']
-        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/group-id-record/%s" %(putcode), curl_params)
+        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record/%s" %(putcode), curl_params)
         self.assertTrue("<group-id:group-id>orcid-generated:ind</group-id:group-id>" in read_response, "response: " + read_response)
         #delete
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc2/group-id-record/%s" % (putcode), delete_params)
+        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0/group-id-record/%s" % (putcode), delete_params)
         self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
-
-        
+    
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
@@ -105,24 +99,17 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Get put-code
         putcode = self.getputcode(post_response)
-        # Check creation date after posting the item
-        search_pattern = "%s(.+?)</common:created-date>" % putcode
-        creation_date_post = re.search(search_pattern, re.sub('[\s+]', '', read_response))
-        creation_date_post = creation_date_post.group(1)
-        creation_date_post = creation_date_post.split('<common:created-date>')[1]
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
         self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
-        # Check creation date after updating the item
-        creation_date_put = re.search(search_pattern, re.sub('[\s+]', '', read_response))
-        creation_date_put = creation_date_put.group(1)
-        creation_date_put = creation_date_put.split('<common:created-date>')[1]
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
-        self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print read_response
+        # Check assertion tag
+        assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>",re.sub('[\s+]', '', read_response))
+        self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + read_response)
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
         self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
@@ -130,6 +117,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         read_response = self.read20(readendpoint)
         self.assertTrue(manualname in read_response and putname not in read_response, "response: " + read_response)
 
+# Each test has josn to put and the parameters are: xml file to post, endpoint to post to, endpoint to read, json to put, text that is in the posted file, text that is in the json put update, manually added text
     def test_othername30(self):
         jsontext = '"display-index":0,"content":"Second Name"}'
         self.bio20('20postname.xml', 'other-names', 'other-names', jsontext, 'First name', 'Second Name', 'Other name')
@@ -186,30 +174,22 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"proposal":{"title":{"title":{"value":"Special Collections Access Request"}},"hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1004","external-id-relationship":"self"}]}},"resource-item":[{"resource-name":"Special Collection","resource-type":"collections","hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1100","external-id-relationship":"self"}]}}]}'
         self.works20('30postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
 
-    def test_works20(self):
+    def test_works30(self):
         jsontext = '"title":{"title":{"value":"Catcher in the Rye"}},"type":"book","external-ids":{"external-id":[{"external-id-type":"doi","external-id-value":"1234","external-id-url":null,"external-id-relationship":"self"}]}}'
-        self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')
-
+        self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')     
+    
     def test_peer20(self):
-        jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
-        self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
+    	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:1741-4857", "convening-organization" : { "name" : "Crossref", "address" : { "city" : "Lynnfield", "region" : "MA", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "grid.466633.2", "disambiguation-source" : "GRID" }}}'
+        self.bio20('30postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
-    def test_peerreview_group(self):
-        #search for and read a peer-review group with an issn group id
-        self.issn_group(self.group_access, '1741-4857')
-        
-    def test_other_group(self):
-        #create, read, delete a peer-review group with a non issn group id
-        self.other_group(self.group_access, 'group.xml')
-        
     def test_client_endpoint(self):
-      #check response of the client endpoint
+    	#check response of the client endpoint
     	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc2/client/APP-7M3CGDKMQE36J56N", curl_params)
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
         
     def test_client_endpoint(self):
-        #check response of the client endpoint in xml
-        curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc2/client/APP-7M3CGDKMQE36J56N", curl_params)
+    	#check response of the client endpoint in xml
+    	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
