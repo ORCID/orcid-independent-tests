@@ -47,8 +47,6 @@ Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file contai
 
 Run the required line in the source folder to execute a given test:
   
-    py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
-
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_record.xml orcid/test_public_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_limited_record.xml orcid/test_limited_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_private_record.xml orcid/test_private_record.py
@@ -66,6 +64,8 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30_api_post_update.xml orcid/test_member30_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc1_api_post_update.xml orcid/test_member30rc1_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc2_api_post_update.xml orcid/test_member30rc2_api_post_update.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_member_obo.xml orcid/test_member_obo.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
 
 ## Configure Automated Execution with Jenkins
