@@ -31,7 +31,7 @@ Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file contai
     searchValue=13feb2017
 
 Run the required line in the source folder to execute a given test:
-    ## Step 1
+### Step 1
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_record.xml orcid/test_public_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_limited_record.xml orcid/test_limited_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_private_record.xml orcid/test_private_record.py
@@ -43,7 +43,7 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_30rc2api_all_endpoints.xml orcid/test_30rc2api_all_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
-    ## Step 2
+### Step 2
     py.test --junitxml orcid/.py_env/Scripts/results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member21_api_post_update.xml orcid/test_member21_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30_api_post_update.xml orcid/test_member30_api_post_update.py
