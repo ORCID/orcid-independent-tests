@@ -1,23 +1,8 @@
 # orcid-independent-tests
 
-## Overview
-
 This project uses automated calls to test ORCID API functionality.
 
 The tests are divided into two group Step 1 tests read and write to static records on QA but the records are not changed as any written information is then deleted. Step 2 tests update a given ORCID record and can not be run twice on the same record.
-
-### Step one tests (no updates)
-
-* test_public_record.py : test reading public information
-* test_limited_record.py : test reading limited information
-* test_private_record.py : test that private items are not returned
-* test_VERSIONapi_all_endpoints.py : test post, put, read and delete for every API endpoint
-* test_scope_methods : test that API scopes behave as expected
-* test_read_endpoints : test reading every endpoint
-
-### Step two tests (update a record)
- * test_memberVERSION_api_post_update : Post items to a record
- * test_public_api_read_search : test the record is in search results
 
 ## Setup
 
@@ -46,7 +31,7 @@ Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file contai
     searchValue=13feb2017
 
 Run the required line in the source folder to execute a given test:
-  
+    ### Step 1
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_record.xml orcid/test_public_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_limited_record.xml orcid/test_limited_record.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_private_record.xml orcid/test_private_record.py
@@ -58,7 +43,7 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_30rc2api_all_endpoints.xml orcid/test_30rc2api_all_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
-
+    ### Step 2
     py.test --junitxml orcid/.py_env/Scripts/results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member21_api_post_update.xml orcid/test_member21_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30_api_post_update.xml orcid/test_member30_api_post_update.py
