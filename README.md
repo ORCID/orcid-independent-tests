@@ -57,6 +57,9 @@ Run the required line in the source folder to execute a given test:
 
 At CI server create a job to load this repo and execute the test
 
+1. Visit https://ci.orcid.org/view/independent-tests/ and choose the appropriate pipeline
+2. Click configure on the left hand side to edit the pipeline configuration and manage test execution (admin rights required)
+
 * Create new job of type `pipeline`
 
 * Inside node definition include at least next stages
