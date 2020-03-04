@@ -39,7 +39,7 @@ Before executing the test suite prepare a virtual enviroment using the next comm
 
 Each test_*.py file at _orcid_ folder is expecting a _properties.py_ file containing at least next key values
 
-    test_server=localhost.orcid.org
+    test_server=qa.orcid.org
     user_login=ma_test_13feb2017
     password=abcxyz
     orcidId=0000-0003-4248-6064
