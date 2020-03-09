@@ -78,6 +78,15 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/search?q=" + self.seach_value, curl_params)
         self.assertTrue("https://" + properties.test_server + "/" + self.orcid_id in response, "Record not returned in search" + response)
 
+    def test_search_my_record_30_expanded(self):
+    # Test search for orcid with the 3.0 public api and check it is returned
+        self.assertIsNotNone(self.token,"No token generated")
+        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
+        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/expanded-search?q=" + self.seach_value, curl_params)
+        self.assertTrue("<expanded-search:orcid-id>" + self.orcid_id in response, "Record not returned in search" + response)
+    #check search value is in the results
+        self.assertTrue(self.seach_value in response, "Search value not returned in expanded search" + response)
+
     def test_read_record_with_30_api(self):
     # Test read record with the public 3.0 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
