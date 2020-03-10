@@ -5,7 +5,6 @@ import properties
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.firefox = OrcidBrowser()
         self.public_record_id    = properties.staticId
         self.public_record_token = "c9974dc3-451b-420f-ae6e-b76d7009062e"
         self.limited_record_token = "2fe47c3c-aae6-4a80-981b-fc221a067abe"

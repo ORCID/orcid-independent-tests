@@ -8,7 +8,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     obo_token = ""
 
     def setUp(self):
-        self.firefox = OrcidBrowser()
         self.orcid_id = properties.orcidId
         self.version = "/v3.0/"
 
