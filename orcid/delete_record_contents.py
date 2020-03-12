@@ -19,8 +19,8 @@ class DeleteContent():
         self.orcid_id = "0000-0001-6009-1985"
         self.access_token = "e4ed35be-6c4f-4ffc-9997-8572cc865663"
         self.webhook_token = "af36161d-0971-4ac6-b860-5bb3f7cdef64"
-        self.member_name = "Testing Andrej"
-        self.access_token = "912f0fcf-f96c-41e4-86ed-c016d96168a4"
+     #   self.member_name = "Testing Andrej"
+     #   self.access_token = "912f0fcf-f96c-41e4-86ed-c016d96168a4"
         if self.step == 1:
             self.member_name = "Manual Testing Client"
             self.orcid_id = "0000-0002-7361-1027"
