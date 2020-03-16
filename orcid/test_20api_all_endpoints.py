@@ -175,4 +175,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         
     def test_other_group(self):
     #create, read, delete a peer-review group with a non issn group id
+<<<<<<< Updated upstream
         self.other_group(self.group_access, 'group.xml')
+=======
+        self.other_group(self.group_access, 'group.xml')
+>>>>>>> Stashed changes

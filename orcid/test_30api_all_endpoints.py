@@ -20,8 +20,14 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           self.orcid_id = local_properties.orcid_id
           self.access = local_properties.step_1_access
           self.group_access = local_properties.group_access
+<<<<<<< Updated upstream
     #3.0
     # The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
+=======
+
+#3.0
+# The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
+>>>>>>> Stashed changes
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
         post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)

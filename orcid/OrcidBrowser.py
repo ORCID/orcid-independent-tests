@@ -16,7 +16,7 @@ class OrcidBrowser:
         if local_properties.type == "jenkins":
             ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
         else:
-            ff_bin = FirefoxBinary('c:/Program Files/Mozilla Firefox/firefox.exe')
+            ff_bin = FirefoxBinary(local_properties.firefoxPath)
         self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):

@@ -1,13 +1,20 @@
 import OrcidBaseTest
 import properties
+import local_properties
 
 class ScopeMethods(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        self.public_client_id     = properties.publicClientId
-        self.public_client_secret = properties.publicClientSecret
-        self.member_client_id     = properties.premiumClientId
-        self.member_client_secret = properties.premiumClientSecret
+        if local_properties.type == "jenkins":
+            self.public_client_id     = properties.publicClientId
+            self.public_client_secret = properties.publicClientSecret
+            self.member_client_id     = properties.premiumClientId
+            self.member_client_secret = properties.premiumClientSecret
+        else:
+            self.public_client_id = local_properties.publicClientId
+            self.public_client_secret = local_properties.publicClientSecret
+            self.member_client_id = local_properties.premiumClientId
+            self.member_client_secret = local_properties.premiumClientSecret
 
     def test_get_read_limited_token_with_basic(self):
         #Test you can't get a /read-limited token with a public client

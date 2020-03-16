@@ -8,6 +8,10 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
+<<<<<<< Updated upstream
+=======
+        # 0000-0002-7361-1027
+>>>>>>> Stashed changes
         if local_properties.type == "jenkins":
           self.client_id     = properties.memberClientId
           self.client_secret = properties.memberClientSecret
@@ -15,7 +19,10 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           self.orcid_id    = properties.staticId
           self.access      = properties.staticAccess
           self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+<<<<<<< Updated upstream
           #0000-0002-7361-1027
+=======
+>>>>>>> Stashed changes
         else:
           self.orcid_id    = local_properties.orcid_id
           self.access      = local_properties.step_1_access
@@ -161,6 +168,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
+<<<<<<< Updated upstream
     #search for and read a peer-review group with an issn group id
         self.issn_group(self.group_access, '1741-4857')
         
@@ -168,3 +176,11 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     #create, read, delete a peer-review group with a non issn group id
     	self.other_group(self.group_access, 'group.xml')
 
+=======
+        #search for and read a peer-review group with an issn group id
+        self.issn_group(self.group_access, '1741-4857')
+        
+    def test_other_group(self):
+        #create, read, delete a peer-review group with a non issn group id
+        self.other_group(self.group_access, 'group.xml')
+>>>>>>> Stashed changes

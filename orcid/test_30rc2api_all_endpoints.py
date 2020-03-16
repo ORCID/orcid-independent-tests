@@ -21,7 +21,11 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           self.access = local_properties.step_1_access
           self.group_access = local_properties.group_access
 
+<<<<<<< Updated upstream
     #3.0_rc1
+=======
+#3.0_rc1
+>>>>>>> Stashed changes
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
         post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/%s/%s" % (self.orcid_id, endpoint), curl_params)

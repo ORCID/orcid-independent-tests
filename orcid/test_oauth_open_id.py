@@ -20,7 +20,10 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
           self.limited_record_token = "2fe47c3c-aae6-4a80-981b-fc221a067abe"
           self.client_id = local_properties.OpenClientId
           self.client_secret = local_properties.OpenClientSecret
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     def get_user_info(self, token):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))

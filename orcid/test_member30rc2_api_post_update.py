@@ -22,6 +22,10 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
             self.scope = "/read-limited%20/activities/update%20/person/update"
             self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
             self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     
     def test_post_update_work(self):
         #Post a work using 3.0_rc2 to the record created for testing today

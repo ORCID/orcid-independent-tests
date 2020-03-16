@@ -6,10 +6,16 @@ import re
 import local_properties
 
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
+<<<<<<< Updated upstream
 
 
     def setUp(self):
         self.obo_token = ""
+=======
+
+    def setUp(self):
+       # self.obo_token = ""
+>>>>>>> Stashed changes
         self.version = "/v3.0/"
         self.first_obo_scope = "openid"
         if local_properties.type == "jenkins":
@@ -67,8 +73,13 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.obo_token = token['access_token']
 
     def test_013_full_scope_post_work(self):
+<<<<<<< Updated upstream
         response = self.post_member_obo(self.obo_token, self.version, "work", "ma30_work_member_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
+=======
+        response = self.post_member_obo(OauthOpenId.obo_token, self.version, "work", "ma30_work_member_obo.xml")
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + OauthOpenId.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
+>>>>>>> Stashed changes
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))

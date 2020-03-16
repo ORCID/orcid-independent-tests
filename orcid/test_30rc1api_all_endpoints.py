@@ -8,6 +8,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
+<<<<<<< Updated upstream
       if local_properties.type == "jenkins":
         self.client_id = properties.memberClientId
         self.client_secret = properties.memberClientSecret
@@ -20,6 +21,20 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.orcid_id = local_properties.orcid_id
         self.access = local_properties.step_1_access
         self.group_access = local_properties.group_access
+=======
+        # 0000-0002-7361-1027
+        if local_properties.type == "jenkins":
+          self.client_id = properties.memberClientId
+          self.client_secret = properties.memberClientSecret
+          self.notify_token = properties.notifyToken
+          self.orcid_id = properties.staticId
+          self.access = properties.staticAccess
+          self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        else:
+          self.orcid_id = local_properties.orcid_id
+          self.access = local_properties.step_1_access
+          self.group_access = local_properties.group_access
+>>>>>>> Stashed changes
 
 #3.0_rc1
     def post20(self, file_name, endpoint):
@@ -182,6 +197,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_peer20(self):
     	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
+<<<<<<< Updated upstream
         
     def test_peerreview_group(self):
     #search for and read a peer-review group with an issn group id
@@ -190,6 +206,16 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_other_group(self):
     #create, read, delete a peer-review group with a non issn group id
     	self.other_group(self.group_access, 'group.xml')
+=======
+
+    def test_peerreview_group(self):
+        #search for and read a peer-review group with an issn group id
+        self.issn_group(self.group_access, '1741-4857')
+        
+    def test_other_group(self):
+        #create, read, delete a peer-review group with a non issn group id
+        self.other_group(self.group_access, 'group.xml')
+>>>>>>> Stashed changes
         
     def test_client_endpoint(self):
     	#check response of the client endpoint

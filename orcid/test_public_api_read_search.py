@@ -16,7 +16,10 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
             self.client_secret = local_properties.step_2_client_secret
             self.seach_value = local_properties.searchValue
             self.token = self.orcid_generate_token(self.client_id, self.client_secret)
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     def test_read(self):
         # Test read the private record (public without a token) and check no error returned
