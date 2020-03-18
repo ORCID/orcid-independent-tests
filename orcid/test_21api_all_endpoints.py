@@ -8,10 +8,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-<<<<<<< Updated upstream
-=======
         # 0000-0002-7361-1027
->>>>>>> Stashed changes
         if local_properties.type == "jenkins":
           self.client_id     = properties.memberClientId
           self.client_secret = properties.memberClientSecret
@@ -19,10 +16,6 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           self.orcid_id    = properties.staticId
           self.access      = properties.staticAccess
           self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-<<<<<<< Updated upstream
-          #0000-0002-7361-1027
-=======
->>>>>>> Stashed changes
         else:
           self.orcid_id    = local_properties.orcid_id
           self.access      = local_properties.step_1_access
@@ -112,13 +105,23 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Get put-code
         putcode = self.getputcode(post_response)
+        # Check creation date after posting the item
+        search_pattern = "%s(.+?)</common:created-date>" % putcode
+        creation_date_post = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_post = creation_date_post.group(1)
+        creation_date_post = creation_date_post.split('<common:created-date>')[1]
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
         self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
+        # Check creation date after updating the item
+        creation_date_put = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_put = creation_date_put.group(1)
+        creation_date_put = creation_date_put.split('<common:created-date>')[1]
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
@@ -168,19 +171,9 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
-<<<<<<< Updated upstream
-    #search for and read a peer-review group with an issn group id
-        self.issn_group(self.group_access, '1741-4857')
-        
-    def test_other_group(self):
-    #create, read, delete a peer-review group with a non issn group id
-    	self.other_group(self.group_access, 'group.xml')
-
-=======
         #search for and read a peer-review group with an issn group id
         self.issn_group(self.group_access, '1741-4857')
         
     def test_other_group(self):
         #create, read, delete a peer-review group with a non issn group id
         self.other_group(self.group_access, 'group.xml')
->>>>>>> Stashed changes

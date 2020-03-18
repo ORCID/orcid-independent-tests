@@ -8,20 +8,6 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-<<<<<<< Updated upstream
-      if local_properties.type == "jenkins":
-        self.client_id = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.notify_token = properties.notifyToken
-        self.orcid_id = properties.staticId
-        self.access = properties.staticAccess
-        self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-        # 0000-0002-7361-1027
-      else:
-        self.orcid_id = local_properties.orcid_id
-        self.access = local_properties.step_1_access
-        self.group_access = local_properties.group_access
-=======
         # 0000-0002-7361-1027
         if local_properties.type == "jenkins":
           self.client_id = properties.memberClientId
@@ -34,7 +20,6 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
           self.orcid_id = local_properties.orcid_id
           self.access = local_properties.step_1_access
           self.group_access = local_properties.group_access
->>>>>>> Stashed changes
 
 #3.0_rc1
     def post20(self, file_name, endpoint):
@@ -119,13 +104,23 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         print read_response
         #Get put-code
         putcode = self.getputcode(post_response)
+        # Check creation date after posting the item
+        search_pattern = "%s(.+?)</common:created-date>" % putcode
+        creation_date_post = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_post = creation_date_post.group(1)
+        creation_date_post = creation_date_post.split('<common:created-date>')[1]
         #Update
         self.putjson = '{"put-code":' + str(putcode) + ',' +jsontext
         put_response = self.put20(self.putjson, postendpoint, putcode)
         self.assertTrue("200 OK" in put_response, "response: " + put_response)
         #Read Check there is no group
         read_response = self.read20(readendpoint)
+        # Check creation date after updating the item
+        creation_date_put = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_put = creation_date_put.group(1)
+        creation_date_put = creation_date_put.split('<common:created-date>')[1]
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print read_response
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
@@ -197,16 +192,6 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_peer20(self):
     	jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
-<<<<<<< Updated upstream
-        
-    def test_peerreview_group(self):
-    #search for and read a peer-review group with an issn group id
-        self.issn_group(self.group_access, '1741-4857')
-        
-    def test_other_group(self):
-    #create, read, delete a peer-review group with a non issn group id
-    	self.other_group(self.group_access, 'group.xml')
-=======
 
     def test_peerreview_group(self):
         #search for and read a peer-review group with an issn group id
@@ -215,7 +200,6 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def test_other_group(self):
         #create, read, delete a peer-review group with a non issn group id
         self.other_group(self.group_access, 'group.xml')
->>>>>>> Stashed changes
         
     def test_client_endpoint(self):
     	#check response of the client endpoint
