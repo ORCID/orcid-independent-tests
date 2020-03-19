@@ -23,7 +23,7 @@ Before executing the test suite prepare a virtual enviroment using the next comm
 In order to run the tests locally:
 
 * (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
-* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox folder.
+* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox executable.
 * Change the `type` variable in the `orcid\local_properties.py` file to anything but "jenkins" (make sure to change back to "jenkins" when making commits)
 
 Run the required line in the source folder to execute a given test:
