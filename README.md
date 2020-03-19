@@ -22,9 +22,9 @@ Before executing the test suite prepare a virtual enviroment using the next comm
 
 In order to run the tests locally:
 
-* Change the `type` variable in the `orcid\local_properties.py` file to anything but "jenkins" (make sure to change back to "jenkins" when making commits)
-* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox folder.
 * (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
+* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox folder.
+* Change the `type` variable in the `orcid\local_properties.py` file to anything but "jenkins" (make sure to change back to "jenkins" when making commits)
 
 Run the required line in the source folder to execute a given test:
 
@@ -50,9 +50,23 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_member_obo.xml orcid/test_member_obo.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
 
-## Configure Automated Execution with Jenkins
 
-At CI server create a job to load this repo and execute the test
+## Running tests on Jenkins
+
+### Step 1
+
+1. [Visit the step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step1/) and click 'Build with parameters' on the left hand side
+2. Change the 'branch_to_build' parameter to choose the appropriate GitHub branch
+3. Click 'Build'
+
+### Step 2
+
+1. Create a new ORCID record at https://qa.orcid.org/register (no need to verify) with the password `test1234`
+2. [Visit the step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step2/) and click 'Build with parameters' on the left hand side
+3. Configure `branch_to_build`, `user_login`, `orcid_id` and `search_value` accordingly
+4. Click 'Build'
+
+## Configure Automated Execution with Jenkins
 
 1. Visit https://ci.orcid.org/view/independent-tests/ and choose the appropriate pipeline
 2. Click configure on the left hand side to edit the pipeline configuration and manage test execution (admin rights required)
@@ -80,11 +94,3 @@ At CI server create a job to load this repo and execute the test
 ```
 
 * Thanks to the `junit` build-in method the results will be available as a report on jenkins build results
-
-## Run automated tests on Jenkins
-
-https://ci.orcid.org/job/ORCID-independent-tests-step1/
-
-https://ci.orcid.org/job/ORCID-independent-tests-step2/
-
-Click 'Build with parameters' to run each set of tests
