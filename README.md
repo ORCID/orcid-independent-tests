@@ -7,7 +7,7 @@ The tests are divided into two group Step 1 tests read and write to static recor
 ## Local setup
 
 * [Install python 2.7.17](https://www.python.org/downloads/release/python-2717/) (make sure to include pip and (win) add to environment variables)
-* Download the independent tests source code
+* Clone the independent tests repository
 * Navigate to the orcid folder within the source and run 'pip install -r requirements.txt'
 
 ## Dev Environment Setup
@@ -22,7 +22,11 @@ Before executing the test suite prepare a virtual enviroment using the next comm
 
 ## Running tests locally
 
-In order to run the tests locally, change the `type` variable in the `orcid\local_properties.py` file to anything but "jenkins".
+In order to run the tests locally:
+
+* Change the `type` variable in the `orcid\local_properties.py` file to anything but "jenkins" (make sure to change back to "jenkins" when making commits)
+* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox folder.
+* (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder (win)
 
 Run the required line in the source folder to execute a given test:
 
