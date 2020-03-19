@@ -55,14 +55,14 @@ Run the required line in the source folder to execute a given test:
 
 ### Step 1
 
-1. [Visit the step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step1/) and click 'Build with parameters' on the left hand side
+1. Visit the [step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step1/) and click 'Build with parameters' on the left hand side
 2. Change the 'branch_to_build' parameter to choose the appropriate GitHub branch
 3. Click 'Build'
 
 ### Step 2
 
 1. Create a new ORCID record at https://qa.orcid.org/register (no need to verify) with the password `test1234`
-2. [Visit the step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step2/) and click 'Build with parameters' on the left hand side
+2. Visit the [step 1 pipeline page](https://ci.orcid.org/job/ORCID-independent-tests-step2/) and click 'Build with parameters' on the left hand side
 3. Configure `branch_to_build`, `user_login`, `orcid_id` and `search_value` accordingly
 4. Click 'Build'
 
