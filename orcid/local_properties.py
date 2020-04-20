@@ -1,5 +1,6 @@
 type="jenkins"
 
+test_server="qa.orcid.org"
 orcid_id = "0000-0002-7361-1027"
 
 username = "0000-0001-6009-1985"
