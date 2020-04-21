@@ -12,12 +12,14 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.version = "/v3.0/"
         self.first_obo_scope = "openid"
         if local_properties.type == "jenkins":
+            self.test_server = properties.test_server
             self.orcid_id = properties.orcidId
             self.first_obo_id = properties.OBOMemberClientId
             self.first_obo_secret = properties.OBOMemberClientSecret
             self.second_obo_id     = properties.OBOMemberSecondId
             self.second_obo_secret = properties.OBOMemberSecondSecret
         else:
+            self.test_server = local_properties.test_server
             self.orcid_id = local_properties.orcid_id_member
             self.first_obo_id = local_properties.OBOMemberClientId
             self.first_obo_secret = local_properties.OBOMemberClientSecret
@@ -34,7 +36,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token +
         '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
-        response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
+        response = self.orcid_curl("https://" + self.test_server + "/oauth/token", curl_params)
         return response
 
     def get_obo_token(self, token, id, secret):
@@ -42,7 +44,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
                      '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' + token +
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
-        response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
+        response = self.orcid_curl("https://" + self.test_server + "/oauth/token", curl_params)
         return response
 
     def test_010_existing_token_flow(self):
@@ -68,7 +70,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_013_full_scope_post_work(self):
         response = self.post_member_obo(OauthOpenId.obo_token, self.version, "work", "ma30_work_member_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + OauthOpenId.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
-        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        url = "api." + self.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "%s(.+?)Expires" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
         url = "https://" + url + putcode.group(1)
