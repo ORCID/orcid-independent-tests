@@ -66,6 +66,12 @@ class OrcidBaseTest(unittest.TestCase):
         firefox.bye()
         return code
 
+    def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(properties.user_login,properties.user_pass,public_client_id,scope)
+        firefox.bye()
+        return code
+
     def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
         # returns [No JSON object could be decoded | 6 digits ]
         who = str(auth_code_name) + "_" + client_id
@@ -183,6 +189,18 @@ class OrcidBaseTest(unittest.TestCase):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
         response = self.orcid_curl("https://api." + self.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        return response
+
+    def post_user_obo(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
+        self.assertIsNotNone(self.user_obo_access,"Bearer not recovered: " + str(self.user_obo_access))
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.user_obo_access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        return response
+
+    def post_member_obo(self, token, version, activity_type = "work", xml_file = "ma2_work.xml"):
+        self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
+        curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
+        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
     def update_activity(self, version, putcode, updated_data, activity_type = "work"):
