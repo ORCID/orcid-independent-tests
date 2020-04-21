@@ -14,7 +14,7 @@ class OrcidBaseTest(unittest.TestCase):
     xml_data_files_path = 'post_files/'
 
     if local_properties.type == "jenkins":
-        Try:
+        try:
             username = properties.user_login
             password = properties.password
         except AttributeError:
