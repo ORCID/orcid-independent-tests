@@ -127,9 +127,12 @@ class DeleteContent():
                 print(y['source'])
                 if y['source']['source-name']['value'] == source_name:
                     self.delete(y['put-code'], "work", token)
-                if y['source']['assertion-origin-name']['value']:
-                  if y['source']['assertion-origin-name']['value'] == source_name:
-                      self.delete(y['put-code'], "work", token)
+                try:
+                    if y['source']['assertion-origin-name']['value']:
+                      if y['source']['assertion-origin-name']['value'] == source_name:
+                        self.delete(y['put-code'], "work", token)
+                except TypeError as e:
+                    print (e)
 
         for x in record['memberships']['affiliation-group']:
             for y in x['summaries']:
