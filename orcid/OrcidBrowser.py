@@ -32,12 +32,12 @@ class OrcidBrowser:
         try:
             self.ff.get(self.signin_page)
             wait = WebDriverWait(self.ff, 10)
-            user_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'userId')))
+            user_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'mat-input-0')))
             user_input.send_keys(usrname)
-            pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
+            pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'mat-input-1')))
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'form-sign-in-button')))
-            login_button.click()
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))
+            login_button.click()            
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
             orcid_record = orcid_found.text
             print "--- LOGIN OK WITH ID: %s" % orcid_record
