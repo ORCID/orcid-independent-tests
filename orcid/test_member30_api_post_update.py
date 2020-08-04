@@ -119,16 +119,9 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
         search_pattern = "api." + properties.test_server + "/v3.0/%s/work/(\d+)" % (self.orcid_id)
-        print "search pattern"
-        print search_pattern
-        print "Response:"
-        print response
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
-        print "put_code"
-        print putcode
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
-        print(read_response)
         assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>", re.sub('[\s+]', '', read_response))
         self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + response)
 
