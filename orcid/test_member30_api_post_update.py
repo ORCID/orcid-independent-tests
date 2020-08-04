@@ -118,7 +118,9 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_user_obo(self.version, "work", "ma30_work_user_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        search_pattern = "%s(.+?)Expires" % url
+        search_pattern = "%s\n" % url
+        print "search pattern"
+        print search_pattern
         print "Response:"
         print response
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
