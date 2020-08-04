@@ -21,7 +21,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.public_json_work = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
-    def getResponse(response):
+    def getResponse(self, response):
        return re.sub('[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
      
     #Test no information is returned using the public API
