@@ -27,8 +27,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token + '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        print "get_id_token response"
-        print response
         return response
 
     def get_obo_token(self, token, id, secret):
@@ -37,8 +35,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        print "get_obo_token"
-        print response
         return response
 
     def test_010_existing_token_flow(self):
@@ -52,9 +48,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_011_openid_post_work(self):
         response = self.post_member_obo(OauthOpenId.obo_token,self.version, "work", "ma30_work_member_obo.xml")
-        print "test_011_openid_post_work"
-        print response
-        print "----------------------------------------------------------------"
         response_error = "409 Conflict: The item has a limited or private visibility and your request doesn't have the required scope."
         self.assertTrue(response_error in response, "Expected error is missing: " + response)
 
