@@ -61,7 +61,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         response = self.post_member_obo(OauthOpenId.obo_token, self.version, "work", "ma30_work_member_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        search_pattern = "%s(.+?)Cache-Control" % url
+        search_pattern = "%s(\d+)" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
