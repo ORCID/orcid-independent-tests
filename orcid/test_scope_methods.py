@@ -25,7 +25,7 @@ class ScopeMethods(OrcidBaseTest.OrcidBaseTest):
         #Test you can't get webhook token with a public client
         curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json", '-d', "client_id=" + self.member_client_id, '-d', "client_secret=" + self.member_client_secret, '-d', "scope=/web-hook", '-d', "grant_type=client_credentials"]
         response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
-        self.assertTrue("400" in response, "Unexpected response(/web-hook): " + response)
+        self.assertTrue("401" in response, "Unexpected response(/web-hook): " + response)
 
     def test_get_profile_create(self):
         #Test orcid-profile/create scope does not work
