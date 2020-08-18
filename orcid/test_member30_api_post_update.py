@@ -21,8 +21,6 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope, "api2PostUpdateCode")
         self.user_obo_access, self.user_obo_refresh, self.user_obo_id_token = self.orcid_exchange_auth_token(self.user_obo_id, self.user_obo_secret, self.user_obo_code)
 
-
-
     def test_post_update_work(self):
         #Post a work using 3.0 to the record created for testing today
         response = self.post_activity(self.version, "work", "ma30_work.xml")
@@ -104,7 +102,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def test_post_webhook(self):
     #Post a webhook for the ORCID iD. This test is not version dependent
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'PUT']
-        response = self.orcid_curl("http://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
+        response = self.orcid_curl("https://api." + properties.test_server + "/%s/webhook/%s" % (self.orcid_id, "https%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
         self.assertTrue("201 Created" in response, "response: " + response)
         
     def test_post_bulk_works(self):
@@ -120,7 +118,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_user_obo(self.version, "work", "ma30_work_user_obo.xml")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access,'-H', 'Accept: application/xml', '-X', 'GET']
         url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        search_pattern = "%s(.+?)Expires" % url
+        search_pattern = "api." + properties.test_server + "/v3.0/%s/work/(\d+)" % (self.orcid_id)
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
