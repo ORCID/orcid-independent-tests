@@ -95,13 +95,13 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("204 No Content" in delete_response, "Delete Action Response: " + delete_response + " using putcode [%s]" % str(putcode))
 
     def test_member_http_read_20(self):
-        #Test making a call with 2.0 API using http not https returns the expected 9012 error
+        #Test making a call with 2.0 API using http not https returns the expected '521 Origin Down' error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://pub." + self.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
-        self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
+        self.assertTrue("521 Origin Down" in response, "Expected error code '521 Origin Down' instead: " + response)
 
     def test_member_http_read_21(self):
-        #Test making a call with 2.0 API using http not https returns the expected 9012 error
+        #Test making a call with 2.0 API using http not https returns the expected '521 Origin Down' error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("http://pub." + self.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
-        self.assertTrue("<error-code>9012</error-code>" in response, "Expected error code 9012 instead: " + response)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
+        self.assertTrue("521 Origin Down" in response, "Expected error code '521 Origin Down' instead: " + response)

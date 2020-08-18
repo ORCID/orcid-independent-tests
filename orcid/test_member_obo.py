@@ -34,9 +34,8 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def get_id_token(self, token, id, secret):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
-        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token +
-        '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
-        response = self.orcid_curl("https://" + self.test_server + "/oauth/token", curl_params)
+        curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token + '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
+        response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
         return response
 
     def get_obo_token(self, token, id, secret):
@@ -69,9 +68,9 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_013_full_scope_post_work(self):
         response = self.post_member_obo(OauthOpenId.obo_token, self.version, "work", "ma30_work_member_obo.xml")
-        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + OauthOpenId.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
-        url = "api." + self.test_server + "/v3.0/%s/work/" % (self.orcid_id)
-        search_pattern = "%s(.+?)Expires" % url
+        curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.obo_token, '-H', 'Accept: application/xml','-X', 'GET']
+        url = "api." + properties.test_server + "/v3.0/%s/work/" % (self.orcid_id)
+        search_pattern = "%s(\d+)" % url
         putcode = re.search(search_pattern, re.sub('[\s+]', '', response))
         url = "https://" + url + putcode.group(1)
         read_response = self.orcid_curl(url, curl_params)
