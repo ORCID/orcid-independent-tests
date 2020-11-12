@@ -13,7 +13,7 @@ class OrcidBaseTest(unittest.TestCase):
     xml_data_files_path = 'post_files/'
 
     def orcid_curl(self, url, curl_opts):
-        curl_call = ["curl"] + curl_opts + [url]
+        curl_call = ["curl"] + ["--http1.1"] + curl_opts + [url]
         try:
             p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(subprocess.list2cmdline(curl_call))
@@ -42,6 +42,7 @@ class OrcidBaseTest(unittest.TestCase):
 
     def generate_auth_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
         firefox = OrcidBrowser()
+        print 'Browser'
         code = firefox.getAuthCode(properties.user_login,properties.user_pass,public_client_id,scope)
         firefox.bye()
         return code
@@ -148,6 +149,9 @@ class OrcidBaseTest(unittest.TestCase):
 
     def get_putcode_from_response(self, response):
         for header in response.split('\n'):
+            print '---------------------'
+            print header
+            print '---------------------'
             if("Location:" in header):
                 location_chunks = header.split('/')
                 return location_chunks[-1]
