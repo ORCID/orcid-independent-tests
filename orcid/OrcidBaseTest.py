@@ -17,14 +17,15 @@ class OrcidBaseTest(unittest.TestCase):
         try:
             username = properties.user_login
             password = properties.password
+            test_server = properties.test_server
         except AttributeError:
             username = ""
             password = ""
-	test_server = properties.test_server
+            test_server = ""
     else:
         username = local_properties.username
         password = local_properties.password
-	test_server = local_properties.test_server
+        test_server = local_properties.test_server
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + curl_opts + [url]
