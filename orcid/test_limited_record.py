@@ -10,7 +10,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         if local_properties.type == "jenkins":
           self.test_server = properties.test_server
         else:
-          self.test_server local_properties.test_server
+          self.test_server = local_properties.test_server
         self.limited_orcid_id = '0000-0001-7325-5491'
         self.limited_token = '1fcda8a0-1af3-4b35-8825-e4c53dae8953'
         self.public_token = 'ba290a09-b757-4583-a5af-bd55d7087467'
