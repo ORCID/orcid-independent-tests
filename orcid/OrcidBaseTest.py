@@ -25,7 +25,7 @@ class OrcidBaseTest(unittest.TestCase):
     else:
         username = local_properties.username
         password = local_properties.password
-	    test_server = local_properties.test_server
+        test_server = local_properties.test_server
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + ["--http1.1"] + curl_opts + [url]
