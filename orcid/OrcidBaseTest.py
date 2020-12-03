@@ -17,11 +17,10 @@ class OrcidBaseTest(unittest.TestCase):
         try:
             username = properties.user_login
             password = properties.password
-            test_server = properties.test_server
         except AttributeError:
             username = ""
             password = ""
-            test_server = ""
+        test_server = properties.test_server
     else:
         username = local_properties.username
         password = local_properties.password
@@ -192,13 +191,13 @@ class OrcidBaseTest(unittest.TestCase):
     def post_user_obo(self, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(self.user_obo_access,"Bearer not recovered: " + str(self.user_obo_access))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(self.user_obo_access), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + self.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
     def post_member_obo(self, token, version, activity_type = "work", xml_file = "ma2_work.xml"):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + str(token), '-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xml_file, '-X', 'POST']
-        response = self.orcid_curl("https://api." + properties.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
+        response = self.orcid_curl("https://api." + self.test_server + version + "%s/%s" % (self.orcid_id, activity_type) , curl_params)
         return response
 
     def update_activity(self, version, putcode, updated_data, activity_type = "work"):
