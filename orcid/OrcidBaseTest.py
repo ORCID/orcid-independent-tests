@@ -20,14 +20,14 @@ class OrcidBaseTest(unittest.TestCase):
         except AttributeError:
             username = ""
             password = ""
-	test_server = properties.test_server
+	      test_server = properties.test_server
     else:
         username = local_properties.username
         password = local_properties.password
-	test_server = local_properties.test_server
+	      test_server = local_properties.test_server
 
     def orcid_curl(self, url, curl_opts):
-        curl_call = ["curl"] + curl_opts + [url]
+        curl_call = ["curl"] + ["--http1.1"] + curl_opts + [url]
         try:
             p = subprocess.Popen(curl_call, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(subprocess.list2cmdline(curl_call))
@@ -63,12 +63,6 @@ class OrcidBaseTest(unittest.TestCase):
     def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
         firefox = OrcidBrowser()
         code = firefox.getImplicitToken(self.username,self.password,public_client_id,scope)
-        firefox.bye()
-        return code
-
-    def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
-        firefox = OrcidBrowser()
-        code = firefox.getImplicitToken(properties.user_login,properties.user_pass,public_client_id,scope)
         firefox.bye()
         return code
 
@@ -168,6 +162,9 @@ class OrcidBaseTest(unittest.TestCase):
 
     def get_putcode_from_response(self, response):
         for header in response.split('\n'):
+            print '---------------------'
+            print header
+            print '---------------------'
             if("Location:" in header):
                 location_chunks = header.split('/')
                 return location_chunks[-1]
