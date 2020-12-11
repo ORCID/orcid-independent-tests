@@ -32,10 +32,18 @@ jobs:
       with:
         python-version: 2.7
     - name: Install dependencies
+      env: 
+        FIXER_IO_ACCESS_TOKEN: ${{ secrets.FIXER_IO_ACCESS_TOKEN }}
       run: |
         python -m pip install --upgrade pip
         pip install -q -r orcid/requirements.txt
-        echo "test_server='${{github.event.inputs.server}}'" >> 'orcid/properties.py' 
+        echo "test_server='${{github.event.inputs.server}}'" >> 'orcid/properties.py'
+        echo "memberClientId=${{secrets.QA_MEMBER_CLIENT_ID}}" >> 'orcid/properties.py'       
+        echo "memberClientSecret=${{secrets.QA_MEMBER_CLIENT_SECRET}}" >> 'orcid/properties.py' 
+        echo "notifyToken=${{secrets.QA_NOTIFY_TOKEN}}" >> 'orcid/properties.py' 
+        echo "staticOBOUserAccess=${{secrets.QA_STATIC_OBO_USER_TOKEN}}" >> 'orcid/properties.py' 
+        echo "staticId=${{secrets.QA_STATIC_ORCID}}" >> 'orcid/properties.py' 
+        echo "staticAccess=${{secrets.QA_STATIC_TOKEN}}" >> 'orcid/properties.py' 
     - name: Prepare Selenium
       # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
