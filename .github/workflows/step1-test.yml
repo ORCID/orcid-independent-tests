@@ -44,10 +44,10 @@ jobs:
         echo "staticOBOUserAccess='${{secrets.QA_STATIC_OBO_USER_TOKEN}}'" >> 'orcid/properties.py' 
         echo "staticId='${{secrets.QA_STATIC_ORCID}}'" >> 'orcid/properties.py' 
         echo "staticAccess='${{secrets.QA_STATIC_TOKEN}}'" >> 'orcid/properties.py' 
-        echo "publicClientId='${{secrets.QA_STATIC_ORCID}}'" >> 'orcid/properties.py' 
-        echo "publicClientSecret='${{secrets.QA_STATIC_TOKEN}}'" >> 'orcid/properties.py' 
-        echo "premiumClientId='${{secrets.QA_STATIC_ORCID}}'" >> 'orcid/properties.py' 
-        echo "premiumClientSecret='${{secrets.QA_STATIC_TOKEN}}'" >> 'orcid/properties.py' 
+        echo "publicClientId='${{secrets.QA_PUBLIC_CLIENT_ID}}'" >> 'orcid/properties.py' 
+        echo "publicClientSecret='${{secrets.QA_PUBLIC_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
+        echo "premiumClientId='${{secrets.QA_PREMIUM_CLIENT_ID}}'" >> 'orcid/properties.py' 
+        echo "premiumClientSecret='${{secrets.QA_PREMIUM_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
     - name: Prepare Selenium
       # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
