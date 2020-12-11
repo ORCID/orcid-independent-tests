@@ -62,6 +62,8 @@ jobs:
       run: py.test --junitxml orcid/.py_env/Scripts/results/test_public_record.xml orcid/test_public_record.py
     - name: Test limited record
       run: py.test --junitxml orcid/.py_env/Scripts/results/test_limited_record.xml orcid/test_limited_record.py
+    - name: Test private record
+      run: py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_private_record.py
     - name: Test 2.0 API all endpoints
       run: py.test --junitxml orcid/.py_env/Scripts/results/test_20api_all_endpoints.xml orcid/test_20api_all_endpoints.py
     - name: Test 2.1 API all endpoints
@@ -78,5 +80,3 @@ jobs:
       run: py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
     - name: Test read endpoints
       run: py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
-    - name: Test public API read search
-      run: py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
