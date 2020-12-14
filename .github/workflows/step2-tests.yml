@@ -40,11 +40,11 @@ jobs:
 
           echo "OBOMemberClientId='${{secrets.QA_OBO_MEMBER_CLIENT_ID}}'" >> 'orcid/properties.py'
           echo "OBOMemberClientSecret='${{secrets.QA_OBO_MEMBER_CLIENT_SECRET}}'" >> 'orcid/properties.py'
-          echo "OBOMemberSecondId='${{QA_OBO_MEMBER_SECOND_ID}}'" >> 'orcid/properties.py'
-          echo "OBOMemberSecondSecret='${{QA_OBO_MEMBER_SECOND_SECRET}}'" >> 'orcid/properties.py'
-          echo "OpenClientId='${{QA_OPEN_CLIENT_ID}}'" >> 'orcid/properties.py'
-          echo "OpenClientSecret='${{QA_OPEN_CLIENT_SECRET}}'" >> 'orcid/properties.py'
-          echo "notifyToken='${{QA_NOTIFY_TOKEN}}'" >> 'orcid/properties.py'
+          echo "OBOMemberSecondId='${{secrets.QA_OBO_MEMBER_SECOND_ID}}'" >> 'orcid/properties.py'
+          echo "OBOMemberSecondSecret='${{secrets.QA_OBO_MEMBER_SECOND_SECRET}}'" >> 'orcid/properties.py'
+          echo "OpenClientId='${{secrets.QA_OPEN_CLIENT_ID}}'" >> 'orcid/properties.py'
+          echo "OpenClientSecret='${{secrets.QA_OPEN_CLIENT_SECRET}}'" >> 'orcid/properties.py'
+          echo "notifyToken='${{secrets.QA_NOTIFY_TOKEN}}'" >> 'orcid/properties.py'
 
           echo "memberClientId='${{secrets.QA_MEMBER_CLIENT_ID}}'" >> 'orcid/properties.py'       
           echo "memberClientSecret='${{secrets.QA_MEMBER_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
