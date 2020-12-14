@@ -33,9 +33,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -q -r orcid/requirements.txt
-          echo "orcidId='${{github.event.input.orcid}}'" >> 'orcid/properties.py'
-          echo "user_login='${{github.event.input.username}}'" >> 'orcid/properties.py'
-          echo "user_pass='${{github.event.input.password}}'" >> 'orcid/properties.py'
+          echo "orcidId='${{github.event.inputs.orcid}}'" >> 'orcid/properties.py'
+          echo "user_login='${{github.event.inputs.username}}'" >> 'orcid/properties.py'
+          echo "user_pass='${{github.event.inputs.password}}'" >> 'orcid/properties.py'
           echo "test_server='${{github.event.inputs.server}}'" >> 'orcid/properties.py' 
 
           echo "OBOMemberClientId='${{secrets.QA_OBO_MEMBER_CLIENT_ID}}'" >> 'orcid/properties.py'
