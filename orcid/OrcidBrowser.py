@@ -33,7 +33,7 @@ class OrcidBrowser:
         orcid_record = ''
         try:
             self.ff.get(self.signin_page)
-            wait = WebDriverWait(self.ff, 20)
+            wait = WebDriverWait(self.ff, 10)
             user_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'username')))
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
