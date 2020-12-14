@@ -15,7 +15,7 @@ class OrcidBrowser:
         options = webdriver.FirefoxOptions()
         options.headless = True
       # ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin, options=options)
+        self.ff = webdriver.Firefox(options=options)
 
     def bye(self):
         return self.ff.quit()
