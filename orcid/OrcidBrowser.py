@@ -40,7 +40,8 @@ class OrcidBrowser:
             pass_input.send_keys(secret)
             login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))            
             login_button.click()       
-            print "clicked"     
+            print (usrname)
+            print (secret)     
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
             print "orcidcount"
             orcid_record = orcid_found.text
