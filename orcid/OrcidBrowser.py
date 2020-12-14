@@ -12,8 +12,10 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+      # ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
+        self.ff = webdriver.Firefox(firefox_binary=ff_bin, options=options)
 
     def bye(self):
         return self.ff.quit()
