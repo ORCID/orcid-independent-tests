@@ -14,7 +14,7 @@ on:
       username:
         description: "Username"
         required: true
-        default: ""
+        default: "ma_test_[DD][month][YYYY]"
       password:
         description: "Password"
         required: true
