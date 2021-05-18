@@ -12,7 +12,7 @@ class OrcidBaseTest(unittest.TestCase):
     secrets_file_path = './'
     secrets_file_extension = '.secret'
     xml_data_files_path = 'post_files/'
-
+    test_server = properties.test_server
     if local_properties.type == "jenkins":
         try:
             username = properties.user_login
@@ -20,11 +20,9 @@ class OrcidBaseTest(unittest.TestCase):
         except AttributeError:
             username = ""
             password = ""
-        test_server = properties.test_server
     else:
         username = local_properties.username
         password = local_properties.password
-        test_server = local_properties.test_server
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + ["--http1.1"] + curl_opts + [url]
