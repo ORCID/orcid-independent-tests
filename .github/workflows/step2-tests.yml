@@ -20,6 +20,7 @@ on:
         required: true
         default: "test1234"
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -84,3 +85,4 @@ jobs:
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_expected_errors.xml orcid/test_expected_errors.py
       - name: Test refresh tokens
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_refresh_tokens.xml orcid/test_refresh_tokens.py
+
