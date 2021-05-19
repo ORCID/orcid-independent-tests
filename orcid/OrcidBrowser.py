@@ -12,8 +12,10 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+      # ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
+        self.ff = webdriver.Firefox(options=options)
 
     def bye(self):
         return self.ff.quit()
@@ -36,9 +38,12 @@ class OrcidBrowser:
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))
-            login_button.click()            
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))            
+            login_button.click()       
+            print (usrname)
+            print (secret)     
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
+            print "orcidcount"
             orcid_record = orcid_found.text
             print "--- LOGIN OK WITH ID: %s" % orcid_record
             return str(orcid_record)
