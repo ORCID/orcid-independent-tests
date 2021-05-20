@@ -12,18 +12,17 @@ class OrcidBaseTest(unittest.TestCase):
     secrets_file_path = './'
     secrets_file_extension = '.secret'
     xml_data_files_path = 'post_files/'
-    def setUp(self):
-        self.test_server = properties.test_server
-        if properties.type == "actions":
-            try:
-                self.username = properties.user_login
-                self.password = properties.password
-            except AttributeError:
-                self.username = ""
-                self.password = ""
-        else:
-            self.username = local_properties.username
-            self.password = local_properties.password
+    test_server = properties.test_server
+    if properties.type == "actions":
+        try:
+            username = properties.user_login
+            password = properties.password
+        except AttributeError:
+            username = ""
+            password = ""
+    else:
+        username = local_properties.username
+        password = local_properties.password
 
     def orcid_curl(self, url, curl_opts):
         curl_call = ["curl"] + ["--http1.1"] + curl_opts + [url]
