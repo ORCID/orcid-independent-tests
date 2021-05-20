@@ -16,7 +16,7 @@ class OrcidBrowser:
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
         options.headless = True
-        if properties.type == "jenkins":
+        if properties.type == "actions":
             self.ff = webdriver.Firefox(options=options)
         else:
             ff_bin = FirefoxBinary(local_properties.firefoxPath)

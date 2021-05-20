@@ -8,7 +8,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        if properties.type == "jenkins":
+        if properties.type == "actions":
             self.test_server = properties.test_server
             self.client_id = properties.memberClientId
             self.client_secret = properties.memberClientSecret

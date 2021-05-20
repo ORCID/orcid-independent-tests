@@ -13,7 +13,7 @@ class OrcidBaseTest(unittest.TestCase):
     secrets_file_extension = '.secret'
     xml_data_files_path = 'post_files/'
     test_server = properties.test_server
-    if properties.type == "jenkins":
+    if properties.type == "actions":
         try:
             username = properties.user_login
             password = properties.password

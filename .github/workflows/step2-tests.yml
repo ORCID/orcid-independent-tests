@@ -35,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -q -r orcid/requirements.txt
           touch orcid/local_properties.py
-          echo "type='jenkins'" >> 'orcid/properties.py'
+          echo "type='actions'" >> 'orcid/properties.py'
           echo "orcidId='${{github.event.inputs.orcid}}'" >> 'orcid/properties.py'
           echo "user_login='${{github.event.inputs.username}}@mailinator.com'" >> 'orcid/properties.py'
           echo "searchValue='${{github.event.inputs.username}}'" >> 'orcid/properties.py'

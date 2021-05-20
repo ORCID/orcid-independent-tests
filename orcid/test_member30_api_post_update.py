@@ -6,7 +6,7 @@ import local_properties
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
     def setUp(self):
         self.version = "/v3.0/"
-        if properties.type == "jenkins":
+        if properties.type == "actions":
             self.test_server = properties.test_server
             self.client_id     = properties.memberClientId
             self.client_secret = properties.memberClientSecret

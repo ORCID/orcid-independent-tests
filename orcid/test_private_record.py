@@ -5,7 +5,7 @@ import local_properties
 class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        if properties.type == "jenkins":
+        if properties.type == "actions":
           self.test_server = properties.test_server
         else:
           self.test_server = local_properties.test_server
