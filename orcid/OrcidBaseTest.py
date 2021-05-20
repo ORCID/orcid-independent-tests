@@ -12,7 +12,7 @@ class OrcidBaseTest(unittest.TestCase):
     secrets_file_path = './'
     secrets_file_extension = '.secret'
     xml_data_files_path = 'post_files/'
-    def setUp(self):
+    def __init__(self):
         self.test_server = properties.test_server
         if properties.type == "actions":
             try:
