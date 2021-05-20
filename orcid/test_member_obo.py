@@ -11,7 +11,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
        # self.obo_token = ""
         self.version = "/v3.0/"
         self.first_obo_scope = "openid"
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
             self.test_server = properties.test_server
             self.orcid_id = properties.orcidId
             self.first_obo_id = properties.OBOMemberClientId

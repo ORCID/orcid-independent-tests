@@ -5,7 +5,7 @@ import local_properties
 class ScopeMethods(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
             self.test_server = properties.test_server
             self.public_client_id     = properties.publicClientId
             self.public_client_secret = properties.publicClientSecret

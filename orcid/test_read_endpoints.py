@@ -15,7 +15,7 @@ class ReadEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.limited_summaries = ['distinction/summary/4992', 'education/summary/4978', 'employment/summary/4979', 'funding/summary/1285', 'invited-position/summary/4991', 'peer-review/summary/1077', 'qualification/summary/4990', 'research-resource/summary/1005', 'service/summary/4663', 'work/summary/141942']
         self.public_items = ['address/1069', 'education/1409', 'employment/1410', 'external-identifiers/250', 'funding/1284', 'invited-position/4667', 'keywords/1278', 'membership/4670', 'other-names/2685', 'peer-review/1076', 'qualification/4666', 'research-resource/1006', 'researcher-urls/7186', 'service/4669', 'work/141941', 'works/141941']
         self.public_summaries = ['education/summary/1409', 'employment/summary/1410', 'funding/summary/1284', 'invited-position/summary/4667', 'membership/summary/4670', 'peer-review/summary/1076', 'qualification/summary/4666', 'research-resource/summary/1006', 'service/summary/4669', 'work/summary/141941']
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
           self.test_server = properties.test_server
         else:
           self.test_server = local_properties.test_server

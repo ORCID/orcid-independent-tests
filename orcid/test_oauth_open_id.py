@@ -8,7 +8,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def setUp(self):
         self.scope = "openid"
         self.wrong_scope = "/read-limited%20/activities/update%20/person/update"
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
           self.test_server = properties.test_server
           self.public_record_id    = properties.staticId
           self.public_record_token = "c9974dc3-451b-420f-ae6e-b76d7009062e"

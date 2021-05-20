@@ -13,7 +13,7 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
             ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
         else:
             ff_bin = FirefoxBinary(local_properties.firefoxPath)

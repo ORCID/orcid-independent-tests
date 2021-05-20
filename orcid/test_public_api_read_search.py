@@ -5,7 +5,7 @@ import local_properties
 
 class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
     def setUp(self):
-        if local_properties.type == "jenkins":
+        if properties.type == "jenkins":
             self.test_server = properties.test_server
             self.client_id     = properties.publicClientId
             self.client_secret = properties.publicClientSecret
