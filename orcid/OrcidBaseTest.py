@@ -16,7 +16,7 @@ class OrcidBaseTest(unittest.TestCase):
     if properties.type == "actions":
         try:
             username = properties.user_login
-            password = properties.password
+            password = properties.user_pass
         except AttributeError:
             username = ""
             password = ""
