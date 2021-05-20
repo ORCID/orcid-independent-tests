@@ -17,10 +17,10 @@ class OrcidBrowser:
         options = webdriver.FirefoxOptions()
         options.headless = True
         if properties.type == "jenkins":
-            ff_bin = webdriver.Firefox(options=options)
+            self.ff = webdriver.Firefox(options=options)
         else:
             ff_bin = FirefoxBinary(local_properties.firefoxPath)
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+            self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
         return self.ff.quit()
