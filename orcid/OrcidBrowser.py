@@ -14,15 +14,11 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
+        options = webdriver.FirefoxOptions()
+        options.headless = True
         if properties.type == "actions":
-            options = webdriver.FirefoxOptions()
-            options.headless = True
             self.ff = webdriver.Firefox(options=options)
-            self.username = properties.orcidId
-            self.password = properties.user_pass
         else:
-            self.username = local_properties.orcid_id
-            self.password = local_properties.password
             ff_bin = FirefoxBinary(local_properties.firefoxPath)
             self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
