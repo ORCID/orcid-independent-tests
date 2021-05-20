@@ -14,6 +14,8 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
+        options = webdriver.FirefoxOptions()
+        options.headless = True
         if properties.type == "jenkins":
             ff_bin = webdriver.Firefox(options=options)
         else:
