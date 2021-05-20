@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time
 import local_properties
+import properties
 
 class OrcidBrowser:
 
