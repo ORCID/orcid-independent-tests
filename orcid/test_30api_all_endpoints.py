@@ -104,7 +104,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Read Check for group
         read_response = self.read20(readendpoint)
         self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)
-        print read_response
+        print (read_response)
         #Get put-code
         putcode = self.getputcode(post_response)
         # Check creation date after posting the item
@@ -124,7 +124,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         creation_date_put = creation_date_put.split('<common:created-date>')[1]
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
         self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
-        print read_response
+        print (read_response)
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
         self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)

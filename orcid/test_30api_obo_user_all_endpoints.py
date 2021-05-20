@@ -102,7 +102,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Read Check for group
         read_response = self.read20(readendpoint)
         self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)
-        print read_response
+        print (read_response)
         #Get put-code
         putcode = self.getputcode(post_response)
         #Update
@@ -112,7 +112,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Read Check there is no group
         read_response = self.read20(readendpoint)
         self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
-        print read_response
+        print (read_response)
         # Check assertion tag
         assertionTag = re.search("<common:assertion-origin-orcid>(.+?)</common:assertion-origin-orcid>",re.sub('[\s+]', '', read_response))
         self.assertTrue(self.orcid_id in assertionTag.group(1), "Response missing \"Created\" tag: " + read_response)

@@ -14,7 +14,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
           self.scope = "/read-limited%20/activities/update%20/person/update"
           self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
           self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
-          print "Using code: %s | access: %s " % (self.code, self.access)
+          print ("Using code: %s | access: %s " % (self.code, self.access))
         else:
           self.client_id = local_properties.step_2_client_id
           self.client_secret = local_properties.step_2_client_secret
@@ -29,7 +29,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_activity(self.version, "work", "ma2_work.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
-        print putcode
+        print (putcode)
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
         # Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
