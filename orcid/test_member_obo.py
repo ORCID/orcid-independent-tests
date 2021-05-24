@@ -3,22 +3,31 @@ from OrcidBrowser import OrcidBrowser
 import properties
 import json
 import re
+import local_properties
 
 class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
-    obo_token = ""
 
     def setUp(self):
-        self.orcid_id = properties.orcidId
+       # self.obo_token = ""
         self.version = "/v3.0/"
-
-        self.first_obo_id = properties.OBOMemberClientId
-        self.first_obo_secret = properties.OBOMemberClientSecret
         self.first_obo_scope = "openid"
+        if properties.type == "actions":
+            self.test_server = properties.test_server
+            self.orcid_id = properties.orcidId
+            self.first_obo_id = properties.OBOMemberClientId
+            self.first_obo_secret = properties.OBOMemberClientSecret
+            self.second_obo_id     = properties.OBOMemberSecondId
+            self.second_obo_secret = properties.OBOMemberSecondSecret
+        else:
+            self.test_server = local_properties.test_server
+            self.orcid_id = local_properties.orcid_id_member
+            self.first_obo_id = local_properties.OBOMemberClientId
+            self.first_obo_secret = local_properties.OBOMemberClientSecret
+            self.second_obo_id = local_properties.OBOMemberSecondId
+            self.second_obo_secret = local_properties.OBOMemberSecondSecret
+
         self.first_obo_code = self.generate_auth_code(self.first_obo_id, self.first_obo_scope, "api2PostUpdateCode")
         self.first_obo_access, self.first_obo_refresh, self.first_obo_id_token = self.orcid_exchange_auth_token(self.first_obo_id, self.first_obo_secret, self.first_obo_code)
-
-        self.second_obo_id     = properties.OBOMemberSecondId
-        self.second_obo_secret = properties.OBOMemberSecondSecret
         self.second_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
         self.second_obo_code = self.generate_auth_code(self.second_obo_id, self.second_obo_scope, "api2PostUpdateCode")
         self.second_obo_access, self.second_obo_refresh, self.second_obo_id_token = self.orcid_exchange_auth_token(self.second_obo_id, self.second_obo_secret, self.second_obo_code)
@@ -34,7 +43,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
                      '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' + token +
                      '&subject_token_type=urn:ietf:params:oauth:token-type:id_token&requested_token_type=urn:ietf:params:oauth:token-type:access_token']
 
-        response = self.orcid_curl("https://" + properties.test_server + "/oauth/token", curl_params)
+        response = self.orcid_curl("https://" + self.test_server + "/oauth/token", curl_params)
         return response
 
     def test_010_existing_token_flow(self):

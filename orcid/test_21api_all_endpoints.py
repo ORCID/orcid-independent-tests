@@ -1,18 +1,25 @@
 import OrcidBaseTest
 import properties
 import re
+import local_properties
 
 class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-        self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.notify_token  = properties.notifyToken
-        self.orcid_id    = properties.staticId
-        self.access      = properties.staticAccess
-        #0000-0002-7361-1027
+        # 0000-0002-7361-1027
+        if properties.type == "actions":
+          self.client_id     = properties.memberClientId
+          self.client_secret = properties.memberClientSecret
+          self.notify_token  = properties.notifyToken
+          self.orcid_id    = properties.staticId
+          self.access      = properties.staticAccess
+          self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        else:
+          self.orcid_id    = local_properties.orcid_id
+          self.access      = local_properties.step_1_access
+          self.group_access = local_properties.group_access
 
 #2.0
     def post20(self, file_name, endpoint):
@@ -164,12 +171,9 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
-    #search for and read a peer-review group with an issn group id
-        self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        #search for and read a peer-review group with an issn group id
         self.issn_group(self.group_access, '1741-4857')
         
     def test_other_group(self):
-    #create, read, delete a peer-review group with a non issn group id
-    	self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-    	self.other_group(self.group_access, 'group.xml')
-
+        #create, read, delete a peer-review group with a non issn group id
+        self.other_group(self.group_access, 'group.xml')

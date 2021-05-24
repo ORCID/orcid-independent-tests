@@ -1,20 +1,27 @@
 import OrcidBaseTest
 import properties
+import local_properties
 
 class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
-
     def setUp(self):
-        self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.notify_token  = properties.notifyToken
-        self.orcid_id      = properties.orcidId
-        self.version	   = "/v3.0_rc2/"
-        self.scope               = "/read-limited%20/activities/update%20/person/update"
-        self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
-        self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
-        #Use below when testing locally
-		#self.access = properties.oauthToken 
-
+        self.version = "/v3.0_rc2/"
+        if properties.type == "actions":
+            self.client_id = properties.memberClientId
+            self.client_secret = properties.memberClientSecret
+            self.notify_token = properties.notifyToken
+            self.webhook_access = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
+            self.orcid_id = properties.orcidId
+            self.scope = "/read-limited%20/activities/update%20/person/update"
+            self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+            self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
+        else:
+            self.orcid_id = local_properties.orcid_id_member
+            self.client_id = local_properties.step_2_client_id
+            self.client_secret = local_properties.step_2_client_secret
+            self.notify_token = local_properties.notify_token
+            self.scope = "/read-limited%20/activities/update%20/person/update"
+            self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+            self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
 
     
     def test_post_update_work(self):

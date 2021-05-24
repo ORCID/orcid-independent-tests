@@ -1,10 +1,15 @@
 import OrcidBaseTest
 import properties
 import re
+import local_properties
 
 class PublicRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
+        if properties.type == "actions":
+          self.test_server = properties.test_server
+        else:
+          self.test_server = local_properties.test_server
         self.public_orcid_id    = '0000-0002-3874-7658'
         self.pubapi_public_token= 'a8ac4d85-df2b-4de2-9411-1b94491f463b'
         self.memapi_public_token= 'eba7892b-4f4a-4651-9c47-f0c74fae61c5'

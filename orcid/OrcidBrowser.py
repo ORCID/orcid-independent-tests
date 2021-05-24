@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time
+import local_properties
+import properties
 
 class OrcidBrowser:
 
@@ -14,8 +16,11 @@ class OrcidBrowser:
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
         options.headless = True
-      # ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(options=options)
+        if properties.type == "actions":
+            self.ff = webdriver.Firefox(options=options)
+        else:
+            ff_bin = FirefoxBinary(local_properties.firefoxPath)
+            self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
         return self.ff.quit()

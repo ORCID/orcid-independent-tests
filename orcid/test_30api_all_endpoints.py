@@ -1,39 +1,48 @@
 import OrcidBaseTest
 import properties
 import re
+import local_properties
 
 class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     
     xml_data_files_path = 'post_files/'
 
     def setUp(self):
-    	self.client_id     = properties.memberClientId
-        self.client_secret = properties.memberClientSecret
-        self.notify_token  = properties.notifyToken
-        self.orcid_id    = properties.staticId
-        self.access      = properties.staticAccess
         #0000-0002-7361-1027
+        if properties.type == "actions":
+          self.test_server = properties.test_server
+          self.client_id = properties.memberClientId
+          self.client_secret = properties.memberClientSecret
+          self.notify_token = properties.notifyToken
+          self.orcid_id = properties.staticId
+          self.access = properties.staticAccess
+          self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        else:
+          self.test_server = local_properties.test_server
+          self.orcid_id = local_properties.orcid_id
+          self.access = local_properties.step_1_access
+          self.group_access = local_properties.group_access
 
 #3.0
 # The following tests post, get put code, read and check post is in response, then delete for every end-point on the 3.0 API
     def post20(self, file_name, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + file_name, '-X', 'POST']
-        post_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+        post_response = self.orcid_curl("https://api." + self.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
         return post_response
 
     def put20(self, putjson, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+json', '-H', 'Accept: application/json', '-d', self.putjson, '-X', 'PUT']
-        put_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        put_response = self.orcid_curl("https://api." + self.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return put_response
 
     def read20(self, endpoint):
     	curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-    	read_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
+    	read_response = self.orcid_curl("https://api." + self.test_server + "/v3.0/%s/%s" % (self.orcid_id, endpoint), curl_params)
     	return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
+        delete_response = self.orcid_curl("https://api." + self.test_server + "/v3.0/%s/%s/%s" % (self.orcid_id, endpoint, putcode), curl_params)
         return delete_response
 
     def getputcode(self, post_response):
@@ -189,23 +198,21 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.bio20('30postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):
-    #search for and read a peer-review group with an issn group id
-        self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
+        #search for and read a peer-review group with an issn group id
         self.issn_group(self.group_access, '1741-4857')
         
     def test_other_group(self):
-    #create, read, delete a peer-review group with a non issn group id
-    	self.group_access = self.orcid_generate_member_token(self.client_id, self.client_secret, "/group-id-record/update")
-    	self.other_group(self.group_access, 'group.xml')
+        #create, read, delete a peer-review group with a non issn group id
+    	  self.other_group(self.group_access, 'group.xml')
 
     def test_client_endpoint(self):
     	#check response of the client endpoint
     	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/json"]
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
+        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
         
     def test_client_endpoint(self):
     	#check response of the client endpoint in xml
     	curl_params = ['-i', '-L', '-k', '-H', "Accept: application/vnd.orcid+xml"]
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
+        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/client/APP-7M3CGDKMQE36J56N", curl_params)
         self.assertTrue("secret" not in response, "Unexpected response: " + response)
