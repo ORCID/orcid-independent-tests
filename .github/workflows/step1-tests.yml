@@ -33,6 +33,20 @@ jobs:
           echo "publicClientSecret='${{secrets.QA_PUBLIC_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
           echo "premiumClientId='${{secrets.QA_PREMIUM_CLIENT_ID}}'" >> 'orcid/properties.py' 
           echo "premiumClientSecret='${{secrets.QA_PREMIUM_CLIENT_SECRET}}'" >> 'orcid/properties.py'
+          
+          echo "test_server='${{github.event.inputs.server}}'"
+          echo "type='actions'"
+          echo "memberClientId='${{secrets.QA_MEMBER_CLIENT_ID}}'"
+          echo "memberClientSecret='${{secrets.QA_MEMBER_CLIENT_SECRET}}'"
+          echo "notifyToken='${{secrets.QA_NOTIFY_TOKEN}}'"
+          echo "staticOBOUserAccess='${{secrets.QA_STATIC_OBO_USER_TOKEN}}'"
+          echo "staticId='${{secrets.QA_STATIC_ORCID}}'"
+          echo "staticAccess='${{secrets.QA_STATIC_TOKEN}}'"
+          echo "publicClientId='${{secrets.QA_PUBLIC_CLIENT_ID}}'"
+          echo "publicClientSecret='${{secrets.QA_PUBLIC_CLIENT_SECRET}}'"
+          echo "premiumClientId='${{secrets.QA_PREMIUM_CLIENT_ID}}'"
+          echo "premiumClientSecret='${{secrets.QA_PREMIUM_CLIENT_SECRET}}'"
+          
       - name: Setup Selenium/geckodriver
         run: |
           which geckodriver
