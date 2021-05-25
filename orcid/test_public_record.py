@@ -6,7 +6,7 @@ import local_properties
 class PublicRecord(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        if local_properties.type == "jenkins":
+        if properties.type == "actions":
           self.test_server = properties.test_server
         else:
           self.test_server = local_properties.test_server
@@ -68,6 +68,13 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
+        
+        print('-------------------------------------------')
+        print(response_body.strip())
+        print('-------------------------------------------')
+        print(open(self.saved_records_path + '/public_record30.xml','r').read())
+        print('-------------------------------------------')
+        
         #Compare the body of the response to the saved file.
         self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
     

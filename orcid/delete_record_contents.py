@@ -17,7 +17,7 @@ class DeleteContent():
         self.step = 2
         self.member_name = "Automated Test Helper"
         self.orcid_id = "0000-0001-6009-1985"
-        self.access_token = "e4ed35be-6c4f-4ffc-9997-8572cc865663"
+        self.access_token = "12230f94-f7c0-4b08-9308-951f9b636d14"
         self.webhook_token = "af36161d-0971-4ac6-b860-5bb3f7cdef64"
     #    self.member_name = "Testing Andrej"
     #    self.access_token = "912f0fcf-f96c-41e4-86ed-c016d96168a4"
@@ -73,11 +73,11 @@ class DeleteContent():
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % token, '-H', 'Content-Length: 0', '-H',
                        'Accept: application/json', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api.qa.orcid.org/v3.0/%s/%s" % (self.orcid_id, "record"), curl_params)
-        return response.partition('X-Frame-Options: DENY')[2]
+        return "{" + response.decode().partition('{')[2]
 
     def delete_bio(self, record, endpoint, endpoint_value, source_name, token):
         for x in record[endpoint][endpoint_value]:
-            print source_name
+            print (source_name)
             if x['source']['source-name']['value'] == source_name:
                 if endpoint == "external-identifiers" or endpoint == "researcher-urls" or endpoint == "keywords" or endpoint == "other-names":
                     self.delete(x['put-code'], endpoint, token)

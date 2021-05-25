@@ -9,7 +9,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
         #0000-0002-7361-1027
-        if local_properties.type == "jenkins":
+        if properties.type == "actions":
           self.test_server = properties.test_server
           self.client_id = properties.memberClientId
           self.client_secret = properties.memberClientSecret
