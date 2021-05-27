@@ -48,7 +48,7 @@ class OrcidBrowser:
             print (usrname)
             print (secret)     
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
-            print "orcidcount"
+            print ("orcidcount")
             orcid_record = orcid_found.text
             print ("--- LOGIN OK WITH ID: %s" % orcid_record)
             return str(orcid_record)

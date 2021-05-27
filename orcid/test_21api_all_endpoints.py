@@ -34,8 +34,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     def read20(self, endpoint):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-	read_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/%s/%s" % (self.orcid_id, endpoint), curl_params)
-	return read_response
+        read_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/%s/%s" % (self.orcid_id, endpoint), curl_params)
+        return read_response
 
     def delete20(self, endpoint, putcode):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
@@ -51,19 +51,19 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
 
     def issn_group(self, group_access, issn):
-    	#search
+        #search
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record/?group-id=%s" % (issn), curl_params)
         self.assertTrue("group-id" in post_response, "response: " + post_response)
         #read
         read_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record/1104", curl_params)
         self.assertTrue("<group-id:group-id>issn:love</group-id:group-id>" in read_response, "response: " + read_response)
-        
+
     def other_group(self, group_access, xmlfile):
-    	#post new group
-    	post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
+        #post new group
+        post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
         post_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record", post_params)
-    	self.assertTrue("201 Created" in post_response, "response: " + post_response)
+        self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #put-code
         putcode = self.getputcode(post_response)
         #read
@@ -74,7 +74,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
         delete_response = self.orcid_curl("https://api.qa.orcid.org/v2.1/group-id-record/%s" % (putcode), delete_params)
         self.assertTrue("204 No Content" in delete_response, "response: " + delete_response)
-    
+
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
         #Post
         post_response = self.post20(xmlfile, postendpoint)
@@ -101,13 +101,13 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("201 Created" in post_response, "response: " + post_response)
         #Read Check for group
         read_response = self.read20(readendpoint)
-        self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub('[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(postname in read_response and '</activities:group><activities:group>' not in re.sub(r'[\s+]', '', read_response), "response: " + read_response)
         print (read_response)
         #Get put-code
         putcode = self.getputcode(post_response)
         # Check creation date after posting the item
         search_pattern = "%s(.+?)</common:created-date>" % putcode
-        creation_date_post = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_post = re.search(search_pattern, re.sub(r'[\s+]', '', read_response))
         creation_date_post = creation_date_post.group(1)
         creation_date_post = creation_date_post.split('<common:created-date>')[1]
         #Update
@@ -117,10 +117,10 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         #Read Check there is no group
         read_response = self.read20(readendpoint)
         # Check creation date after updating the item
-        creation_date_put = re.search(search_pattern, re.sub('[\s+]', '', read_response))
+        creation_date_put = re.search(search_pattern, re.sub(r'[\s+]', '', read_response))
         creation_date_put = creation_date_put.group(1)
         creation_date_put = creation_date_put.split('<common:created-date>')[1]
-        self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub('[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub(r'[\s+]', '', read_response), "response: " + read_response)
         self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print (read_response)
         #Delete
@@ -167,7 +167,7 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')
     
     def test_peer20(self):
-    	jsontext = '"reviewer-role" : "REVIEWER", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "SELF"} ] }, "review-url" : null, "review-type" : "REVIEW", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
+        jsontext = '"reviewer-role" : "REVIEWER", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "SELF"} ] }, "review-url" : null, "review-type" : "REVIEW", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
         self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
 
     def test_peerreview_group(self):

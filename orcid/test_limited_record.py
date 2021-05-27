@@ -1,7 +1,7 @@
 import OrcidBaseTest
 import re
 import properties
-import urllib
+import urllib.request
 import local_properties
 
 class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
@@ -27,7 +27,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
     def getResponse(self, response):
-       return re.sub('[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
+       return re.sub(r'[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
      
     #Test no information is returned using the public API
     def test_read_limited_record_with_20_public_api(self):
@@ -671,25 +671,24 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     #Test public json expecting server errors
     def test_limited_public_json_server_error(self):
         for item in self.public_json_items:
-            work_url = ("http://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            response = urllib.urlopen(work_url).read()
+            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
+            response = urllib.request.urlopen(work_url).read()
             print (work_url)
-            self.assertTrue("There has been a problem with the server" in response, "Expected server error instead: " + response)
+            self.assertTrue("There has been a problem with the server" in str(response), "Expected server error instead: " + str(response))
 
     #Test public json expecting empty page
-    def test_limited_public_json_empty(self):
+    def test_limited_public_json_empty_2(self):
         for item in self.public_json_work:
-            work_url = ("http://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            response = urllib.urlopen(work_url).read()
-            print (work_url)
-            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
+            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
+            response = urllib.request.urlopen(work_url).read()
+            self.assertTrue("<app-root> </app-root>" in response.decode(), "Expected empty brackets instead: " + work_url + response.decode())
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
-        work_url = "http://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005"
-        response = urllib.urlopen(work_url).read()
+        work_url = "https://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005"
+        response = urllib.request.urlopen(work_url).read()
         print (work_url)
-        self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response, "Expected empty brackets instead: " + response)
+        self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response.decode(), "Expected empty brackets instead: " + response.decode())
 
     # ********************************************** OBO
 

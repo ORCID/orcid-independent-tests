@@ -21,7 +21,7 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         self.saved_records_path = 'saved_records'
 
     def getResponse(self, response):
-       return re.sub('[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
+       return re.sub(r'[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
     
     def test_read_public_record_with_20_public_api(self):
         #Read the record with the public API with 2.0
