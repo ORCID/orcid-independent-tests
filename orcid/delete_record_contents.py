@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os.path
 import OrcidBaseTest
 
 # Choose which records gets cleared, 
@@ -43,7 +44,13 @@ class DeleteContent():
         # Remove webhook
         if self.step == 2:
             curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % self.webhook_token, '-H', 'Content-Length: 0', '-H','Accept: application/json', '-k', '-X', 'DELETE']
-            self.orcid_curl("https://api.qa.orcid.org/" + self.orcid_id + "/webhook/http%3A%2F%2Fnowhere3.com%2Fupdated", curl_params)
+            self.orcid_curl("https://api.qa.orcid.org/" + self.orcid_id + "/webhook/https%3A%2F%2Fnowhere3.com%2Fupdated", curl_params)
+
+        for file in os.listdir("/mydir"):
+            if file.endswith(".secret"):
+                content = json.load(file)
+                if ("openId" in content["scope"]):
+                    print (content["access_token"])
 
     def obo_user(self):
         self.member_name = "OBO User Testing Client"
