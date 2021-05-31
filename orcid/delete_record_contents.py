@@ -46,23 +46,20 @@ class DeleteContent():
             curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % self.webhook_token, '-H', 'Content-Length: 0', '-H','Accept: application/json', '-k', '-X', 'DELETE']
             self.orcid_curl("https://api.qa.orcid.org/" + self.orcid_id + "/webhook/https%3A%2F%2Fnowhere3.com%2Fupdated", curl_params)
 
-        for file in os.listdir("/mydir"):
+    '''
+        for file in os.listdir("./"):
             if file.endswith(".secret"):
-                content = json.load(file)
-                if ("openId" in content["scope"]):
-                    print (content["access_token"])
+                with open(file, "r") as c: 
+                    content = c.read()
+                if ("openId" in content):
+                    os.remove(file)
+    '''
 
     def obo_user(self):
+        print("*** OBO_USER ***")
         self.member_name = "OBO User Testing Client"
         self.orcid_id = "0000-0001-6009-1985"
-        self.access_token = "bcbdc7bc-43ec-4f04-980d-085b45a16135"
-        record = json.loads(self.get_record(self.access_token))
-        self.delete_work(record['activities-summary'], self.member_name, self.access_token)
-
-    def obo_member(self):
-        self.member_name = "Member OBO Testing Client"
-        self.orcid_id = "0000-0001-6009-1985"
-        self.access_token = "4f762d41-5053-4df2-967e-dfd57f4cc9a5"
+        self.access_token = "2f5c9a4e-34f4-434a-b508-f25510d47a53"
         record = json.loads(self.get_record(self.access_token))
         self.delete_work(record['activities-summary'], self.member_name, self.access_token)
 
@@ -167,4 +164,3 @@ class DeleteContent():
 
 DeleteContent().main()
 DeleteContent().obo_user()
-#DeleteContent().obo_member()

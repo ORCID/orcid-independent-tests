@@ -29,7 +29,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_21_public_api(self):
         #Read the record with the public API with 2.1
@@ -37,7 +38,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_20_member_api(self):
         #Read the record with the member API with 2.0
@@ -45,7 +47,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_21_member_api(self):
         #Read the record with the member API with 2.1
@@ -53,7 +56,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.1/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_30rc1_public_api(self):
         #Read the record with the public API with 3.0_rc1
@@ -61,22 +65,17 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc1/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_30rc1_member_api(self):
         #Read the record with the member API with 3.0_rc1
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.memapi_public_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc1/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
-        
-        print('-------------------------------------------')
-        print(response_body.strip())
-        print('-------------------------------------------')
-        print(open(self.saved_records_path + '/public_record30.xml','r').read())
-        print('-------------------------------------------')
-        
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
     
     def test_read_public_record_with_30rc2_public_api(self):
         #Read the record with the public API with 3.0_rc2
@@ -84,7 +83,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0_rc2/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_30rc2_member_api(self):
         #Read the record with the member API with 3.0_rc2
@@ -92,7 +92,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0_rc2/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_30_public_api(self):
         #Read the record with the public API with 3.0
@@ -100,7 +101,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + properties.test_server + "/v3.0/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_public_record_with_30_member_api(self):
         #Read the record with the member API with 3.0
@@ -108,7 +110,8 @@ class PublicRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + properties.test_server + "/v3.0/" + self.public_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open(self.saved_records_path + '/public_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open(self.saved_records_path + '/public_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_public_last_modified(self):
     	#Check the last modified date on the record has not changed

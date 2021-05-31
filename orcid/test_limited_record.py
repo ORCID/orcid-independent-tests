@@ -729,7 +729,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = self.getResponse(response)
-        #Compare the body of the response to the saved file.
         self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -737,7 +736,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = self.getResponse(response)
-        #Compare the body of the response to the saved file.
         self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -747,7 +745,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -757,7 +754,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -767,7 +763,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -777,7 +772,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         originNameTag = '<common:assertion-origin-name>'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -787,7 +781,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         originNameTag = '<common:assertion-origin-name>'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -797,7 +790,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -807,7 +799,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -817,5 +808,4 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
