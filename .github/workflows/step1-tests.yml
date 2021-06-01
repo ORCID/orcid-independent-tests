@@ -9,7 +9,7 @@ on:
         default: "qa.orcid.org"
 
 jobs:
-  build:
+  ${{github.event.inputs.server}}:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
