@@ -10,23 +10,18 @@ The tests are divided into two groups:
 
 * [Install the latest python 3 version](https://www.python.org/downloads/) (make sure to include pip and (win) add to environment variables)
 * Clone the independent tests repository
-* Navigate to the orcid folder within the source and run 'pip install -r requirements.txt'
+* Install dependencies by running `pip install -r ./orcid/requirements.txt` in the source folder (alternatively see the virtual environment setup below)
+* (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
+* Create "local_properties.py" in the `./orcid` folder and populate it with contents of the "Independent test local properties" entry found in Dashlane.
+* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox executable.
 
-Before executing the test suite prepare a virtual enviroment using the next commands
+#### Virtual environment setup
 
-    rm -rf .py_env results *.secret
+    rm -rf .py_env results
     mkdir results
     virtualenv .py_env
     . .py_env/bin/activate
     pip2 install -r ./orcid/requirements.txt
-
-## Running tests locally
-
-In order to run the tests locally:
-
-* (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
-* Create "local_properties.py" inside the 'orcid' folder and populate it with contents of the "Independent test local properties" entry found in Dashlane.
-* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox executable.
 
 Run the required line in the source folder to execute a given test:
 
