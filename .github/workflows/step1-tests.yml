@@ -13,6 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          ${{github.event.inputs.server}} > params.txt
+      - name: ${{github.event.inputs.server}}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{github.event.inputs.server}}
+          path: params.txt
       - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
