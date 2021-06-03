@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - $GITHUB_REF_NAME
-        run: echo "${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - $GITHUB_REF_NAME"
+      - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - ${GITHUB_REF_NAME}
+        run: echo "${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - ${GITHUB_REF_NAME}"
       - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
