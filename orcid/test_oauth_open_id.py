@@ -37,23 +37,23 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_public_record_info(self):
         user_info = self.get_user_info(self.public_record_token)
         user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
-        print "response: " + user_info_body
+        print ("response: " + user_info_body)
         self.assertTrue(user_info_body.strip() == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info)
 
     def test_limited_record_info(self):
         user_info = self.get_user_info(self.limited_record_token)
         user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
-        print "response: " + user_info_body
+        print ("response: " + user_info_body)
         self.assertTrue(user_info_body.strip() == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info)
 
     def test_implicit_token(self):
         implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
-        print "implicit: " + implicit
+        print ("implicit: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token")
 
     def test_wrong_scope_token(self):
         wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
-        print "wrong_implicit: " + wrong_implicit
+        print ("wrong_implicit: " + wrong_implicit)
         user_info = self.get_user_info(wrong_implicit)
-        print "user_info: " + user_info
+        print ("user_info: " + user_info)
         self.assertTrue("access_denied" in user_info, "Wrong scope test failed: " + user_info)

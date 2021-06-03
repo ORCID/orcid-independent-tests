@@ -1,8 +1,9 @@
 import OrcidBaseTest
 import re
 import properties
-import urllib
+import urllib.request
 import local_properties
+from urllib.error import HTTPError
 
 class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
@@ -27,7 +28,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
     def getResponse(self, response):
-       return re.sub('[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
+       return re.sub(r'[    ](.*)(\<common:last-modified-date\>|\<common:created-date\>)(.*)(\</common:last-modified-date\>|\</common:created-date\>)\n','', response)
      
     #Test no information is returned using the public API
     def test_read_limited_record_with_20_public_api(self):
@@ -37,14 +38,15 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
         saved_file = open('saved_records/empty_limited_record20.xml','r').read()
-        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + 'saved_file: ' + saved_file)
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file:: ' + saved_file)
 
     def test_read_limited_record_with_21_public_api(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_30_rc1_public_api(self):
         #Test that reading a limited record with the 3.0 public api returns only the public info
@@ -52,7 +54,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc1.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_30_rc2_public_api(self):
         #Test that reading a limited record with the 3.0_rc2 public api returns only the public info
@@ -60,7 +63,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc2.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
 
     def test_read_limited_record_with_30_public_api(self):
@@ -69,7 +73,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_20_public_api(self):
         # Test read limited work with the public api and make sure it returns error 9039
@@ -130,7 +135,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_20_public_token(self):
         # Test read limited work with the 2.0 public api and make sure it returns error 9039
@@ -157,7 +163,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_limited_work_with_21_public_token(self):
         # TEST 144
@@ -183,7 +190,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc1.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_rc1_public_token(self):
         # TEST 144
@@ -211,7 +219,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc2.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30rc2_public_token(self):
         #Test 9038 error  is returned when limited work is read with the 3.0_rc2 public api
@@ -238,7 +247,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         # Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml', 'r').read(),'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30.xml', 'r').read()
+        self.assertTrue(response_body.strip() == saved_file,'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_public_token(self):
         # Test 9038 error  is returned when limited work is read with the 3.0 public api
@@ -432,7 +442,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_20_update_token(self):
         # TEST 154
@@ -452,7 +463,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_21_update_token(self):
         # TEST 154
@@ -472,7 +484,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc1.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_rc1_update_token(self):
         # TEST 154
@@ -492,7 +505,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30_rc2.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30rc2_update_token(self):
       # TEST 154
@@ -512,7 +526,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/empty_limited_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/empty_limited_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_update_token(self):
         # TEST 154
@@ -553,7 +568,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record20.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record20.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_20_limited_token(self):
         # TEST 161
@@ -561,7 +577,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work20.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_work20.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_email_with_20_limited_token(self):
         # TEST 162
@@ -569,7 +586,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/email", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_email20.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_email20.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_21_limited_token(self):
         #TEST 160
@@ -577,7 +595,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record21.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record21.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_21_limited_token(self):
         # TEST 161
@@ -585,7 +604,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work21.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_work21.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_email_with_21_limited_token(self):
         # TEST 162
@@ -593,7 +613,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_email21.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_email21.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_30_rc1_limited_token(self):
         #TEST 160
@@ -601,7 +622,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc1.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record30_rc1.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_rc1_limited_token(self):
         # TEST 161
@@ -609,7 +631,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work30_rc1.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_work30_rc1.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_email_with_30_rc1_limited_token(self):
         # TEST 162
@@ -617,7 +640,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_email30_rc1.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_email30_rc1.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_30_rc2_limited_token(self):
         #TEST 160
@@ -625,7 +649,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record30_rc2.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record30_rc2.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30rc2_limited_token(self):
         # TEST 161
@@ -633,7 +658,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work30_rc2.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_work30_rc2.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_email_with_30rc2_limited_token(self):
         # TEST 162
@@ -641,7 +667,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_email30_rc2.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_email30_rc2.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_record_with_30_limited_token(self):
         #TEST 160
@@ -649,7 +676,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/record", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record30.xml','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record30.xml','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     def test_read_limited_work_with_30_limited_token(self):
         # TEST 161
@@ -657,7 +685,8 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work30.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_work30.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
 
     def test_read_limited_email_with_30_limited_token(self):
@@ -666,30 +695,32 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/email", curl_params)
         response_body = self.getResponse(response)
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_email30.json','r').read(), 'response_body: ' + response_body)
+        saved_file = open('saved_records/limited_record_email30.json','r').read()
+        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
     #Test public json expecting server errors
     def test_limited_public_json_server_error(self):
         for item in self.public_json_items:
-            work_url = ("http://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            response = urllib.urlopen(work_url).read()
-            print work_url
-            self.assertTrue("There has been a problem with the server" in response, "Expected server error instead: " + response)
+            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
+            try:
+                response = urllib.request.urlopen(work_url).read()
+            except HTTPError as e:
+                response = e.read()
+            self.assertTrue("There has been a problem with the server" in str(response), "Expected server error instead: " + str(response))
 
     #Test public json expecting empty page
-    def test_limited_public_json_empty(self):
+    def test_limited_public_json_empty_2(self):
         for item in self.public_json_work:
-            work_url = ("http://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            response = urllib.urlopen(work_url).read()
-            print work_url
-            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
+            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
+            response = urllib.request.urlopen(work_url).read()
+            self.assertTrue("[]" in response.decode(), "Expected empty brackets instead: " + work_url + response.decode())
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
-        work_url = "http://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005"
-        response = urllib.urlopen(work_url).read()
-        print work_url
-        self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response, "Expected empty brackets instead: " + response)
+        work_url = "https://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005"
+        response = urllib.request.urlopen(work_url).read()
+        print (work_url)
+        self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response.decode(), "Expected empty brackets instead: " + response.decode())
 
     # ********************************************** OBO
 
@@ -698,7 +729,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = self.getResponse(response)
-        #Compare the body of the response to the saved file.
         self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -706,7 +736,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/works/179580", curl_params)
         response_body = self.getResponse(response)
-        #Compare the body of the response to the saved file.
         self.assertTrue("<common:assertion-origin-client-id>" in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -716,7 +745,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -726,7 +754,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / Member OBO tag should be missing from releases prior to 3.0_rc2
@@ -736,7 +763,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-client-id>'
         workTag = '<work:work put-code="179580" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -746,7 +772,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         originNameTag = '<common:assertion-origin-name>'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Check if the work has been posted on behalf of another member
@@ -756,7 +781,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         originNameTag = '<common:assertion-origin-name>'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag in response_body and originNameTag not in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -766,7 +790,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -776,7 +799,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)
 
     # Assertion / User OBO tag should be missing from releases prior to 3.0_rc2
@@ -786,5 +808,4 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response_body = self.getResponse(response)
         assertionTag = '<common:assertion-origin-orcid>'
         workTag = '<work:work put-code="179625" visibility="limited">'
-        #Compare the body of the response to the saved file.
         self.assertTrue(assertionTag not in response_body and workTag in response_body, 'response_body: ' + response_body)

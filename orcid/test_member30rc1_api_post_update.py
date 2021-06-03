@@ -30,7 +30,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         response = self.post_activity(self.version, "work", "ma30rc1_work.xml")
         self.assertTrue("201 Created" in response, "Response missing \"Created\" tag: " + response)
         putcode = self.get_putcode_from_response(response)
-        print putcode
+        print (putcode)
         self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
         #Update the work with JSON
         self.assertFalse("" == putcode, "Empty putcode in url")
@@ -107,7 +107,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         # Post a bulk works item using 3.0_rc1 to the record created for testing today
         response = self.post_activity(self.version, "works", "ma30rc1_bulkworks.xml")
         self.assertTrue("200 OK" in response, "Response missing \"Created\" tag: " + response)
-	self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
-	self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
+        self.assertFalse("400 Bad Request" in response, "badly formed XML error in response " + response)
+        self.assertFalse("409 Conflict" in response, "Already posted this work error in response " + response)
         
         
