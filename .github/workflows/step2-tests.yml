@@ -27,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - ${GITHUB_REF##*/}
+        run: 
       - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
