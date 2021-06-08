@@ -26,6 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}}
+        run: |
+            echo "ORCID iD - ${{github.event.inputs.orcid}}"
+            echo "username - ${{github.event.inputs.username}}"
+            echo "branch - ${GITHUB_REF#refs/heads/}"
       - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
