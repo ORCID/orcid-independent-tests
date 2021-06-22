@@ -5,24 +5,32 @@ import local_properties
 class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        if properties.type == "actions":
-          self.test_server = properties.test_server
-        else:
-          self.test_server = local_properties.test_server
-        self.client_id              = properties.memberClientId
-        self.client_secret          = properties.memberClientSecret
-        self.client_id2             = properties.premiumClientId
-        self.client_secret2         = properties.premiumClientSecret
-        self.orcid_id               = properties.orcidId
         self.scope                  = "/read-limited%20/activities/update%20/person/update"
-        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
         self.wrong_orcid_id         = '0000-0002-2619-0514'
-        self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2                 = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
+        if properties.type == "actions":
+            self.test_server = properties.test_server
+            self.client_id              = properties.memberClientId
+            self.client_secret          = properties.memberClientSecret
+            self.client_id2             = properties.premiumClientId
+            self.client_secret2         = properties.premiumClientSecret
+            self.orcid_id               = properties.orcidId
+            self.static_access          = properties.staticAccess
+            self.static_orcid_id        = properties.staticId
+        else:
+            self.test_server = local_properties.test_server
+            self.client_id              = local_properties.step_2_client_id
+            self.client_secret          = local_properties.step_2_client_secret
+            self.client_id2             = local_properties.premiumClientId
+            self.client_secret2         = local_properties.premiumClientSecret
+            self.orcid_id               = local_properties.orcid_id_member
+            self.static_access          = local_properties.step_1_access
+            self.static_orcid_id        = local_properties.orcid_id
+        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+        self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.code2                  = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
         self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
-        self.static_access          = properties.staticAccess
-        self.static_orcid_id        = properties.staticId
+
 		
         #This batch of tests check to see if the API throws expected errors for incorrect actions
     def test_access_wrong_record2(self):
