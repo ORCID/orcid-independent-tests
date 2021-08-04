@@ -670,7 +670,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
             work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + item)
             response = urllib.urlopen(work_url).read()
             print work_url
-            self.assertTrue("[]" == response, "Expected empty json instead: " + response)
+            self.assertTrue("{}" == response, "Expected empty json instead: " + response)
 
     #Test public json expecting empty page
     def test_limited_public_json_empty(self):
