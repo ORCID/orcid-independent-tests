@@ -556,8 +556,9 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + properties.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
+        expected = open('saved_records/limited_record_work20.json','r').read()
         #Compare the body of the response to the saved file.
-        self.assertTrue(response_body.strip() == open('saved_records/limited_record_work20.json','r').read(), 'response_body: ' + response_body)
+        self.assertTrue(response_body.strip() == expected, 'response_body: "' + response_body + '" expected: "' + expected + '"')
 
     def test_read_limited_email_with_20_limited_token(self):
         # TEST 162
