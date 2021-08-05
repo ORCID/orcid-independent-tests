@@ -704,7 +704,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_work)
         response = urllib.request.urlopen(work_url).read()
         print (work_url)
-        responseString = response.read().decode('utf-8')
+        responseString = response.decode('utf-8')
         self.assertTrue("{}" == responseString, "Expected empty json instead: " + responseString)
 
     # Test access to non public work from UI returns empty element 
@@ -712,7 +712,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         affiliation_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_affiliation)
         response = urllib.request.urlopen(affiliation_url).read()
         print (affiliation_url)
-        responseString = response.read().decode('utf-8')
+        responseString = response.decode('utf-8')
         self.assertTrue("[]" == responseString, "Expected empty json instead: " + responseString)
 
     #Test public json expecting empty page
