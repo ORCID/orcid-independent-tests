@@ -13,15 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 2.7
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 2.7
+          python-version: 3.9
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -q -r orcid/requirements.txt
+          touch orcid/local_properties.py
           echo "test_server='${{github.event.inputs.server}}'" >> 'orcid/properties.py'
+          echo "type='actions'" >> 'orcid/properties.py'
           echo "memberClientId='${{secrets.QA_MEMBER_CLIENT_ID}}'" >> 'orcid/properties.py'       
           echo "memberClientSecret='${{secrets.QA_MEMBER_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
           echo "notifyToken='${{secrets.QA_NOTIFY_TOKEN}}'" >> 'orcid/properties.py' 
@@ -31,7 +33,7 @@ jobs:
           echo "publicClientId='${{secrets.QA_PUBLIC_CLIENT_ID}}'" >> 'orcid/properties.py' 
           echo "publicClientSecret='${{secrets.QA_PUBLIC_CLIENT_SECRET}}'" >> 'orcid/properties.py' 
           echo "premiumClientId='${{secrets.QA_PREMIUM_CLIENT_ID}}'" >> 'orcid/properties.py' 
-          echo "premiumClientSecret='${{secrets.QA_PREMIUM_CLIENT_SECRET}}'" >> 'orcid/properties.py'
+          echo "premiumClientSecret='${{secrets.QA_PREMIUM_CLIENT_SECRET}}'" >> 'orcid/properties.py'          
       - name: Setup Selenium/geckodriver
         run: |
           which geckodriver

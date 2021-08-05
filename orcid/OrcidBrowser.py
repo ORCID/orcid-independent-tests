@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time
+import local_properties
+import properties
 
 class OrcidBrowser:
 
@@ -12,8 +14,13 @@ class OrcidBrowser:
         self.server_name = 'qa.orcid.org'
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        ff_bin = FirefoxBinary('/opt/firefox-56.0.2/firefox')
-        self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        if properties.type == "actions":
+            self.ff = webdriver.Firefox(options=options)
+        else:
+            ff_bin = FirefoxBinary(local_properties.firefoxPath)
+            self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
         return self.ff.quit()
@@ -36,11 +43,14 @@ class OrcidBrowser:
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))
-            login_button.click()            
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))            
+            login_button.click()       
+            print (usrname)
+            print (secret)     
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
+            print ("orcidcount")
             orcid_record = orcid_found.text
-            print "--- LOGIN OK WITH ID: %s" % orcid_record
+            print ("--- LOGIN OK WITH ID: %s" % orcid_record)
             return str(orcid_record)
         except TimeoutException:
             raise ValueError("failed loading my orcid page.", "orcid: %s" % orcid_record)
@@ -54,19 +64,19 @@ class OrcidBrowser:
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
             try:
-		time.sleep(5)
-		auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
-		auth.click()
+                time.sleep(5)
+                auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
+                auth.click()
             except Exception:
-                print "Permission already granted"
+                print ("Permission already granted")
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
             token_input = self.ff.find_element_by_id('for_access_token')
             token_val = token_input.get_attribute('value')
-            print "--- ABOUT TO SEND TOKEN: %s" % token_val
+            print ("--- ABOUT TO SEND TOKEN: %s" % token_val)
             return token_val
         except Exception as e:
-            print "Waiting for token failed. url: %s, orcid: %s" % (oauth_page, orcid_record)
-            print e
+            print ("Waiting for token failed. url: %s, orcid: %s" % (oauth_page, orcid_record))
+            print (e)
 
     def getAuthCode(self, usrname, secret, client_id, scope='/authenticate',response_type='code',orcid_record='0'):
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id,response_type, scope)
@@ -77,11 +87,11 @@ class OrcidBrowser:
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
             try:
-		time.sleep(5)
-		auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
-		auth.click()
+                time.sleep(5)
+                auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
+                auth.click()
             except Exception:
-                print "Permission already granted"
+                print ("Permission already granted")
             exchangeCode_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'exchangeCode')))
             code_input = self.ff.find_element_by_id('auth_code')
             auth_code_val = code_input.get_attribute('value')
