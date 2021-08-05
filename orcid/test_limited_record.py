@@ -23,8 +23,9 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.empty_email = '"email":[]'
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
-        self.public_json_items = ['getWorkInfo.json?workId=141942', 'affiliations.json?affiliationIds=1412']
-        self.public_json_work = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
+        self.public_json_work = 'getWorkInfo.json?workId=141942'
+        self.public_json_affiliation = 'affiliations.json?affiliationIds=1412'
+        self.public_json_elements = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
     def getResponse(self, response):
@@ -576,9 +577,9 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.limited_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/" + self.limited_orcid_id + "/work/141942", curl_params)
         response_body = self.getResponse(response)
+        expected = open('saved_records/limited_record_work20.json','r').read()
         #Compare the body of the response to the saved file.
-        saved_file = open('saved_records/limited_record_work20.json','r').read()
-        self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
+        self.assertTrue(response_body.strip() == expected, 'response_body: "' + response_body + '" expected: "' + expected + '"')
 
     def test_read_limited_email_with_20_limited_token(self):
         # TEST 162
@@ -698,22 +699,27 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         saved_file = open('saved_records/limited_record_email30.json','r').read()
         self.assertTrue(response_body.strip() == saved_file, 'response_body: ' + response_body.strip() + '\nSaved file: ' + saved_file)
 
-    #Test public json expecting server errors
-    def test_limited_public_json_server_error(self):
-        for item in self.public_json_items:
-            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            try:
-                response = urllib.request.urlopen(work_url).read()
-            except HTTPError as e:
-                response = e.read()
-            self.assertTrue("There has been a problem with the server" in str(response), "Expected server error instead: " + str(response))
+    # Test access to non public work from UI returns empty element 
+    def test_limited_public_json_empty_work(self):        
+        work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_work)
+        response = urllib.urlopen(work_url).read()
+        print work_url
+        self.assertTrue("{}" == response, "Expected empty json instead: " + response)
+
+    # Test access to non public work from UI returns empty element 
+    def test_limited_public_json_empty_affiliation(self):
+        affiliation_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_affiliation)
+        response = urllib.urlopen(affiliation_url).read()
+        print affiliation_url
+        self.assertTrue("[]" == response, "Expected empty json instead: " + response)
 
     #Test public json expecting empty page
-    def test_limited_public_json_empty_2(self):
-        for item in self.public_json_work:
-            work_url = ("https://" + self.test_server + '/' + self.limited_orcid_id + '/' + item)
-            response = urllib.request.urlopen(work_url).read()
-            self.assertTrue("[]" in response.decode(), "Expected empty brackets instead: " + work_url + response.decode())
+    def test_limited_public_json_empty(self):
+        for item in self.public_json_elements:
+            work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + item)
+            response = urllib.urlopen(work_url).read()
+            print work_url
+            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
