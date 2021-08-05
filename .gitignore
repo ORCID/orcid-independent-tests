@@ -10,4 +10,5 @@ __pycache__
 results
 orcid/testinputs.py
 orcid/properties.py
+orcid/local_properties.py
 geckodriver.log
