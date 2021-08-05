@@ -704,14 +704,14 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_work)
         response = urllib.request.urlopen(work_url).read()
         print (work_url)
-        self.assertTrue("{}" == response, "Expected empty json instead: " + response)
+        self.assertTrue("{}" == response, "Expected empty json instead: " + response.decode('utf-8'))
 
     # Test access to non public work from UI returns empty element 
     def test_limited_public_json_empty_affiliation(self):
         affiliation_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_affiliation)
         response = urllib.request.urlopen(affiliation_url).read()
         print (affiliation_url)
-        self.assertTrue("[]" == response, "Expected empty json instead: " + response)
+        self.assertTrue("[]" == response, "Expected empty json instead: " + response.decode('utf-8'))
 
     #Test public json expecting empty page
     def test_limited_public_json_empty(self):
@@ -719,7 +719,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
             work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + item)
             response = urllib.request.urlopen(work_url).read()
             print (work_url)
-            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
+            self.assertTrue("[]" == response, "Expected empty brackets instead: " + response.decode('utf-8'))
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
