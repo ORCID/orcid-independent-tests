@@ -725,7 +725,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     #Test public json on research-resources
     def test_limited_public_json_empty(self):
-        work_url = "https://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005"
+        work_url = "https://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005&pageSize=0"
         response = urllib.request.urlopen(work_url).read()
         print (work_url)
         self.assertTrue('{"nextOffset":50,"totalGroups":0,"groups":[]}' in response.decode(), "Expected empty brackets instead: " + response.decode())
