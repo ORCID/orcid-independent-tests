@@ -11,7 +11,7 @@ import properties
 class OrcidBrowser:
 
     def __init__(self):
-        self.server_name = 'qa.orcid.org'
+        self.server_name = properties.test_server
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
