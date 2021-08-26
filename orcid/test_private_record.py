@@ -218,7 +218,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
         #Check record has deactivated date
-        saved_file = open('saved_records/deactivated_record20.xml','r').read()
+        saved_file = open('saved_records/deactivated_record20.xml','r').read().replace("qa.orcid.org", self.test_server)
         self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() +
         "\nSaved file: " + saved_file)
 
@@ -228,7 +228,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.0/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
         #Check record has deactivated date
-        saved_file = open('saved_records/deactivated_record20.xml','r').read()
+        saved_file = open('saved_records/deactivated_record20.xml','r').read().replace("qa.orcid.org", self.test_server)
         self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_locked_record_member_api_20(self):
@@ -280,7 +280,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
         #Check record has deactivated date
-        saved_file = open('saved_records/deactivated_record21.xml','r').read()
+        saved_file = open('saved_records/deactivated_record21.xml','r').read().replace("qa.orcid.org", self.test_server)
         self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_deactivated_record_public_api_21(self):
@@ -289,7 +289,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.1/0000-0002-7564-3444/record", curl_params)
         response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
         #Check record has deactivated date
-        saved_file = open('saved_records/deactivated_record21.xml','r').read()
+        saved_file = open('saved_records/deactivated_record21.xml','r').read().replace("qa.orcid.org", self.test_server)
         self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_locked_record_member_api_21(self):
@@ -341,7 +341,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read(), "No deactivate date " + response_body.strip())
+      self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read().replace("qa.orcid.org", self.test_server), "No deactivate date " + response_body.strip())
 
     def test_read_deactivated_record_public_api_30_rc1(self):
     #Test reading a deactivated record with public 3.0_rc1 api and check a deactivated date is returned
@@ -349,7 +349,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read(), "No deactivate date " + response_body.strip())
+      self.assertTrue(response_body.strip() == open('saved_records/deactivated_record30_rc1.xml','r').read().replace("qa.orcid.org", self.test_server), "No deactivate date " + response_body.strip())
 
     def test_read_locked_record_member_api_30_rc1(self):
     #Test reading a locked record with member 3.0_rc1 api and check a locked error is returned
@@ -400,7 +400,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      saved_file = open('saved_records/deactivated_record30_rc2.xml','r').read()
+      saved_file = open('saved_records/deactivated_record30_rc2.xml','r').read().replace("qa.orcid.org", self.test_server)
       self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_deactivated_record_public_api_30_rc2(self):
@@ -409,7 +409,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      saved_file = open('saved_records/deactivated_record30_rc2.xml','r').read()
+      saved_file = open('saved_records/deactivated_record30_rc2.xml','r').read().replace("qa.orcid.org", self.test_server)
       self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_locked_record_member_api_30_rc2(self):
@@ -461,7 +461,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://api." + self.test_server + "/v3.0/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      saved_file = open('saved_records/deactivated_record30.xml','r').read()
+      saved_file = open('saved_records/deactivated_record30.xml','r').read().replace("qa.orcid.org", self.test_server)
       self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_deactivated_record_public_api_30(self):
@@ -470,7 +470,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/0000-0002-7564-3444/record", curl_params)
       response_body = response.partition('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[2]
       #Check record has deactivated date
-      saved_file = open('saved_records/deactivated_record30.xml','r').read()
+      saved_file = open('saved_records/deactivated_record30.xml','r').read().replace("qa.orcid.org", self.test_server)
       self.assertTrue(response_body.strip() == saved_file, "No deactivate date " + response_body.strip() + "\nSaved file: " + saved_file)
 
     def test_read_locked_record_member_api_30(self):
