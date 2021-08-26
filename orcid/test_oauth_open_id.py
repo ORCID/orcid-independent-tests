@@ -36,15 +36,15 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
     def test_public_record_info(self):
         user_info = self.get_user_info(self.public_record_token)
-        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
+        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2].strip().replace(self.test_server, "qa.orcid.org")
         print ("response: " + user_info_body)
-        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info)
+        self.assertTrue(user_info_body == open('saved_records/user_info_public.json', 'r').read(),'User info does not match saved file: ' + user_info_body)
 
     def test_limited_record_info(self):
         user_info = self.get_user_info(self.limited_record_token)
-        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2]
+        user_info_body = user_info.partition('{"id')[1] + user_info.partition('{"id')[2].strip().replace(self.test_server, "qa.orcid.org")
         print ("response: " + user_info_body)
-        self.assertTrue(user_info_body.strip() == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info)
+        self.assertTrue(user_info_body == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info_body)
 
     def test_implicit_token(self):
         implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
