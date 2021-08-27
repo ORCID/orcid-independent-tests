@@ -66,3 +66,5 @@ jobs:
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
       - name: Test read endpoints
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
+      - name: Test content negotiation
+        run: py.test --junitxml orcid/.py_env/Scripts/results/test_content_negotiation.xml orcid/test_content_negotiation.py
