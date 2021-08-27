@@ -100,7 +100,7 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
         codeStart = response.find("HTTP/1.1")
         codeEnd = response.find("Date: ")
-        self.assertTrue(response.slice(codeStart, codeEnd).strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
+        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
 
     def test_member_http_read_21(self):
         #Test making a call with 2.0 API using http not https returns the expected '521 Origin Down' error
@@ -108,4 +108,4 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("http://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
         codeStart = response.find("HTTP/1.1")
         codeEnd = response.find("Date: ")
-        self.assertTrue(response.slice(codeStart, codeEnd).strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
+        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
