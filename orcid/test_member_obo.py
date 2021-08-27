@@ -78,6 +78,6 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         if properties.type != "actions":
             curl_params_delete = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % OauthOpenId.obo_token, '-H', 'Content-Length: 0', '-H',
                        'Accept: application/json', '-k', '-X', 'DELETE']
-            response = self.orcid_curl("https://api.qa.orcid.org/v3.0/%s/work/%s" % (self.orcid_id, putcode.group(1)), curl_params_delete)
+            response = self.orcid_curl("https://api.%s/v3.0/%s/work/%s" % (self.test_server, self.orcid_id, putcode.group(1)), curl_params_delete)
             curl_params_revoke = ['-L', '-i', '-k', '-d', 'client_id=' + self.first_obo_id, '-d', 'client_secret=' + self.first_obo_secret, '-d', 'token=' + OauthOpenId.obo_token, '-H', 'Accept: application/json','-X', 'POST']
-            read_response = self.orcid_curl('https://qa.orcid.org/oauth/revoke', curl_params_revoke)
+            read_response = self.orcid_curl('https://%s/oauth/revoke' % (self.test_server), curl_params_revoke)

@@ -54,26 +54,26 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
     def issn_group(self, group_access, issn):
         #search
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'GET']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/group-id-record/?group-id=%s" % (issn), curl_params)
+        post_response = self.orcid_curl("https://api.%s/v3.0_rc1/group-id-record/?group-id=%s" % (self.test_server, issn), curl_params)
         self.assertTrue("group-id" in post_response, "response: " + post_response)
         #read
-        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/group-id-record/1104", curl_params)
+        read_response = self.orcid_curl("https://api.%s/v3.0_rc1/group-id-record/1104" % (self.test_server), curl_params)
         self.assertTrue("<group-id:group-id>issn:love</group-id:group-id>" in read_response, "response: " + read_response)
         
     def other_group(self, group_access, xmlfile):
         #post new group
         post_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + xmlfile, '-X', 'POST']
-        post_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/group-id-record", post_params)
+        post_response = self.orcid_curl("https://api.%s/v3.0_rc1/group-id-record" % (self.test_server), post_params)
         self.assertTrue("HTTP/1.1 201" in post_response, "response: " + post_response)
         #put-code
         putcode = self.getputcode(post_response)
         #read
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', 'GET']
-        read_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/group-id-record/%s" %(putcode), curl_params)
+        read_response = self.orcid_curl("https://api.%s/v3.0_rc1/group-id-record/%s" % (self.test_server, putcode), curl_params)
         self.assertTrue("<group-id:group-id>orcid-generated:ind</group-id:group-id>" in read_response, "response: " + read_response)
         #delete
         delete_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.group_access, '-H', 'Content-Type: application/vnd.orcid+xml', '-H', 'Accept: application/xml', '-X', 'DELETE']
-        delete_response = self.orcid_curl("https://api.qa.orcid.org/v3.0_rc1/group-id-record/%s" % (putcode), delete_params)
+        delete_response = self.orcid_curl("https://api.%s/v3.0_rc1/group-id-record/%s" % (self.test_server, putcode), delete_params)
         self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
         
     def bio20(self, xmlfile, postendpoint, readendpoint, jsontext, postname, putname, manualname):
