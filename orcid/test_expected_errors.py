@@ -5,24 +5,35 @@ import local_properties
 class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
 
     def setUp(self):
-        if properties.type == "actions":
-          self.test_server = properties.test_server
-        else:
-          self.test_server = local_properties.test_server
-        self.client_id              = properties.memberClientId
-        self.client_secret          = properties.memberClientSecret
-        self.client_id2             = properties.premiumClientId
-        self.client_secret2         = properties.premiumClientSecret
-        self.orcid_id               = properties.orcidId
         self.scope                  = "/read-limited%20/activities/update%20/person/update"
-        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
-        self.wrong_orcid_id         = '0000-0002-2619-0514'
+        self.wrong_orcid_id         = '0000-0002-2619-0514'   
+        self.invalid_id             = '0000-0000-0000-0000'     
+        if properties.type == "actions":
+            self.test_server = properties.test_server
+            self.static_orcid_id = properties.staticId
+            self.static_access = properties.staticAccess
+            self.orcid_id      = properties.orcidId
+            self.client_id     = properties.memberClientId
+            self.client_secret = properties.memberClientSecret
+            self.member_client_id     = properties.premiumClientId
+            self.member_client_secret = properties.premiumClientSecret
+            
+        else:
+            self.test_server = local_properties.test_server
+            self.static_orcid_id = local_properties.orcid_id
+            self.static_access = local_properties.step_1_access
+            self.orcid_id = local_properties.orcid_id_member            
+            self.client_id = local_properties.step_2_client_id
+            self.client_secret = local_properties.step_2_client_secret
+            self.member_client_id = local_properties.premiumClientId
+            self.member_client_secret = local_properties.premiumClientSecret
+
+        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")        
         self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2                 = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
-        self.code2                  = self.generate_auth_code(self.client_id2, self.scope2, "premiumClient")
-        self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.client_id2, self.client_secret2, self.code2)
-        self.static_access          = properties.staticAccess
-        self.static_orcid_id        = properties.staticId
+        self.code2                  = self.generate_auth_code(self.member_client_id, self.scope2, "premiumClient")
+        self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.member_client_id, self.member_client_secret, self.code2)
+        
 		
         #This batch of tests check to see if the API throws expected errors for incorrect actions
     def test_access_wrong_record2(self):
@@ -109,3 +120,9 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         codeStart = response.find("HTTP/1.1 ")
         codeEnd = codeStart + 12
         self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
+
+    def test_nonexisting_record(self):
+        #Confirm that the response type is 404 when fetching a non-existing record
+        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-L', '-i', '-k', '-X', 'GET']
+        response = self.orcid_curl("https://%s/%s" % (self.test_server, self.invalid_id), curl_params)
+        self.assertTrue("HTTP/1.1 404" in response, "Non 404 returned: " + response)
