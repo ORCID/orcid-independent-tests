@@ -46,6 +46,7 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc2_api_post_update.xml orcid/test_member30rc2_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member_obo.xml orcid/test_member_obo.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_expected_errors.xml orcid/test_expected_errors.py
 
 
 ## Running and tweaking tests using Github Actions
