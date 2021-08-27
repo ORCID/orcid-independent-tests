@@ -1,6 +1,7 @@
 import OrcidBaseTest
 import properties
 import local_properties
+import urllib.request
 
 class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
 
@@ -121,8 +122,14 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         codeEnd = codeStart + 12
         self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
 
-    def test_nonexisting_record(self):
-        #Confirm that the response type is 404 when fetching a non-existing record
+    def test_nonexisting_record_api(self):
+        #Confirm that the response type is 404 when fetching a non-existing record via api request
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml','-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://%s/%s" % (self.test_server, self.invalid_id), curl_params)
         self.assertTrue("HTTP/1.1 404" in response, "Non 404 returned: " + response)
+
+    def test_nonexisting_record_ui(self):        
+        #Confirm that the response type is 404 when fetching a visiting a non-existing record through the UI
+        work_url = ("http://" + self.test_server + '/' + self.invalid_id)
+        response_code = urllib.request.urlopen(work_url).getcode()
+        self.assertEquals(response_code, 404, "Non 404 returned: " + str(response_code))
