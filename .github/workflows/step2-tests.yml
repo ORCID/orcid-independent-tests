@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - ${{github.event.inputs.server}} - ${GITHUB_REF#refs/heads/}
+      - name: ${{github.event.inputs.orcid}} - ${{github.event.inputs.username}} - ${{github.event.inputs.server}}
         run: |
             echo "ORCID iD - ${{github.event.inputs.orcid}}"
             echo "username - ${{github.event.inputs.username}}"
