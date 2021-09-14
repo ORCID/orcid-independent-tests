@@ -1,0 +1,33 @@
+<?xml version="1.0" ?><funding:funding xmlns:common="http://www.orcid.org/ns/common" xmlns:funding="http://www.orcid.org/ns/funding" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.orcid.org/ns/funding https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0/funding-3.0.xsd ">    
+    <funding:type>grant</funding:type>
+    <funding:organization-defined-type>subtype 2</funding:organization-defined-type>
+    <funding:title>
+        <common:title>Manual Test 3.0</common:title>
+    </funding:title>
+    <funding:short-description>Funding Description 2</funding:short-description>
+    <funding:amount currency-code="USD">1000</funding:amount>
+    <common:start-date>
+        <common:year>2017</common:year>
+        <common:month>03</common:month>
+    </common:start-date>
+    <common:external-ids>
+        <common:external-id>
+            <common:external-id-type>grant_number</common:external-id-type>
+            <common:external-id-value>9</common:external-id-value>
+            <common:external-id-url>https://qa.orcid.org/6000</common:external-id-url>
+            <common:external-id-relationship>self</common:external-id-relationship>
+        </common:external-id>
+    </common:external-ids>
+    <common:organization>
+        <common:name>Wellcome Trust</common:name>
+        <common:address>
+            <common:city>London</common:city>
+            <common:region>London</common:region>
+            <common:country>GB</common:country>
+        </common:address>
+        <common:disambiguated-organization>
+            <common:disambiguated-organization-identifier>5072</common:disambiguated-organization-identifier>
+            <common:disambiguation-source>RINGGOLD</common:disambiguation-source>
+        </common:disambiguated-organization>
+    </common:organization>
+</funding:funding>
