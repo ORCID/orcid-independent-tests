@@ -11,6 +11,8 @@ import xml.dom.minidom as md
 
 class Replication(unittest.TestCase):
     def __init__(self):
+        self.number_of_activities = 10
+        self.number_of_activities_sample = 5
         self.orcid_id = "0000-0001-6009-1985"
         self.access_token = "715ee62c-573e-4cdd-beff-6baae3890cce"     
         self.source = "Automated Test Helper"
@@ -153,40 +155,41 @@ class Replication(unittest.TestCase):
         deletedPutcodes = []
         with open("../post_files/" + xml_file, 'r') as file:
             xml = file.read() 
-        print("%s: Adding %ss" % (thread_name, endpoint))
-        while count < 10:
+        print("+++ %s: Adding %ss +++" % (thread_name, endpoint))
+        while count < self.number_of_activities:
             putcode = self.post_activity(endpoint, xml, count, logger)
             putcodes.append(putcode)       
             logger.info("%s: %s %s added" % (thread_name, endpoint.capitalize(), putcode))
             count += 1
-            
-        print("%s: Works added - %s" % (thread_name, putcodes))
+        print("+++ %s: %ss added - %s +++" % (thread_name, endpoint.capitalize(), putcodes))
         for putcode in putcodes:
             self.confirmAddedWorks(endpoint, putcode, logger)
-        print("%s: %s replicas added" % (thread_name, endpoint.capitalize()))        
-        updatedPutcodes = random.sample(putcodes, 5)
-        print ("%s: Updating %ss - %s" % (thread_name, endpoint, updatedPutcodes))
+        print("+++ %s: %s replicas added +++" % (thread_name, endpoint.capitalize()))    
+        
+        updatedPutcodes = random.sample(putcodes, self.number_of_activities_sample)
+        print ("(((%s: Updating %ss - %s)))" % (thread_name, endpoint, updatedPutcodes))
         for putcode in updatedPutcodes:
             self.update_activity(endpoint, putcode, xml, logger)
             logger.info("%s: %s %s updated" % (thread_name, endpoint.capitalize(), putcode))
         for putcode in updatedPutcodes:
             self.confirmUpdatedWorks(endpoint, putcode, logger)
-        print("%s: %s replicas updated" % (thread_name, endpoint.capitalize()))
-        deletedPutcodes = random.sample(putcodes, 5)
-        print ("%s: Removing %ss - %s" % (thread_name, endpoint, deletedPutcodes))
+        print("(((%s: %s replicas updated)))" % (thread_name, endpoint.capitalize()))
+        
+        deletedPutcodes = random.sample(putcodes, self.number_of_activities_sample)
+        print ("---%s: Removing %ss - %s---" % (thread_name, endpoint, deletedPutcodes))
         for putcode in deletedPutcodes:
             self.delete_activity(endpoint, putcode, logger)
             logger.info("%s: %s %s deleted" % (thread_name, endpoint.capitalize(), putcode))
         for putcode in deletedPutcodes:
             self.confirmRemovedWorks(endpoint, putcode, logger)
-        print("%s: %s replicas removed" % (thread_name, endpoint.capitalize()))
+        print("---%s: %s replicas removed---" % (thread_name, endpoint.capitalize()))
         
     def main(self):
         t1 = threading.Thread(target=self.replicationTest, args=("Thread-1", "work", "replication_test_work.xml") )
         t2 = threading.Thread(target=self.replicationTest, args=("Thread-2", "education", "replication_test_edu.xml") )
         t3 = threading.Thread(target=self.replicationTest, args=("Thread-3", "funding", "replication_test_funding.xml") )
         t4 = threading.Thread(target=self.replicationTest, args=("Thread-4", "peer-review", "replication_test_pr.xml") )
-        print("Cleaning record...")
+        print("Cleaning record https://orcid.org/%s" % self.orcid_id)
         self.cleanup()
         print("Cleaning done")
         t1.start()
