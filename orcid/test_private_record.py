@@ -1,9 +1,15 @@
+import time
 import OrcidBaseTest
+import OrcidBrowser
+import urllib.request
+import unittest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 import properties
 import local_properties
+from OrcidBrowser import OrcidBrowser
 
 class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
-
     def setUp(self):
         if properties.type == "actions":
           self.test_server = properties.test_server
@@ -19,7 +25,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
 
-    def test_read_private_record_with_20_public_api(self):
+    '''def test_read_private_record_with_20_public_api(self):
     #Test reading a private record with the 2.0 api and public token
       curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
       response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/record", curl_params)
@@ -499,5 +505,45 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/0000-0003-2914-7527/record", curl_params)
       #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
+      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)'''
 
+# UI Tests    
+    def test_read_ui_locked_record(self):
+    #Read the UI version of a locked record
+      locked_record = "http://qa.orcid.org/0000-0002-1871-711X"
+      ob = OrcidBrowser()
+      ob.ff.get(locked_record)
+      time.sleep(5)
+      locked_message = ob.ff.find_element_by_id('mat-error-0').text.replace("error", "")
+      self.assertTrue(locked_message.strip() == "This ORCID Record is locked", 
+      "Unable to find 'This ORCID Record is locked' message on the page %s, instead got: %s" % (locked_record, locked_message))
+
+      published_name = ob.ff.find_elements_by_class_name('published-name')
+      self.assertTrue(len(published_name) == 0, "Published name is not hidden from the page %s" % locked_record)
+
+      other_names = ob.ff.find_elements_by_class_name('other-names')
+      self.assertTrue(len(other_names) == 0, "Other names are not hidden from the page %s" % locked_record)
+
+      is_this_you = ob.ff.find_elements_by_class_name('is-this-you')
+      self.assertTrue(len(is_this_you) == 0, "'Is this you?' message is not hidden from the page %s" % locked_record)
+
+      activities = ob.ff.find_elements_by_class_name('activities')
+      self.assertTrue(len(activities) == 0, "The 'Activities' header is not hidden from the page %s" % locked_record)
+
+      affiliations = ob.ff.find_elements_by_tag_name('app-affiliations')
+      self.assertTrue(len(affiliations) == 0, "Affiliations are not hidden from the page %s" % locked_record)
+
+      fundings = ob.ff.find_elements_by_tag_name('app-fundings')
+      self.assertTrue(len(fundings) == 0, "Fundings are not hidden from the page %s" % locked_record)
+
+      research_resources = ob.ff.find_elements_by_tag_name('app-research-resources')
+      self.assertTrue(len(research_resources) == 0, "Research resources are not hidden from the page %s" % locked_record)
+
+      works = ob.ff.find_elements_by_tag_name('app-work-stack-group')
+      self.assertTrue(len(works) == 0, "Works are not hidden from the page %s" % locked_record)
+
+      peer_reviews = ob.ff.find_elements_by_tag_name('app-peer-reviews')
+      self.assertTrue(len(peer_reviews) == 0, "Works are not hidden from the page %s" % locked_record)
+
+      last_modified = ob.ff.find_elements_by_xpath("//*[contains(text(), 'Record last modified')]")
+      self.assertTrue(len(last_modified) == 0, "Last modified date is not hidden from the page %s" % locked_record)
