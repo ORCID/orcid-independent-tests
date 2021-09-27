@@ -509,7 +509,6 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
 # UI Tests    
     def inactive_record_test(self, ob, record):
-      print(record)
       published_name = ob.ff.find_elements_by_class_name('published-name')
       self.assertTrue(len(published_name) == 0, "Published name is not hidden from the page %s" % record)
 
@@ -539,6 +538,9 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
       last_modified = ob.ff.find_elements_by_xpath("//*[contains(text(), 'Record last modified')]")
       self.assertTrue(len(last_modified) == 0, "Last modified date is not hidden from the page %s" % record)
+
+      sidebar = ob.ff.find_elements_by_class_name('side-bar')
+      self.assertTrue(len(sidebar) == 0, "Sidebar element(s) are not hidden from the page %s" % record)    
 
     def test_read_ui_locked_record(self):
     #Read the UI version of a locked record
