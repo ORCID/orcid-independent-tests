@@ -113,7 +113,7 @@ class Replication(unittest.TestCase):
     def getputcode(self, post_response):
         putcode = ''
         for header in post_response.split('\n'):
-            if("Location:" in header):
+            if("location:" in header.lower()):
                 location_chunks = header.split('/')
                 putcode = location_chunks[-1].strip()
         return putcode
