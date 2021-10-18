@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><peer-review:peer-review xmlns:common="http://www.orcid.org/ns/common" xmlns:peer-review="http://www.orcid.org/ns/peer-review" xmlns:work="http://www.orcid.org/ns/work" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.orcid.org/ns/peer-review https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0/peer-review-3.0.xsd" put-code="4873">		
+<?xml version="1.0" ?><peer-review:peer-review xmlns:common="http://www.orcid.org/ns/common" xmlns:peer-review="http://www.orcid.org/ns/peer-review" xmlns:work="http://www.orcid.org/ns/work" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.orcid.org/ns/peer-review https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/record_3.0/peer-review-3.0.xsd">		
     <peer-review:reviewer-role>reviewer</peer-review:reviewer-role>
 <peer-review:review-identifiers>
     <common:external-id>
@@ -11,7 +11,7 @@
     <peer-review:review-completion-date>
         <common:year>2019</common:year>
     </peer-review:review-completion-date>
-    <peer-review:review-group-id>orcid-generated:grid.470008.b</peer-review:review-group-id>
+    <peer-review:review-group-id>issn:1234-5678</peer-review:review-group-id>
     <peer-review:subject-type>journal-article</peer-review:subject-type>
     <peer-review:convening-organization>
         <common:name>NASA Education</common:name>

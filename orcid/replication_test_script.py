@@ -16,15 +16,18 @@ class Replication(unittest.TestCase):
     --- --- Removed activities/replicas are surrounded by minus signs
     '''
     def __init__(self):
-        self.test_server = "qa.orcid.org"
-        self.replication_server = "qa.orcid.org"
+        self.confirm = False
+        self.test_server = "int.orcid.org"
+        self.replication_server = "int.orcid.org"
         self.number_of_activities = 10
         self.number_of_activities_sample = 5
         # quick_replication_limit: the amount of replicated activities to check 1 second after adding/updating/removing the original 
         self.quick_replication_limit = 5
-        self.orcid_id = "0000-0001-6009-1985"
-        self.access_token = "715ee62c-573e-4cdd-beff-6baae3890cce"     
-        self.source = "Automated Test Helper"
+        
+        self.orcid_id = "0000-0003-3597-3024"
+        self.access_token = ""     
+        self.source = "Replication test"
+        
         self.formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         self.curl_params_get = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % self.access_token, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'GET']
         '''if properties.type == "actions":
@@ -155,7 +158,7 @@ class Replication(unittest.TestCase):
     def confirmRemovedWorks(self, endpoint, putcode, logger):
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s/%s" % (self.replication_server, self.orcid_id, endpoint, putcode), self.curl_params_get, logger)
         self.assertTrue("HTTP/1.1 404" in response, "404 code missing from response: \n" + response)
-    
+
     def replicationTest(self, thread_name, endpoint, xml_file):   
         logger = self.logger_setup(endpoint, "./logs/Replication_test_%s.log" % thread_name.lower())
         count = 0
@@ -167,40 +170,46 @@ class Replication(unittest.TestCase):
         print("+++ %s: Adding %ss +++" % (thread_name, endpoint))
         while count < self.number_of_activities:
             putcode = self.post_activity(endpoint, xml, count, logger)
-            if (count < self.quick_replication_limit):
-                time.sleep(1)
-                self.confirmAddedWorks(endpoint, putcode, logger)
+            if (self.confirm):
+                if (count < self.quick_replication_limit):
+                    time.sleep(1)
+                    self.confirmAddedWorks(endpoint, putcode, logger)
             putcodes.append(putcode)       
             logger.info("%s: %s %s added" % (thread_name, endpoint.capitalize(), putcode))
             count += 1
         print("+++ %s: %ss added - %s +++" % (thread_name, endpoint.capitalize(), putcodes))
-        for putcode in putcodes:
-            self.confirmAddedWorks(endpoint, putcode, logger)
-        print("+++ %s: %s replicas added +++" % (thread_name, endpoint.capitalize()))    
+        if (self.confirm):
+            for putcode in putcodes:
+                self.confirmAddedWorks(endpoint, putcode, logger)
+            print("+++ %s: %s replicas added +++" % (thread_name, endpoint.capitalize()))    
         
         updatedPutcodes = random.sample(putcodes, self.number_of_activities_sample)
         print ("(((%s: Updating %ss - %s)))" % (thread_name, endpoint, updatedPutcodes))
         for putcode in updatedPutcodes:
             self.update_activity(endpoint, putcode, xml, logger)
-            if (count < self.quick_replication_limit):
-                time.sleep(1)
-                self.confirmUpdatedWorks(endpoint, putcode, logger)
+            if (self.confirm):
+                if (count < self.quick_replication_limit):
+                    time.sleep(1)
+                    self.confirmUpdatedWorks(endpoint, putcode, logger)
             logger.info("%s: %s %s updated" % (thread_name, endpoint.capitalize(), putcode))
-        for putcode in updatedPutcodes:
-            self.confirmUpdatedWorks(endpoint, putcode, logger)
-        print("(((%s: %s replicas updated)))" % (thread_name, endpoint.capitalize()))
+        if (self.confirm):
+            for putcode in updatedPutcodes:
+                self.confirmUpdatedWorks(endpoint, putcode, logger)
+            print("(((%s: %s replicas updated)))" % (thread_name, endpoint.capitalize()))
         
         deletedPutcodes = random.sample(putcodes, self.number_of_activities_sample)
         print ("---%s: Removing %ss - %s---" % (thread_name, endpoint, deletedPutcodes))
         for putcode in deletedPutcodes:
             self.delete_activity(endpoint, putcode, logger)
-            if (count < self.quick_replication_limit):
-                time.sleep(1)
-                self.confirmRemovedWorks(endpoint, putcode, logger)
+            if (self.confirm):
+                if (count < self.quick_replication_limit):
+                    time.sleep(1)
+                    self.confirmRemovedWorks(endpoint, putcode, logger)
             logger.info("%s: %s %s deleted" % (thread_name, endpoint.capitalize(), putcode))
-        for putcode in deletedPutcodes:
-            self.confirmRemovedWorks(endpoint, putcode, logger)
-        print("---%s: %s replicas removed---" % (thread_name, endpoint.capitalize()))
+        if (self.confirm):
+            for putcode in deletedPutcodes:
+                self.confirmRemovedWorks(endpoint, putcode, logger)
+            print("---%s: %s replicas removed---" % (thread_name, endpoint.capitalize()))
         
         
     def main(self):
