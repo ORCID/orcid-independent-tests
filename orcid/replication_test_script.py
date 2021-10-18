@@ -25,7 +25,7 @@ class Replication(unittest.TestCase):
         self.quick_replication_limit = 5
         
         self.orcid_id = "0000-0003-3597-3024"
-        self.access_token = ""     
+        self.access_token = "4687bcaa-d009-4d52-ac67-15d711e82049"     
         self.source = "Replication test"
         
         self.formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
@@ -86,7 +86,7 @@ class Replication(unittest.TestCase):
             
     def logger_setup(self, name, log_file, level=logging.INFO):
         if not os.path.exists("./logs"):
-            os.mkdir("./logs")
+            os.makedirs("./logs", exist_ok=True)
    
         handler = logging.FileHandler(log_file)                  
         handler.setFormatter(self.formatter)
