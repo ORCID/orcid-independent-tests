@@ -7,6 +7,8 @@ import unittest
 import random
 import threading
 import logging
+import argparse
+import yaml
 import xml.dom.minidom as md
 
 class Replication(unittest.TestCase):
@@ -16,20 +18,28 @@ class Replication(unittest.TestCase):
     --- --- Removed activities/replicas are surrounded by minus signs
     '''
     def __init__(self):
-        self.confirm = False
-        self.test_server = "int.orcid.org"
-        self.replication_server = "int.orcid.org"
-        self.number_of_activities = 10
-        self.number_of_activities_sample = 5
-        # quick_replication_limit: the amount of replicated activities to check 1 second after adding/updating/removing the original 
-        self.quick_replication_limit = 5
-        
-        self.orcid_id = "0000-0003-3597-3024"
-        self.access_token = "4687bcaa-d009-4d52-ac67-15d711e82049"     
-        self.source = "Replication test"
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-c', '--config', help='yaml config file', required=True)
+        args = parser.parse_args()
+        path = args.config
+    
+        with open(path) as file:
+            params = yaml.load(file, Loader=yaml.FullLoader)
+        self.confirm = params['confirm']
+        self.test_server = params['test_server']
+        self.replication_server = params['replication_server']
+        self.protocol = params['protocol']
+        self.number_of_activities = params['number_of_activities']
+        self.number_of_activities_sample = params['number_of_activities_sample']        
+        self.quick_replication_limit = params['quick_replication_limit']        
+        self.orcid_id = params['orcid_id']
+        self.access_token = params['access_token']     
+        self.source = params['source']
         
         self.formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         self.curl_params_get = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % self.access_token, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'GET']
+        
+        
         '''if properties.type == "actions":
           self.test_server = properties.test_server
           self.access_token = properties.staticAccess
@@ -138,18 +148,18 @@ class Replication(unittest.TestCase):
         curl_params = ['-i', '-L', '-H', 'Authorization: Bearer ' + self.access_token, '-H',
                        'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', xml, '-X', 'POST']
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s" % (self.test_server, self.orcid_id, endpoint), curl_params, logger)
-        self.assertTrue("HTTP/1.1 201" in response, "201 code missing from response: \n" + response)
+        self.assertTrue(self.protocol + " 201" in response, "201 code missing from response: \n" + response)
         putcode = self.getputcode(response)        
         return putcode
     
     def delete_activity(self, endpoint, putcode, logger):
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer %s' % self.access_token, '-H', 'Content-Length: 0', '-H', 'Accept: application/orcid+xml', '-k', '-X', 'DELETE']
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s/%s" % (self.test_server, self.orcid_id, endpoint, putcode), curl_params, logger)
-        self.assertTrue("HTTP/1.1 204" in response, "204 code missing from response: \n" + response)
+        self.assertTrue(self.protocol + " 204" in response, "204 code missing from response: \n" + response)
 
     def confirmAddedWorks(self, endpoint, putcode, logger):
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s/%s" % (self.replication_server, self.orcid_id, endpoint, putcode), self.curl_params_get, logger)
-        self.assertTrue("HTTP/1.1 200" in response, "200 code missing from response: \n" + response)
+        self.assertTrue(self.protocol + " 200" in response, "200 code missing from response: \n" + response)
         
     def confirmUpdatedWorks(self, endpoint, putcode, logger):
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s/%s" % (self.replication_server, self.orcid_id, endpoint, putcode), self.curl_params_get, logger)
@@ -157,7 +167,7 @@ class Replication(unittest.TestCase):
         
     def confirmRemovedWorks(self, endpoint, putcode, logger):
         response = self.orcid_curl("https://api.%s/v3.0/%s/%s/%s" % (self.replication_server, self.orcid_id, endpoint, putcode), self.curl_params_get, logger)
-        self.assertTrue("HTTP/1.1 404" in response, "404 code missing from response: \n" + response)
+        self.assertTrue(self.protocol + " 404" in response, "404 code missing from response: \n" + response)
 
     def replicationTest(self, thread_name, endpoint, xml_file):   
         logger = self.logger_setup(endpoint, "./logs/Replication_test_%s.log" % thread_name.lower())
