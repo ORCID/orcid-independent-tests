@@ -1,11 +1,11 @@
 # quick_replication_limit: the amount of replicated activities to check 1 second after adding/updating/removing the original 
 confirm: False
-test_server: "int.orcid.org"
-replication_server: "int.orcid.org"
+test_server: "qa.orcid.org"
+replication_server: "qa.orcid.org"
 protocol: "HTTP/2"
 number_of_activities: 10
 number_of_activities_sample: 5
 quick_replication_limit: 5
-orcid_id: "0000-0003-1300-2139"
-access_token: ""
+orcid_id: "0000-0002-3925-4986"
+access_token: "534518a0-a35f-4632-b822-849394dec773"
 source: "Replication test"
