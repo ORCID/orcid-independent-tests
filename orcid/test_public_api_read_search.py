@@ -53,26 +53,12 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.1/" + self.orcid_id + "/record", curl_params)
         self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
 
-    def test_search_my_record_30_rc1(self):
-    # Test search for orcid with the 3.0_rc1 public api and check it is returned
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
-        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/search?q=" + self.seach_value, curl_params)
-        self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Record not returned in search" + response)
-
     def test_read_record_with_30_rc1_api(self):
     # Test read record with the public 3.0_rc1 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/" + self.orcid_id + "/record", curl_params)
         self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
-
-    def test_search_my_record_30_rc2(self):
-    # Test search for orcid with the 3.0_rc2 public api and check it is returned
-        self.assertIsNotNone(self.token,"No token generated")
-        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
-        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/search?q=" + self.seach_value, curl_params)
-        self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Record not returned in search" + response)
 
     def test_read_record_with_30_rc2_api(self):
     # Test read record with the public 3.0_rc2 api and check that it is returned
