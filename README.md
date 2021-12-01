@@ -33,8 +33,7 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_21api_all_endpoints.xml orcid/test_21api_all_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_30api_all_endpoints.xml orcid/test_30api_all_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_30api_obo_user_all_endpoints.xml orcid/test_30api_obo_user_all_endpoints.py
-    py.test --junitxml orcid/.py_env/Scripts/results/test_30rc1api_all_endpoints.xml orcid/test_30rc1api_all_endpoints.py
-    py.test --junitxml orcid/.py_env/Scripts/results/test_30rc2api_all_endpoints.xml orcid/test_30rc2api_all_endpoints.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_rc_api_filters.xml orcid/test_rc_api_filters.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
@@ -42,8 +41,6 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member21_api_post_update.xml orcid/test_member21_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member30_api_post_update.xml orcid/test_member30_api_post_update.py
-    py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc1_api_post_update.xml orcid/test_member30rc1_api_post_update.py
-    py.test --junitxml orcid/.py_env/Scripts/results/test_member30rc2_api_post_update.xml orcid/test_member30rc2_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member_obo.xml orcid/test_member_obo.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_oauth_open_id.xml orcid/test_oauth_open_id.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_expected_errors.xml orcid/test_expected_errors.py

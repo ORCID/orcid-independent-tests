@@ -47,7 +47,7 @@ class OrcidBrowser(object):
             login_button.click()       
             print (usrname)
             print (secret)     
-            orcid_found = wait.until(expected_conditions.presence_of_element_located((By.ID, 'orcid-id')))
+            orcid_found = wait.until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'orc-font-heading-small')))
             print ("orcidcount")
             orcid_record = orcid_found.text
             print ("--- LOGIN OK WITH ID: %s" % orcid_record)

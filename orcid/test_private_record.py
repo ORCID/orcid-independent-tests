@@ -371,20 +371,6 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       #Check locked error is returned
       self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
 
-    def test_read_deprecated_record_member_api_30_rc1(self):
-    #Test reading a deprecated record with member 3.0_rc1 api and check an 9007 error is returned
-      curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-i', '-k', '-X', 'GET']
-      response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/0000-0003-2914-7527/record", curl_params)
-      #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
-
-    def test_read_deprecated_record_public_api_30_rc1(self):
-    #Test reading a deprecated record with public 3.0_rc1 api and check an 9007 error is returned
-      curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
-      response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/0000-0003-2914-7527/record", curl_params)
-      #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
-
 #3.0 rc2 tests
 
     def test_read_private_work_with_30_rc2_limited_token(self):
@@ -431,20 +417,6 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/0000-0002-1871-711X/record", curl_params)
       #Check locked error is returned
       self.assertTrue("<error-code>9018</error-code>" in response, "Locked message not returned " + response)
-
-    def test_read_deprecated_record_member_api_30_rc2(self):
-    #Test reading a deprecated record with member 3.0_rc1 api and check an 9007 error is returned
-      curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_token, '-i', '-k', '-X', 'GET']
-      response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/0000-0003-2914-7527/record", curl_params)
-      #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
-
-    def test_read_deprecated_record_public_api_30_rc2(self):
-    #Test reading a deprecated record with public 3.0_rc2 api and check an 9007 error is returned
-      curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
-      response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/0000-0003-2914-7527/record", curl_params)
-      #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
 
 #3.0 tests
 
