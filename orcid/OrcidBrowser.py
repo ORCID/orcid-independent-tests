@@ -8,8 +8,8 @@ import time
 import local_properties
 import properties
 
-class OrcidBrowser():
-    
+class OrcidBrowser:
+
     def __init__(self):
         self.server_name = properties.test_server
         self.signin_page = 'https://%s/signin' % self.server_name
@@ -43,7 +43,7 @@ class OrcidBrowser():
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))         
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))
             login_button.click()       
             print (usrname)
             print (secret)     
