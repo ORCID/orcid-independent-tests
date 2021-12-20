@@ -88,10 +88,13 @@ class OrcidBrowser(object):
             wait = WebDriverWait(self.ff, 10)
             try:
                 time.sleep(5)
+                print("potential point of failure")
                 auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
+                print("potential point of failure 2")
                 auth.click()
             except Exception:
                 print ("Permission already granted")
+            print("not the point of failure")
             exchangeCode_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'exchangeCode')))
             code_input = self.ff.find_element_by_id('auth_code')
             auth_code_val = code_input.get_attribute('value')
