@@ -28,10 +28,10 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
             self.member_client_id = local_properties.premiumClientId
             self.member_client_secret = local_properties.premiumClientSecret
 
-        self.code                   = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")        
+        self.code                   = self.generate_auth_code(self.client_id, self.scope)        
         self.access,self.refresh    = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.scope2                 = "/orcid-bio/update%20/orcid-works/create%20/orcid-works/update%20/affiliations/create%20/affiliations/update%20/funding/create%20/funding/update%20/orcid-profile/read-limited"
-        self.code2                  = self.generate_auth_code(self.member_client_id, self.scope2, "premiumClient")
+        self.code2                  = self.generate_auth_code(self.member_client_id, self.scope2)
         self.access2,self.refresh2  = self.orcid_exchange_auth_token(self.member_client_id, self.member_client_secret, self.code2)
         
 		
