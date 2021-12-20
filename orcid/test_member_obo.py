@@ -27,11 +27,15 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
 
         self.first_obo_code = self.generate_auth_code(self.first_obo_id, self.first_obo_scope, "api2PostUpdateCode")
         self.first_obo_access, self.first_obo_refresh, self.first_obo_id_token = self.orcid_exchange_auth_token(self.first_obo_id, self.first_obo_secret, self.first_obo_code)
+        print("first obo token: ", self.first_obo_id_token)
+        print("first obo id: ", self.first_obo_id)
+        print("first obo ssecret: ", self.first_obo_secret)
         self.second_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
         self.second_obo_code = self.generate_auth_code(self.second_obo_id, self.second_obo_scope, "api2PostUpdateCode")
         self.second_obo_access, self.second_obo_refresh, self.second_obo_id_token = self.orcid_exchange_auth_token(self.second_obo_id, self.second_obo_secret, self.second_obo_code)
-        print("first obo token: ", self.first_obo_id_token)
         print("second obo token: ", self.second_obo_id_token)
+        print("second obo id: ", self.second_obo_id)
+        print("second obo secret: ", self.second_obo_secret)
     def get_id_token(self, token, id, secret):
         self.assertIsNotNone(token,"Bearer not recovered: " + str(token))
         curl_params = ['-L', '-H', "Accept: application/json", '--data', 'client_id=' + id + '&client_secret=' + secret + '&subject_token=' + token + '&grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token_type=urn:ietf:params:oauth:token-type:access_token&requested_token_type=urn:ietf:params:oauth:token-type:id_token']
