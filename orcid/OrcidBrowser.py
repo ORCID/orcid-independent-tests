@@ -37,13 +37,18 @@ class OrcidBrowser(object):
     def orcidlogin(self, usrname, secret):
         orcid_record = ''
         try:
+            print("potential point of failure")
             self.ff.get(self.signin_page)
             wait = WebDriverWait(self.ff, 10)
+            print("potential point of failure 2")
             user_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'username')))
+            print("potential point of failure 3")
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
+            print("potential point of failure 4")
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))            
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))      
+            print("potential point of failure 5")      
             login_button.click()       
             print (usrname)
             print (secret)     
@@ -82,14 +87,10 @@ class OrcidBrowser(object):
         oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id,response_type, scope)
         auth_code_val = ''
         try:
-            print("potential point of failure")
             orcid_record = self.orcidlogin(usrname, secret)
-            print("potential point of failure 2")
             time.sleep(3)
             self.ff.get(oauth_page)
-            print("potential point of failure 3")
             wait = WebDriverWait(self.ff, 10)
-            print("potential point of failure 4")
             try:
                 time.sleep(5)                
                 auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
