@@ -9,6 +9,7 @@ import local_properties
 import properties
 
 class OrcidBrowser():
+    
     def __init__(self):
         self.server_name = properties.test_server
         self.signin_page = 'https://%s/signin' % self.server_name
@@ -19,7 +20,7 @@ class OrcidBrowser():
             self.ff = webdriver.Firefox(options=options)
         else:
             ff_bin = FirefoxBinary(local_properties.firefoxPath)
-            self.ff = webdriver.Firefox(firefox_binary=ff_bin)        
+            self.ff = webdriver.Firefox(firefox_binary=ff_bin)
 
     def bye(self):
         return self.ff.quit()
@@ -36,18 +37,13 @@ class OrcidBrowser():
     def orcidlogin(self, usrname, secret):
         orcid_record = ''
         try:
-            print("potential point of failure")
             self.ff.get(self.signin_page)
             wait = WebDriverWait(self.ff, 10)
-            print("potential point of failure 2")
             user_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'username')))
-            print("potential point of failure 3")
             user_input.send_keys(usrname)
             pass_input = wait.until(expected_conditions.presence_of_element_located((By.ID, 'password')))
-            print("potential point of failure 4")
             pass_input.send_keys(secret)
-            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))      
-            print("potential point of failure 5")      
+            login_button = wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, (".sign-in-button"))))         
             login_button.click()       
             print (usrname)
             print (secret)     
@@ -91,7 +87,7 @@ class OrcidBrowser():
             self.ff.get(oauth_page)
             wait = WebDriverWait(self.ff, 10)
             try:
-                time.sleep(5)                
+                time.sleep(5)
                 auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
                 auth.click()
             except Exception:
