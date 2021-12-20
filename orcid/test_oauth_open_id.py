@@ -30,7 +30,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         return response
 
     def test_oauth_token(self):
-        code = self.generate_auth_code(self.client_id, self.scope, "open")
+        code = self.generate_auth_code(self.client_id, self.scope)
         access, refresh, id_token = self.orcid_exchange_auth_token(self.client_id, self.client_secret, code)
         self.assertTrue(access, "Failed to retrieve access token")
 
@@ -47,12 +47,12 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(user_info_body == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info_body)
 
     def test_implicit_token(self):
-        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope, "open")
+        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope)
         print ("implicit: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token")
 
     def test_wrong_scope_token(self):
-        wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope, "open")
+        wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope)
         print ("wrong_implicit: " + wrong_implicit)
         user_info = self.get_user_info(wrong_implicit)
         print ("user_info: " + user_info)

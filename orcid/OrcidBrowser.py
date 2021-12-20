@@ -8,19 +8,18 @@ import time
 import local_properties
 import properties
 
-class OrcidBrowser(object):
-    options = webdriver.FirefoxOptions()
-    options.headless = True
-    if properties.type == "actions":
-        ff = webdriver.Firefox(options=options)
-    else:
-        ff_bin = FirefoxBinary(local_properties.firefoxPath)
-        ff = webdriver.Firefox(firefox_binary=ff_bin)
+class OrcidBrowser():
     def __init__(self):
         self.server_name = properties.test_server
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
-        
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        if properties.type == "actions":
+            self.ff = webdriver.Firefox(options=options)
+        else:
+            ff_bin = FirefoxBinary(local_properties.firefoxPath)
+            self.ff = webdriver.Firefox(firefox_binary=ff_bin)        
 
     def bye(self):
         return self.ff.quit()

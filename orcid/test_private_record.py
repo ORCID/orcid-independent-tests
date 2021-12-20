@@ -25,7 +25,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
         self.activities = ['educations', 'employments', 'fundings', 'works', 'peer-reviews']
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
 
-    '''def test_read_private_record_with_20_public_api(self):
+    def test_read_private_record_with_20_public_api(self):
     #Test reading a private record with the 2.0 api and public token
       curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-i', '-k', '-X', 'GET']
       response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.private_orcid_id + "/record", curl_params)
@@ -477,7 +477,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       curl_params = ['-H', "Accept: application/orcid+xml", '-H', 'Authorization: Bearer ' + self.public_api_token, '-i', '-k', '-X', 'GET']
       response = self.orcid_curl("https://pub." + self.test_server + "/v3.0/0000-0003-2914-7527/record", curl_params)
       #Check locked error is returned
-      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)'''
+      self.assertTrue("<error-code>9007</error-code>" in response, "Deactivated message not returned " + response)
 
 # UI Tests    
     def inactive_record_test(self, ob, record):
@@ -524,6 +524,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       self.assertTrue(locked_message.strip() == "This ORCID Record is locked", 
       "Unable to find 'This ORCID Record is locked' message on the page %s, instead got: %s" % (locked_record, locked_message))
       self.inactive_record_test(ob, locked_record)
+      ob.bye()
 
     def test_read_ui_deactivated_record(self):
     #Read the UI version of a locked record

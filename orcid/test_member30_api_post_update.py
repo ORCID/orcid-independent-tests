@@ -14,13 +14,13 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
             self.webhook_access= self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
             self.orcid_id      = properties.orcidId
             self.scope               = "/read-limited%20/activities/update%20/person/update"
-            self.code                = self.generate_auth_code(self.client_id,self.scope, "api2PostUpdateCode")
+            self.code                = self.generate_auth_code(self.client_id,self.scope)
             self.access,self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
 
             self.user_obo_id = properties.OBOUserClientId
             self.user_obo_secret = properties.OBOUserClientSecret
             self.user_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
-            self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope, "api2PostUpdateCode")
+            self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope)
             self.user_obo_access, self.user_obo_refresh, self.user_obo_id_token = self.orcid_exchange_auth_token(self.user_obo_id, self.user_obo_secret, self.user_obo_code)
         else:
             self.test_server = local_properties.test_server
@@ -30,13 +30,13 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
             self.webhook_access = local_properties.webhook
             self.orcid_id = local_properties.orcid_id_member
             self.scope = "/read-limited%20/activities/update%20/person/update"
-            self.code = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+            self.code = self.generate_auth_code(self.client_id, self.scope)
             self.access, self.refresh = self.orcid_exchange_auth_token(self.client_id, self.client_secret, self.code)
 
             self.user_obo_id = local_properties.step_2_user_obo_id
             self.user_obo_secret = local_properties.step_2_user_obo_secret
             self.user_obo_scope = "openid%20/read-limited%20/activities/update%20/person/update"
-            self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope, "api2PostUpdateCode")
+            self.user_obo_code = self.generate_auth_code(self.user_obo_id, self.user_obo_scope)
             self.user_obo_access, self.user_obo_refresh, self.user_obo_id_token = self.orcid_exchange_auth_token(self.user_obo_id, self.user_obo_secret, self.user_obo_code)
           
     def test_post_update_work(self):

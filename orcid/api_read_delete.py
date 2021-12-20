@@ -15,7 +15,7 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
         self.client_id           = properties.memberClientId
         self.client_secret       = properties.memberClientSecret
         self.webhook_access      = self.orcid_generate_token(self.client_id, self.client_secret, "/webhook")
-        self.code                = self.generate_auth_code(self.client_id, self.scope, "api2PostUpdateCode")
+        self.code                = self.generate_auth_code(self.client_id, self.scope)
         self.token, self.refresh = self.orcid_exchange_auth_token(self.client_id,self.client_secret,self.code)
         self.version             ="/v2.0/"
 

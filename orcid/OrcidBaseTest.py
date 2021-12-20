@@ -44,7 +44,7 @@ class OrcidBaseTest(unittest.TestCase):
             content = json.load(secrets_file)
         return content
 
-    def generate_auth_code_bash(self, public_client_id, scope, auth_code_name="readPublicCode"):
+    def generate_auth_code_bash(self, public_client_id, scope):
         cmd = [properties.authCodeGenerator, self.username + '%40mailinator.com', self.password, client_id, scope]
         p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output,err = p.communicate()
@@ -52,23 +52,23 @@ class OrcidBaseTest(unittest.TestCase):
         code = str(output).strip()
         return code
 
-    def generate_auth_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+    def generate_auth_code_selenium(self, public_client_id, scope, quit):
         firefox = OrcidBrowser()
         code = firefox.getAuthCode(self.username,self.password,public_client_id,scope)
         firefox.bye()
         return code
 
-    def generate_implicit_code_selenium(self, public_client_id, scope, auth_code_name="readPublicCode"):
+    def generate_implicit_code_selenium(self, public_client_id, scope):
         firefox = OrcidBrowser()
         code = firefox.getImplicitToken(self.username,self.password,public_client_id,scope)
         firefox.bye()
         return code
 
-    def generate_auth_code(self, client_id, scope, auth_code_name="readPublicCode"):
+    def generate_auth_code(self, client_id, scope):
         # returns [No JSON object could be decoded | 6 digits ]
-        who = str(auth_code_name) + "_" + client_id
+        who = client_id + "_" + scope.replace("/", "-").replace("%20", "")
         if not os.path.isfile(os.path.join(self.secrets_file_path, who + self.secrets_file_extension)):
-            code = self.generate_auth_code_selenium(client_id, scope, auth_code_name="readPublicCode")
+            code = self.generate_auth_code_selenium(client_id, scope)
             if code:
                 self.save_secrets_to_file(code, who)
             print ("Using fresh code: %s" % code)
@@ -80,7 +80,6 @@ class OrcidBaseTest(unittest.TestCase):
             return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
-        print("the code is: ", code)
         if not code:
             return [None, None]
         json_response = None
@@ -90,11 +89,9 @@ class OrcidBaseTest(unittest.TestCase):
             json_response = json.loads(response)
         else:
             json_response = self.load_secrets_from_file(code)
-        print ("json_response is: ", json_response)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             if ('id_token' in json_response):
-                print("id token found: ", json_response['id_token'])
                 return [json_response['access_token'], json_response['refresh_token'], json_response['id_token']]
             else:
                 return [json_response['access_token'], json_response['refresh_token']]
