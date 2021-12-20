@@ -80,7 +80,7 @@ class OrcidBaseTest(unittest.TestCase):
             return code
 
     def orcid_exchange_auth_token(self, client_id, client_secret, code):
-        print(code)
+        print("the code is: ", code)
         if not code:
             return [None, None]
         json_response = None
@@ -90,11 +90,11 @@ class OrcidBaseTest(unittest.TestCase):
             json_response = json.loads(response)
         else:
             json_response = self.load_secrets_from_file(code)
-        print (json_response)
+        print ("json_response is: ", json_response)
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             if ('id_token' in json_response):
-                print(json_response['id_token'])
+                print("id token found: ", json_response['id_token'])
                 return [json_response['access_token'], json_response['refresh_token'], json_response['id_token']]
             else:
                 return [json_response['access_token'], json_response['refresh_token']]
