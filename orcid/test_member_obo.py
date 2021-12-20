@@ -63,7 +63,7 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
     def test_012_full_scope_obo(self):
         obo_token_response = self.get_obo_token(self.second_obo_id_token, self.first_obo_id, self.first_obo_secret)
         obo_token = json.loads(obo_token_response)
-        self.assertTrue(obo_token['access_token'], "Unable to generate OBO Token: " + obo_token_response)
+        self.assertTrue(False, "Unable to generate OBO Token: " + obo_token_response)
         OauthOpenId.obo_token = obo_token['access_token']
 
     def test_013_full_scope_post_work(self):
