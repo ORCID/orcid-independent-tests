@@ -94,6 +94,7 @@ class OrcidBaseTest(unittest.TestCase):
         if(('access_token' in json_response) & ('refresh_token' in json_response)):
             self.save_secrets_to_file(json_response, code)
             if ('id_token' in json_response):
+                print(json_response['id_token'])
                 return [json_response['access_token'], json_response['refresh_token'], json_response['id_token']]
             else:
                 return [json_response['access_token'], json_response['refresh_token']]
