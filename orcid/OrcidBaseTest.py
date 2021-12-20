@@ -52,7 +52,7 @@ class OrcidBaseTest(unittest.TestCase):
         code = str(output).strip()
         return code
 
-    def generate_auth_code_selenium(self, public_client_id, scope, quit):
+    def generate_auth_code_selenium(self, public_client_id, scope):
         firefox = OrcidBrowser()
         code = firefox.getAuthCode(self.username,self.password,public_client_id,scope)
         firefox.bye()
