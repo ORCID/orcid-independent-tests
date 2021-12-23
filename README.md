@@ -37,6 +37,8 @@ Run the required line in the source folder to execute a given test:
     py.test --junitxml orcid/.py_env/Scripts/results/test_scope_methods.xml orcid/test_scope_methods.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_public_api_read_search.xml orcid/test_public_api_read_search.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_content_negotiation.xml orcid/test_content_negotiation.py
+    py.test --junitxml orcid/.py_env/Scripts/results/test_revoked_token.xml orcid/test_revoked_token.py
 ### Step 2
     py.test --junitxml orcid/.py_env/Scripts/results/test_member20_api_post_update.xml orcid/test_member20_api_post_update.py
     py.test --junitxml orcid/.py_env/Scripts/results/test_member21_api_post_update.xml orcid/test_member21_api_post_update.py

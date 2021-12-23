@@ -66,3 +66,5 @@ jobs:
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_read_endpoints.xml orcid/test_read_endpoints.py
       - name: Test content negotiation
         run: py.test --junitxml orcid/.py_env/Scripts/results/test_content_negotiation.xml orcid/test_content_negotiation.py
+      - name: Test revoked token
+        run: py.test --junitxml orcid/.py_env/Scripts/results/test_revoked_token.xml orcid/test_revoked_token.py
