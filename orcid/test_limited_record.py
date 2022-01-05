@@ -16,7 +16,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.limited_token = '1fcda8a0-1af3-4b35-8825-e4c53dae8953'
         self.public_token = 'ba290a09-b757-4583-a5af-bd55d7087467'
         self.public_api_token = '80e4aa5a-6ccc-44b3-83bb-3d9e315cda22'
-        self.revoked_token = '63409312-5ef6-4051-988c-f33b0fcea09f'
+        self.revoked_token = 'ace3e435-633c-4dce-8cb2-48860cc266f0'
         self.wrong_record_token = '2283056e-6a4a-4c80-b3a0-beaa102161d0'
         self.update_token = '064e64ef-6c49-4634-b09b-a38d8d75c774'
         self.create_token = 'ddc95880-fbfb-4fbf-931e-a18e15cf0a1c'
