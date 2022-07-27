@@ -4,7 +4,7 @@ This project uses automated calls to test ORCID API functionality.
 
 The tests are divided into two groups:
 * Step 1 tests read and write to static records on QA, but the records are not changed as any written information is then deleted.
-* Step 2 tests update a given ORCID record and can not be run twice on the same record.
+* Step 2 tests update a given ORCID record and can not be run twice on the same record, unless you are running the tests locally, in which case you can clean up the record by running `orcid/delete_record_contents.py`
 
 ## Local setup
 
@@ -13,7 +13,7 @@ The tests are divided into two groups:
 * Install dependencies by running `pip install -r ./orcid/requirements.txt` in the source folder (alternatively see the virtual environment setup below)
 * (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
 * Create "local_properties.py" in the `./orcid` folder and populate it with contents of the "Independent test local properties" entry found in Dashlane.
-* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox executable.
+* Change the `firefoxPath` and `geckodriverPath` property values in the `orcid\local_properties.py` file to point to your local Firefox/Geckodriver executables.
 
 #### Virtual environment setup
 
@@ -57,3 +57,7 @@ To run the tests:
 3. Fill in the details (if required) and run the test.
 
 The workflow files can be found [here](https://github.com/ORCID/orcid-independent-tests/tree/master/.github/workflows).
+
+## Troubleshooting
+
+`orcid/delete_record_contents.py` may be used to clean unnecessary data from the records used in step 1 and step 2 tests (if running the tests locally). Include the flag `-s` with the required step number, e.g. `-s 2`

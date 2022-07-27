@@ -3,7 +3,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 import time
 import local_properties
 import properties
@@ -16,11 +17,15 @@ class OrcidBrowser:
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
         options.headless = True
+
         if properties.type == "actions":
             self.ff = webdriver.Firefox(options=options)
         else:
-            ff_bin = FirefoxBinary(local_properties.firefoxPath)
-            self.ff = webdriver.Firefox(firefox_binary=ff_bin)
+            ops = Options()
+            
+            ops.binary_location = local_properties.firefoxPath
+            serv = Service(local_properties.geckodriverPath)
+            self.ff = webdriver.Firefox(service=serv, options=ops)
 
     def bye(self):
         return self.ff.quit()
@@ -65,12 +70,12 @@ class OrcidBrowser:
             wait = WebDriverWait(self.ff, 10)
             try:
                 time.sleep(5)
-                auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
+                auth = self.ff.find_element(By.XPATH, '//mat-card-content/button[@mat-raised-button=""]')
                 auth.click()
             except Exception:
                 print ("Permission already granted")
             button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'access_token_field')))
-            token_input = self.ff.find_element_by_id('for_access_token')
+            token_input = self.ff.find_element(By.ID, 'for_access_token')
             token_val = token_input.get_attribute('value')
             print ("--- ABOUT TO SEND TOKEN: %s" % token_val)
             return token_val
@@ -88,12 +93,12 @@ class OrcidBrowser:
             wait = WebDriverWait(self.ff, 10)
             try:
                 time.sleep(5)
-                auth = self.ff.find_element_by_xpath('//mat-card-content/button[@mat-raised-button=""]')
+                auth = self.ff.find_element(By.XPATH, '//mat-card-content/button[@mat-raised-button=""]')
                 auth.click()
             except Exception:
                 print ("Permission already granted")
             exchangeCode_button = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'exchangeCode')))
-            code_input = self.ff.find_element_by_id('auth_code')
+            code_input = self.ff.find_element(By.ID, 'auth_code')
             auth_code_val = code_input.get_attribute('value')
             return auth_code_val
         except Exception as e:
