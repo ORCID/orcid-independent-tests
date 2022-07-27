@@ -481,37 +481,37 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
 
 # UI Tests    
     def inactive_record_test(self, ob, record):
-      published_name = ob.ff.find_elements_by_class_name('published-name')
+      published_name = ob.ff.find_elements(By.CLASS_NAME,'published-name')
       self.assertTrue(len(published_name) == 0, "Published name is not hidden from the page %s" % record)
 
-      other_names = ob.ff.find_elements_by_class_name('other-names')
+      other_names = ob.ff.find_elements(By.CLASS_NAME, 'other-names')
       self.assertTrue(len(other_names) == 0, "Other names are not hidden from the page %s" % record)
 
-      is_this_you = ob.ff.find_elements_by_class_name('is-this-you')
+      is_this_you = ob.ff.find_elements(By.CLASS_NAME, 'is-this-you')
       self.assertTrue(len(is_this_you) == 0, "'Is this you?' message is not hidden from the page %s" % record)
 
-      activities = ob.ff.find_elements_by_class_name('activities')
+      activities = ob.ff.find_elements(By.CLASS_NAME, 'activities')
       self.assertTrue(len(activities) == 0, "The 'Activities' header is not hidden from the page %s" % record)
 
-      affiliations = ob.ff.find_elements_by_tag_name('app-affiliations')
+      affiliations = ob.ff.find_elements(By.TAG_NAME, 'app-affiliations')
       self.assertTrue(len(affiliations) == 0, "Affiliations are not hidden from the page %s" % record)
 
-      fundings = ob.ff.find_elements_by_tag_name('app-fundings')
+      fundings = ob.ff.find_elements(By.TAG_NAME, 'app-fundings')
       self.assertTrue(len(fundings) == 0, "Fundings are not hidden from the page %s" % record)
 
-      research_resources = ob.ff.find_elements_by_tag_name('app-research-resources')
+      research_resources = ob.ff.find_elements(By.TAG_NAME, 'app-research-resources')
       self.assertTrue(len(research_resources) == 0, "Research resources are not hidden from the page %s" % record)
 
-      works = ob.ff.find_elements_by_tag_name('app-work-stack-group')
+      works = ob.ff.find_elements(By.TAG_NAME, 'app-work-stack-group')
       self.assertTrue(len(works) == 0, "Works are not hidden from the page %s" % record)
 
-      peer_reviews = ob.ff.find_elements_by_tag_name('app-peer-reviews')
+      peer_reviews = ob.ff.find_elements(By.TAG_NAME, 'app-peer-reviews')
       self.assertTrue(len(peer_reviews) == 0, "Peer reviews are not hidden from the page %s" % record)
 
-      last_modified = ob.ff.find_elements_by_xpath("//*[contains(text(), 'Record last modified')]")
+      last_modified = ob.ff.find_elements(By.XPATH, "//*[contains(text(), 'Record last modified')]")
       self.assertTrue(len(last_modified) == 0, "Last modified date is not hidden from the page %s" % record)
 
-      sidebar = ob.ff.find_elements_by_class_name('side-bar')
+      sidebar = ob.ff.find_elements(By.CLASS_NAME, 'side-bar')
       self.assertTrue(len(sidebar) == 0, "Sidebar element(s) are not hidden from the page %s" % record)    
 
     def test_read_ui_locked_record(self):
@@ -520,7 +520,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       ob = OrcidBrowser()
       ob.ff.get(locked_record)
       time.sleep(5)
-      locked_message = ob.ff.find_element_by_id('mat-error-0').text.replace("error", "")
+      locked_message = ob.ff.find_element(By.ID, 'mat-error-0').text.replace("error", "")
       self.assertTrue(locked_message.strip() == "This ORCID Record is locked", 
       "Unable to find 'This ORCID Record is locked' message on the page %s, instead got: %s" % (locked_record, locked_message))
       self.inactive_record_test(ob, locked_record)
@@ -532,7 +532,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       ob = OrcidBrowser()
       ob.ff.get(deactivated_record)
       time.sleep(5)
-      deactivation_message = ob.ff.find_element_by_id('mat-error-0').text.replace("error", "")
+      deactivation_message = ob.ff.find_element(By.ID, 'mat-error-0').text.replace("error", "")
       self.assertTrue(deactivation_message.strip() == "This ORCID Record is deactivated", 
       "Unable to find 'This ORCID Record is deactivated' message on the page %s, instead got: %s" % (deactivated_record, deactivation_message))
       self.inactive_record_test(ob, deactivated_record)
@@ -543,7 +543,7 @@ class PrivateRecord(OrcidBaseTest.OrcidBaseTest):
       ob = OrcidBrowser()
       ob.ff.get(deprecated_record)
       time.sleep(5)
-      deprecation_message = ob.ff.find_element_by_id('mat-error-0').text.replace("error", "")
+      deprecation_message = ob.ff.find_element(By.ID, 'mat-error-0').text.replace("error", "")
       self.assertTrue(deprecation_message.strip() == 
       "This account has been deprecated, please see account https://qa.orcid.org/0000-0003-2366-2712 for the latest information", 
       "Unable to find deprecation message on the page %s, instead got: %s" % (deprecated_record, deprecation_message))

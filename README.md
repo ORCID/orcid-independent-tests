@@ -13,7 +13,7 @@ The tests are divided into two groups:
 * Install dependencies by running `pip install -r ./orcid/requirements.txt` in the source folder (alternatively see the virtual environment setup below)
 * (Win) Download [geckodriver](https://github.com/mozilla/geckodriver/releases) and copy the extracted executable into your Python folder
 * Create "local_properties.py" in the `./orcid` folder and populate it with contents of the "Independent test local properties" entry found in Dashlane.
-* Change the `firefoxPath` variable in the `orcid\local_properties.py` file to point to your local Firefox executable.
+* Change the `firefoxPath` and `geckodriverPath` property values in the `orcid\local_properties.py` file to point to your local Firefox/Geckodriver executables.
 
 #### Virtual environment setup
 
