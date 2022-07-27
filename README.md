@@ -60,4 +60,4 @@ The workflow files can be found [here](https://github.com/ORCID/orcid-independen
 
 ## Troubleshooting
 
-`orcid/delete_record_contents.py` may be used to clean unnecessary data from the records used in step 1 and step 2 tests (if running the tests locally). Make sure to change the variable value in the python file depending on which test needs cleaning.
+`orcid/delete_record_contents.py` may be used to clean unnecessary data from the records used in step 1 and step 2 tests (if running the tests locally). Include the flag `-s` with the required step number, e.g. `-s 2`

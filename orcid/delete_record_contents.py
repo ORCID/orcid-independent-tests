@@ -1,3 +1,4 @@
+import argparse
 import subprocess
 import json
 import os.path
@@ -15,7 +16,10 @@ import OrcidBaseTest
 
 class DeleteContent():
     def __init__(self):
-        self.step = 2
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-s', '--step', type=int, help='Which step to reset', required=True)
+        args = parser.parse_args()
+        self.step = args.step
         self.member_name = "Automated Test Helper"
         self.orcid_id = "0000-0001-6009-1985"
         self.access_token = "12230f94-f7c0-4b08-9308-951f9b636d14"
