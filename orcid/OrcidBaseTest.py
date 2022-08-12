@@ -58,9 +58,27 @@ class OrcidBaseTest(unittest.TestCase):
         firefox.bye()
         return code
 
+    def generate_implicit_code_selenium_using_id_token_token(self, public_client_id, scope):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(self.username,self.password,public_client_id,'id_token%20token',scope)
+        firefox.bye()
+        return code
+
+    def generate_implicit_code_selenium_using_token_id_token(self, public_client_id, scope):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(self.username,self.password,public_client_id,'token%20id_token',scope)
+        firefox.bye()
+        return code
+
+    def generate_implicit_code_selenium_using_id_token(self, public_client_id, scope):
+        firefox = OrcidBrowser()
+        code = firefox.getImplicitToken(self.username,self.password,public_client_id,'id_token',scope)
+        firefox.bye()
+        return code
+
     def generate_implicit_code_selenium(self, public_client_id, scope):
         firefox = OrcidBrowser()
-        code = firefox.getImplicitToken(self.username,self.password,public_client_id,scope)
+        code = firefox.getImplicitToken(self.username,self.password,public_client_id,'token',scope)
         firefox.bye()
         return code
 

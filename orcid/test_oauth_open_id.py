@@ -51,6 +51,21 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         print ("implicit: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token")
 
+    def test_implicit_token_id_token(self):
+        implicit = self.generate_implicit_code_selenium_using_token_id_token(self.client_id, self.scope)
+        print ("implicit token id_token: " + implicit)
+        self.assertTrue(implicit, "Failed to retrieve implicit token with 'token id_token'")
+
+    def test_implicit_id_token_token(self):
+        implicit = self.generate_implicit_code_selenium_using_id_token_token(self.client_id, self.scope)
+        print ("implicit id_token token: " + implicit)
+        self.assertTrue(implicit, "Failed to retrieve implicit token with 'token id_token'")
+
+    def test_implicit_id_token(self):
+        implicit = self.generate_implicit_code_selenium_using_id_token(self.client_id, self.scope)
+        print ("implicit id_token: " + implicit)
+        self.assertTrue(implicit, "Failed to retrieve implicit token with 'id_token'")    
+
     def test_wrong_scope_token(self):
         wrong_implicit = self.generate_implicit_code_selenium(self.client_id, self.wrong_scope)
         print ("wrong_implicit: " + wrong_implicit)
