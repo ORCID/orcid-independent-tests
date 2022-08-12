@@ -47,22 +47,26 @@ class OauthOpenId(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue(user_info_body == open('saved_records/user_info_limited.json', 'r').read(),'User info does not match saved file: ' + user_info_body)
 
     def test_implicit_token(self):
-        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope)
+        # Scope should be different on every case so we always reach to the authoriziation page
+        implicit = self.generate_implicit_code_selenium(self.client_id, self.scope + '%20/read-limited')
         print ("implicit: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token")
 
     def test_implicit_token_id_token(self):
-        implicit = self.generate_implicit_code_selenium_using_token_id_token(self.client_id, self.scope)
+        # Scope should be different on every case so we always reach to the authoriziation page
+        implicit = self.generate_implicit_code_selenium_using_token_id_token(self.client_id, self.scope + '%20/activities/update')
         print ("implicit token id_token: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token with 'token id_token'")
 
     def test_implicit_id_token_token(self):
-        implicit = self.generate_implicit_code_selenium_using_id_token_token(self.client_id, self.scope)
+        # Scope should be different on every case so we always reach to the authoriziation page
+        implicit = self.generate_implicit_code_selenium_using_id_token_token(self.client_id, self.scope + '%20/activities/read-limited')
         print ("implicit id_token token: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token with 'token id_token'")
 
     def test_implicit_id_token(self):
-        implicit = self.generate_implicit_code_selenium_using_id_token(self.client_id, self.scope)
+        # Scope should be different on every case so we always reach to the authoriziation page
+        implicit = self.generate_implicit_code_selenium_using_id_token(self.client_id, self.scope + '%20/person/read-limited')
         print ("implicit id_token: " + implicit)
         self.assertTrue(implicit, "Failed to retrieve implicit token with 'id_token'")    
 
