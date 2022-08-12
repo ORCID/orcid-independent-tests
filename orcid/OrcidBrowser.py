@@ -60,9 +60,9 @@ class OrcidBrowser:
         except TimeoutException:
             raise ValueError("failed loading my orcid page.", "orcid: %s" % orcid_record)
 
-    def getImplicitToken(self, usrname, secret, client_id, scope='/authenticate',auth_window = False):
+    def getImplicitToken(self, usrname, secret, client_id, response_type='token', scope='/authenticate',auth_window = False):
         orcid_record = ''
-        oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=token&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, scope)
+        oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, response_type, scope)
         try:
             orcid_record = self.orcidlogin(usrname, secret)
             time.sleep(3)
