@@ -53,7 +53,6 @@ class OrcidBrowser:
             print (usrname)
             print (secret)     
             orcid_found = wait.until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'orc-font-heading-small')))
-            print ("orcidcount")
             orcid_record = orcid_found.text
             print ("--- LOGIN OK WITH ID: %s" % orcid_record)
             return str(orcid_record)
@@ -62,7 +61,7 @@ class OrcidBrowser:
 
     def getImplicitToken(self, usrname, secret, client_id, response_type='token', scope='/authenticate',auth_window = False):
         orcid_record = ''
-        oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground' % (self.server_name, client_id, response_type, scope)
+        oauth_page = 'https://%s/oauth/authorize?client_id=%s&response_type=%s&scope=%s&redirect_uri=https://developers.google.com/oauthplayground&nonce=test' % (self.server_name, client_id, response_type, scope)
         try:
             orcid_record = self.orcidlogin(usrname, secret)
             time.sleep(3)
