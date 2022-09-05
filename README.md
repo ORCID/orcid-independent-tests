@@ -54,7 +54,7 @@ To run the tests:
 
 1. Visit [Github Actions](https://github.com/ORCID/orcid-independent-tests/actions/).
 2. Select the appropriate step (workflow) and click the "Run workflow" button.
-3. Fill in the details (if required) and run the test.
+3. Fill in the details (if required) and run the test.(Note: step 2 requires to register a new user following indicated name format, with same name@mailinator.com email then verify that primary email)
 
 The workflow files can be found [here](https://github.com/ORCID/orcid-independent-tests/tree/master/.github/workflows).
 
