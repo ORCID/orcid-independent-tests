@@ -17,9 +17,9 @@
     </history:history>
     <person:person path="/0000-0002-3874-7658/person">
         <person:name visibility="public" path="0000-0002-3874-7658">
-            <personal-details:given-names>Everything Public</personal-details:given-names>
+            <personal-details:given-names>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Everything Public</personal-details:given-names>
             <personal-details:family-name>MA test</personal-details:family-name>
-            <personal-details:credit-name>Published Name</personal-details:credit-name>
+            <personal-details:credit-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</personal-details:credit-name>
         </person:name>
         <other-name:other-names path="/0000-0002-3874-7658/other-names">
             <other-name:other-name put-code="2685" visibility="public" path="/0000-0002-3874-7658/other-names/2685" display-index="1">
