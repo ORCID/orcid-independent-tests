@@ -88,7 +88,9 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("HTTP/1.1 200" in put_response, "response: " + put_response)
         #Read check it was updated
         read_response = self.read20(readendpoint)
-        self.assertTrue(putname in read_response and manualname in read_response and postname not in read_response, "response: " + read_response)
+        self.assertTrue(putname in read_response, "response: " + read_response)
+        self.assertTrue(manualname in read_response, "response: " + read_response)
+        self.assertTrue(postname not in read_response, "response: " + read_response)
         #Delete
         delete_response = self.delete20(postendpoint, putcode)
         self.assertTrue("HTTP/1.1 204" in delete_response, "response: " + delete_response)
@@ -121,7 +123,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         creation_date_put = re.search(search_pattern, re.sub(r'[\s+]', '', read_response))
         creation_date_put = creation_date_put.group(1)
         creation_date_put = creation_date_put.split('<common:created-date>')[1]
-        self.assertTrue(putname in read_response and '</activities:group><activities:group>' in re.sub(r'[\s+]', '', read_response), "response: " + read_response)
+        self.assertTrue(putname in read_response, "response: " + read_response)
+        self.assertTrue('</activities:group><activities:group>' in re.sub(r'[\s+]', '', read_response), "response: " + read_response)
         self.assertTrue(creation_date_put == creation_date_post, "post: " + creation_date_post + "; put: " + creation_date_put)
         print (read_response)
         #Delete
