@@ -29,7 +29,7 @@
                         <common:path>0000-0002-3874-7658</common:path>
                         <common:host>qa.orcid.org</common:host>
                     </common:source-orcid>
-                    <common:source-name>Published Name</common:source-name>
+                    <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                 </common:source>
                 <other-name:content>Also know As</other-name:content>
             </other-name:other-name>
@@ -45,7 +45,7 @@
                         <common:path>0000-0002-3874-7658</common:path>
                         <common:host>qa.orcid.org</common:host>
                     </common:source-orcid>
-                    <common:source-name>Published Name</common:source-name>
+                    <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                 </common:source>
                 <researcher-url:url-name>ORCID Website</researcher-url:url-name>
                 <researcher-url:url>https://qa.orcid.org/</researcher-url:url>
@@ -59,7 +59,7 @@
                         <common:path>0000-0002-3874-7658</common:path>
                         <common:host>qa.orcid.org</common:host>
                     </common:source-orcid>
-                    <common:source-name>Published Name</common:source-name>
+                    <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                 </common:source>
                 <email:email>public_ma@mailinator.com</email:email>
             </email:email>
@@ -85,7 +85,7 @@
                         <common:path>0000-0002-3874-7658</common:path>
                         <common:host>qa.orcid.org</common:host>
                     </common:source-orcid>
-                    <common:source-name>Published Name</common:source-name>
+                    <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                 </common:source>
                 <keyword:content>Keyword 1</keyword:content>
             </keyword:keyword>
@@ -96,7 +96,7 @@
                         <common:path>0000-0002-3874-7658</common:path>
                         <common:host>qa.orcid.org</common:host>
                     </common:source-orcid>
-                    <common:source-name>Published Name</common:source-name>
+                    <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                 </common:source>
                 <keyword:content>Keyword 2</keyword:content>
             </keyword:keyword>
@@ -130,7 +130,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:department-name>Department</common:department-name>
                     <common:role-title>Degree</common:role-title>
@@ -169,7 +169,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:department-name>Department</common:department-name>
                     <common:role-title>Role</common:role-title>
@@ -210,7 +210,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <funding:title>
                         <common:title>Grant Title</common:title>
@@ -258,7 +258,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:start-date>
                         <common:year>2017</common:year>
@@ -286,7 +286,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:start-date>
                         <common:year>2016</common:year>
@@ -316,7 +316,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:start-date>
                         <common:year>2014</common:year>
@@ -399,7 +399,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:start-date>
                         <common:year>2018</common:year>
@@ -490,7 +490,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <common:start-date>
                         <common:year>2015</common:year>
@@ -530,7 +530,7 @@
                             <common:path>0000-0002-3874-7658</common:path>
                             <common:host>qa.orcid.org</common:host>
                         </common:source-orcid>
-                        <common:source-name>Published Name</common:source-name>
+                        <common:source-name>USER FOR AUTOMATED TESTS - DO NOT MODIFY - Published Name</common:source-name>
                     </common:source>
                     <work:title>
                         <common:title>Title</common:title>
