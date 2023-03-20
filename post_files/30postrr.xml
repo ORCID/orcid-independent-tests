@@ -2,7 +2,7 @@
 <research-resource:research-resource
 	xmlns:common="http://www.orcid.org/ns/common" xmlns:research-resource="http://www.orcid.org/ns/research-resource"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.orcid.org/ns/research-resource ../research-resource-3.0_rc1.xsd ">
+	xsi:schemaLocation="http://www.orcid.org/ns/research-resource ../research-resource-3.0.xsd ">
 	<research-resource:proposal>
 		<research-resource:title>
 			<common:title>Application to use Special Collection</common:title>

@@ -90,20 +90,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         #Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
 
-    def test_read_limited_email_with_30_rc1_public_api(self):
-        # Test no info is returned when the reading limited record email ewith the 3.0_rc1 public api
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
-        #Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
-    def test_read_limited_email_with_30rc2_public_api(self):
-        # Test no info is returned when the reading limited record email with the 3.0_rc2 public api
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
-        #Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
     def test_read_limited_email_with_30_public_api(self):
         # Test no info is returned when the reading limited record email with the 3.0 public api
         curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_api_token, '-L', '-k', '-X', 'GET']
@@ -167,53 +153,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/funding/1285", curl_params)
         self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
 
-    def test_read_limited_record_with_30_rc1_public_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
-        response_body = self.getResponse(response).strip().replace(self.test_server, "qa.orcid.org")
-        #Compare the body of the response to the saved file.
-        saved_file = open('saved_records/empty_limited_record30_rc1.xml','r').read()
-        self.assertTrue(response_body == saved_file, 'response_body: ' + response_body + '\nSaved file: ' + saved_file)
-
-    def test_read_limited_work_with_30_rc1_public_token(self):
-        # TEST 144
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
-    def test_read_limited_email_with_30_rc1_public_token(self):
-        # TEST 145
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
-        #Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
-
-    def test_read_limited_funding_with_30_rc1_public_token(self):
-        # Test nothing is returned when limited funding is read with the public api
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/funding/1285", curl_params)
-        self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
-    def test_read_limited_work_with_30rc2_public_token(self):
-        #Test 9038 error  is returned when limited work is read with the 3.0_rc2 public api
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
-    def test_read_limited_email_with_30rc2_public_token(self):
-        # TEST 145
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
-        #Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
-    def test_read_limited_funding_with_30rc2_public_token(self):
-        # Test nothing is returned when limited funding is read with the public api
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/funding/1285", curl_params)
-        self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
     def test_read_limited_record_with_30_public_token(self):
         # Test when limited record is read with the 3.0 public api it matches the saved file
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.public_token, '-L', '-k', '-X', 'GET']
@@ -273,36 +212,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
 
-    def test_read_limited_record_with_30_rc1_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
-    def test_read_limited_work_with_30_rc1_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
-    def test_read_limited_email_with_30_rc1_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
-    def test_read_limited_record_with_30rc2_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
-    def test_read_limited_work_with_30rc2_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
-    def test_read_limited_email_with_30rc2_revoked_token(self):
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
-        self.assertTrue("Invalid access token" in response, "Expected Invalid access token error, instead: " + response)
-
     def test_read_limited_record_with_30_revoked_token(self):
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.revoked_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v3.0/" + self.limited_orcid_id + "/record", curl_params)
@@ -352,42 +261,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         # TEST 151
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_record_with_30_rc1_wrong_token(self):
-        #TEST 149
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/record", curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_work_with_30_rc1_wrong_token(self):
-        # TEST 150
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_email_with_30_rc1_wrong_token(self):
-        # TEST 151
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_record_with_30rc2_wrong_token(self):
-        #TEST 149
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/record",     curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_work_with_30rc2_wrong_token(self):
-        # TEST 150
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
-
-    def test_read_limited_email_with_30rc2_wrong_token(self):
-        # TEST 151
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.wrong_record_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
         self.assertTrue("<error-code>9017</error-code>" in response, "Expected error code 9017 instead: " + response)
 
     def test_read_limited_record_with_30_wrong_token(self):
@@ -450,30 +323,6 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.limited_orcid_id + "/email", curl_params)
         #Check an empty email sections is returned
         self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
-    def test_read_limited_work_with_30_rc1_update_token(self):
-        # TEST 154
-        curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/work/141942", curl_params)
-        self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
-    def test_read_limited_email_with_30_rc1_update_token(self):
-        curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.limited_orcid_id + "/email", curl_params)
-        #Check an empty email sections is returned
-        self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
-
-    def test_read_limited_work_with_30rc2_update_token(self):
-      # TEST 154
-      curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.update_token, '-L', '-k', '-X', 'GET']
-      response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/work/141942", curl_params)
-      self.assertTrue("<error-code>9038</error-code>" in response, "Expected error code 9038 instead: " + response)
-
-    def test_read_limited_email_with_30rc2_update_token(self):
-      curl_params = ['-H', "Accept: application/json", '-H', 'Authorization: Bearer ' + self.update_token, '-L','-k', '-X', 'GET']
-      response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc2/" + self.limited_orcid_id + "/email", curl_params)
-      # Check an empty email sections is returned
-      self.assertTrue(self.empty_email in response, "Non-empty email returned " + response)
 
     def test_read_limited_record_with_30_update_token(self):
         #TEST 153
