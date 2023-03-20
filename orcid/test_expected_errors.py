@@ -48,12 +48,6 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.wrong_orcid_id + "/work", curl_params)
         self.assertTrue("HTTP/1.1 401" in response, "Non 401 returned: " + response)
 
-    def test_access_wrong_record30rc1(self):
-        # Post a work using an access token for another record using the 3.0_rc1 API
-        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Authorization: Bearer ' + self.access, '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.wrong_orcid_id + "/work", curl_params)
-        self.assertTrue("HTTP/1.1 401" in response, "Non 401 returned: " + response)
-
     def test_access_record2_without_token(self):
         # Test posting a work using 2.0 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma2_work.xml', '-L', '-i', '-k', '-X', 'POST']
@@ -64,12 +58,6 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
         # Test posting a work using 2.1 API without using a token returns the expected 403 forbidden error
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma21_work.xml', '-L', '-i', '-k', '-X', 'POST']
         response = self.orcid_curl("https://api." + self.test_server + "/v2.1/" + self.orcid_id + "/work", curl_params)
-        self.assertTrue("HTTP/1.1 403" in response, "Non 401 returned: " + response)
-
-    def test_access_record30rc1_without_token(self):
-        # Test posting the ma30_work.xml work using 3.0_rc1 API without using a token returns the expected 403 forbidden error
-        curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-d', '@' + self.xml_data_files_path + 'ma30_work.xml', '-L', '-i', '-k', '-X', 'POST']
-        response = self.orcid_curl("https://api." + self.test_server + "/v3.0_rc1/" + self.orcid_id + "/work", curl_params)
         self.assertTrue("HTTP/1.1 403" in response, "Non 401 returned: " + response)
 
     def test_update_record2_without_token(self):
