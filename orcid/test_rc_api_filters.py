@@ -36,7 +36,7 @@ class RCApiFilters(OrcidBaseTest.OrcidBaseTest):
         self.assertTrue("<response-code>308</response-code>" in read_response, "response: " + read_response)
         self.assertTrue("<developer-message>Release candidates for V3.0 are now disabled, your request will be redirected to the corresponding V3.0 end point</developer-message>" in read_response, "response: " + read_response)
         self.assertTrue("<user-message>Release candidates for V3.0 are now disabled, your request will be redirected to the corresponding V3.0 end point</user-message>" in read_response, "response: " + read_response)
-        self.assertTrue("<error-code>9059</error-code>" in read_response, "response: " + read_response)
+        self.assertTrue("<error-code>9056</error-code>" in read_response, "response: " + read_response)
 
     def assert_redirection(self, read_response):
         self.assertTrue("HTTP/1.1 308" in read_response and "HTTP/1.1 200" in read_response, "response: " + read_response)
