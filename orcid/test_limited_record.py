@@ -450,7 +450,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     # Test access to non public work from UI returns empty element 
     def test_limited_public_json_empty_work(self):        
-        work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_work)
+        work_url = ("https://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_work)
         response = urllib.request.urlopen(work_url).read()
         print (work_url)
         responseString = response.decode('utf-8')
@@ -458,7 +458,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
 
     # Test access to non public work from UI returns empty element 
     def test_limited_public_json_empty_affiliation(self):
-        affiliation_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_affiliation)
+        affiliation_url = ("https://" + properties.test_server + '/' + self.limited_orcid_id + '/' + self.public_json_affiliation)
         response = urllib.request.urlopen(affiliation_url).read()
         print (affiliation_url)
         responseString = response.decode('utf-8')
@@ -467,13 +467,13 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
     #Test public json expecting empty page
     def test_limited_public_json_empty(self):
         for item in self.public_json_elements:
-            work_url = ("http://" + properties.test_server + '/' + self.limited_orcid_id + '/' + item)
+            work_url = ("https://" + properties.test_server + '/' + self.limited_orcid_id + '/' + item)
             response = urllib.request.urlopen(work_url).read()
             print (work_url)
             self.assertTrue("[]" == response, "Expected empty brackets instead: " + response)
 
     #Test public json on research-resources
-    def test_limited_public_json_empty(self):
+    def test_limited_public_json_empty_research_resource(self):
         work_url = "https://" + self.test_server + "/0000-0001-7325-5491/researchResourcePage.json?offset=0&sort=endDate&sortAsc=false&researchResourceID=1005&pageSize=0"
         response = urllib.request.urlopen(work_url).read()
         print (work_url)
