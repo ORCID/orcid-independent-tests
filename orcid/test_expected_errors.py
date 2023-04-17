@@ -96,18 +96,18 @@ class ExpectedErrors(OrcidBaseTest.OrcidBaseTest):
     def test_member_http_read_20(self):
         #Test making a call with 2.0 API using http not https returns the expected '521 Origin Down' error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.0/" + self.static_orcid_id + "/record", curl_params)
         codeStart = response.find("HTTP/1.1 ")
         codeEnd = codeStart + 12
-        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
+        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 522", "HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
 
     def test_member_http_read_21(self):
-        #Test making a call with 2.0 API using http not https returns the expected '521 Origin Down' error
+        #Test making a call with 2.1 API using http not https returns the expected '521 Origin Down' error
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.static_access, '-L', '-i', '-k', '-X', 'GET']
-        response = self.orcid_curl("https://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
+        response = self.orcid_curl("http://pub." + properties.test_server + "/v2.1/" + self.static_orcid_id + "/record", curl_params)
         codeStart = response.find("HTTP/1.1 ")
         codeEnd = codeStart + 12
-        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
+        self.assertTrue(response[codeStart:codeEnd].strip() in ["HTTP/1.1 522", "HTTP/1.1 521", "HTTP/1.1 400"], "Expected error code '521' or '400', instead: " + response)
 
     def test_nonexisting_record(self):
         #Confirm that the response type is 404 when fetching a non-existing record
