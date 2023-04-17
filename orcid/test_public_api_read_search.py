@@ -30,14 +30,14 @@ class PublicApiReadSearch(OrcidBaseTest.OrcidBaseTest):
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', 'Content-Type: application/orcid+xml', '-H', 'Accept: application/xml', '-H', 'Authorization: Bearer ' + self.token]
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.0/search?q=" + self.seach_value, curl_params)
-        self.assertTrue("http://" + self.test_server + "/" + self.orcid_id in response, "Record not returned in search" + response)
+        self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Record not returned in search" + response)
 
     def test_read_record_with_20_api(self):
     # Test read record with the public 2.0 api and check that it is returned
         self.assertIsNotNone(self.token,"No token generated")
         curl_params = ['-H', "Accept: application/xml", '-H', 'Authorization: Bearer ' + self.token, '-L', '-i', '-k', '-X', 'GET']
         response = self.orcid_curl("https://pub." + self.test_server + "/v2.0/" + self.orcid_id + "/record", curl_params)
-        self.assertTrue("http://" + self.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
+        self.assertTrue("https://" + self.test_server + "/" + self.orcid_id in response, "Name not returned on " + response)
 
     def test_search_my_record_21(self):
     # Test search for orcid with the 2.1 public api and check it is returned

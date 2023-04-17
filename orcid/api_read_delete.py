@@ -134,5 +134,5 @@ class ApiReadDelete(OrcidBaseTest.OrcidBaseTest):
     def test_remove_webhook(self):
         self.assertIsNotNone(self.webhook_access, "No token generated")
         curl_params = ['-L', '-i', '-k', '-H', 'Authorization: Bearer ' + self.webhook_access, '-H', 'Content-Length: 0', '-H', 'Accept: application/json', '-k', '-X', 'DELETE']
-        response = self.orcid_curl("http://api." + self.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
+        response = self.orcid_curl("https://api." + self.test_server + "/%s/webhook/%s" % (self.orcid_id, "http%3A%2F%2Fnowhere3.com%2Fupdated"), curl_params)
 
