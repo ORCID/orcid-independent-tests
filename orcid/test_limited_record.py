@@ -25,7 +25,7 @@ class LimitedRecord(OrcidBaseTest.OrcidBaseTest):
         self.bio_sections2 = ['other-name', 'researcher-url', 'keyword', 'external-identifier', 'email', 'address']
         self.public_json_work = 'getWorkInfo.json?workId=141942'
         self.public_json_affiliation = 'affiliations.json?affiliationIds=1412'
-        self.public_json_elements = ['works.json?workIds=141942', 'peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
+        self.public_json_elements = ['peer-reviews.json?sortAsc=true', 'fundingGroups.json?sort=date&sortAsc=true']
         self.empty_pub_record12 = '</orcid-profile>\n</orcid-message>'
 
     def getResponse(self, response):
