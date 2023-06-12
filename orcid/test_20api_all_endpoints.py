@@ -138,10 +138,8 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"display-index":0,"content":"Second Name"}'
         self.bio20('20postname.xml', 'other-names', 'other-names', jsontext, 'First name', 'Second Name', 'Other name')
 
-    def test_country20(self):
-        jsontext = '"country":{"value":"CR"}}'
-        self.bio20('20postaddress.xml', 'address', 'address', jsontext, 'GB', 'CR', 'US')
-
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_address_v20.cy.js
+    
     def test_keywords20(self):
         jsontext = '"content":"oranges"}'
         self.bio20('20postkeyword.xml', 'keywords', 'keywords', jsontext, 'apples', 'oranges', 'bananas')
@@ -150,29 +148,17 @@ class Api20AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"url-name":"Bing","url":{"value":"www.bing.com"}}'
         self.bio20('20posturl.xml', 'researcher-urls', 'researcher-urls', jsontext, 'Yahoo', 'Bing', 'Google')
 
-    def test_identifiers20(self):
-        jsontext = '"external-id-type":"Personal External Identifier","external-id-value":"twenty-nine","external-id-url":{"value":"www.29.com"},"external-id-relationship":"SELF"}'
-        self.bio20('20postid.xml', 'external-identifiers', 'external-identifiers', jsontext, 'A-0003', 'twenty-nine', '1234567')
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_externalids_v20.cy.js
+    
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_education_v20.cy.js
 
-    def test_education20(self):
-        jsontext = '"department-name":"Rocket Science","role-title":"BA","organization":{"name":"Massachusetts Institute of Technology","address":{"city":"Cambridge","region":"MA","country":"US"},"disambiguated-organization" : {"disambiguated-organization-identifier":"2167","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('20postedu.xml', 'education', 'educations', jsontext, 'Art History', 'Rocket Science', 'Car Repair')
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_employment_v20.cy.js
 
-    def test_employment20(self):
-        jsontext = '"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('20postemploy.xml', 'employment', 'employments', jsontext, 'Annapolis', 'Oxford', 'ORCID')
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_funding_v20.cy.js
 
-    def test_funding20(self):
-        jsontext = '"title":{"title":{"value":"Funding to researcher identifiers"}},"external-ids":{"external-id":[{"external-id-type":"grant_number","external-id-value":"7777","external-id-url":null,"external-id-relationship":"SELF"}]},"type":"GRANT","organization":{"name":"Wellcome Trust","address":{"city":"London","region":null,"country":"GB"},"disambiguated-organization":{"disambiguated-organization-identifier":"http://dx.doi.org/10.13039/100004440","disambiguation-source":"FUNDREF"}}}'
-        self.works20('20postfund.xml', 'funding', 'fundings', jsontext, '6666', '7777', '8888')
-
-    def test_works20(self):
-        jsontext = '"title":{"title":{"value":"Catcher in the Rye"}},"type":"BOOK","external-ids":{"external-id":[{"external-id-type":"doi","external-id-value":"1234","external-id-url":null,"external-id-relationship":"SELF"}]}}'
-        self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_work_v20.cy.js
         
-    def test_peer20(self):
-        jsontext = '"reviewer-role" : "REVIEWER", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "SELF"} ] }, "review-url" : null, "review-type" : "REVIEW", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:0953-1513", "convening-organization" : { "name" : "ORCID", "address" : { "city" : "Bethesda", "region" : "MD", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "385488", "disambiguation-source" : "RINGGOLD" }}}'
-        self.bio20('20postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
+    # Removed, covered here: https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v2_0/crud_peerReview_v20.cy.js
 
     def test_peerreview_group(self):
     #search for and read a peer-review group with an issn group id
