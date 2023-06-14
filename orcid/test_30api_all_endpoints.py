@@ -137,9 +137,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"display-index":0,"content":"Second Name"}'
         self.bio20('20postname.xml', 'other-names', 'other-names', jsontext, 'First name', 'Second Name', 'Other name')
 
-    def test_country30(self):
-        jsontext = '"country":{"value":"CR"}}'
-        self.bio20('20postaddress.xml', 'address', 'address', jsontext, 'GB', 'CR', 'US')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_address_v30.cy.js
 
     def test_keywords30(self):
         jsontext = '"content":"oranges"}'
@@ -149,25 +147,15 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"url-name":"Bing","url":{"value":"www.bing.com"}}'
         self.bio20('20posturl.xml', 'researcher-urls', 'researcher-urls', jsontext, 'Yahoo', 'Bing', 'Google')
 
-    def test_identifiers30(self):
-        jsontext = '"external-id-type":"Personal External Identifier","external-id-value":"twenty-nine","external-id-url":{"value":"www.29.com"},"external-id-relationship":"self"}'
-        self.bio20('20postid.xml', 'external-identifiers', 'external-identifiers', jsontext, 'A-0003', 'twenty-nine', '1234567')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_externalids_v30.cy.js
 
-    def test_education30(self):
-        jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2000"}},"organization":{"name":"Massachusetts Institute of Technology","address":{"city":"Cambridge","region":"MA","country":"US"},"disambiguated-organization" : {"disambiguated-organization-identifier":"2167","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30postedu.xml', 'education', 'educations', jsontext, 'Art History', 'Rocket Science', 'Car Repair')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_education_v30.cy.js
         
-    def test_employ30(self):
-        jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30postemploy.xml', 'employment', 'employments', jsontext, 'Annapolis', 'Oxford', 'ORCID')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_employment_v30.cy.js
+    
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_distinction_v30.cy.js
         
-    def test_distinction30(self):
-        jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"},"month" : {"value" : "07"},"day" : {"value" : "02"}},"organization":{"name":"University of Oxford","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"grid.4991.5","disambiguation-source" : "GRID"}}}'
-        self.bio20('30postdistinct.xml', 'distinction', 'distinctions', jsontext, 'Annapolis', 'Oxford', 'Swarthmore')
-        
-    def test_invited30(self):
-        jsontext = '"start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"Harvard University","address":{"city":"Cambridge","region":"MA","country":"US"},"disambiguated-organization" : {"disambiguated-organization-identifier":"grid.38142.3c","disambiguation-source" : "GRID"}},"external-ids" : {"external-id" : [ {"external-id-type" : "grant_number","external-id-value" : "external-identifier-value3","external-id-relationship" : "self"}]}}'
-        self.bio20('30postinvited.xml', 'invited-position', 'invited-positions', jsontext, 'Digital', 'Harvard', 'Oberlin')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_invited_position_v30.cy.js
         
     def test_membership30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
@@ -181,21 +169,15 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
         self.bio20('30postservice.xml', 'service', 'services', jsontext, 'Annapolis', 'Oxford', 'ORCID')
 
-    def test_funding30(self):
-        jsontext = '"title":{"title":{"value":"Funding to researcher identifiers"}},"external-ids":{"external-id":[{"external-id-type":"grant_number","external-id-value":"7777","external-id-url":null,"external-id-relationship":"self"}]},"type":"grant","organization":{"name":"Wellcome Trust","address":{"city":"London","region":null,"country":"GB"},"disambiguated-organization":{"disambiguated-organization-identifier":"http://dx.doi.org/10.13039/100004440","disambiguation-source":"FUNDREF"}}}'
-        self.works20('30postfund.xml', 'funding', 'fundings', jsontext, '6666', '7777', '8888')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_funding_v30.cy.js
 
     def test_researchresource30(self):
         jsontext = '"proposal":{"title":{"title":{"value":"Special Collections Access Request"}},"hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1004","external-id-relationship":"self"}]}},"resource-item":[{"resource-name":"Special Collection","resource-type":"collections","hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1100","external-id-relationship":"self"}]}}]}'
         self.works20('30postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
 
-    def test_works30(self):
-        jsontext = '"title":{"title":{"value":"Catcher in the Rye"}},"type":"book","external-ids":{"external-id":[{"external-id-type":"doi","external-id-value":"1234","external-id-url":null,"external-id-relationship":"self"}]}}'
-        self.works20('20postwork.xml', 'work', 'works', jsontext, 'Great Expectations', 'Catcher in the Rye', 'Harry Potter')     
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_work_v30.cy.js    
     
-    def test_peer20(self):
-        jsontext = '"reviewer-role" : "reviewer", "review-identifiers" : { "external-id" : [ {"external-id-type" : "source-work-id","external-id-value" : "6666", "external-id-url" : null,"external-id-relationship" : "self"} ] }, "review-url" : null, "review-type" : "review", "review-completion-date" : { "year" : { "value" : "2006" }}, "review-group-id" : "issn:1741-4857", "convening-organization" : { "name" : "Crossref", "address" : { "city" : "Lynnfield", "region" : "MA", "country" : "US" }, "disambiguated-organization" : {"disambiguated-organization-identifier" : "grid.466633.2", "disambiguation-source" : "GRID" }}}'
-        self.bio20('30postpeer.xml', 'peer-review', 'peer-reviews', jsontext, '5555', '6666', '13')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_peerReview_v30.cy.js
 
     def test_peerreview_group(self):
         #search for and read a peer-review group with an issn group id
