@@ -52,10 +52,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_peerReview_v30.cy.js
         
-    def test_post_researchresource(self):
-        # Post a research-resource itme using 3.0 to the record created for testing today
-        response = self.post_activity(self.version, "research-resource", "ma30_rr.xml")
-        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"201\" code: " + response)
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_research_resource_v30.cy.js
         
     def test_post_update_keyword(self):
         # Post a keyword using 3.0 to the record created for testing today

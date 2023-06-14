@@ -171,9 +171,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_funding_v30.cy.js
 
-    def test_researchresource30(self):
-        jsontext = '"proposal":{"title":{"title":{"value":"Special Collections Access Request"}},"hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1004","external-id-relationship":"self"}]}},"resource-item":[{"resource-name":"Special Collection","resource-type":"collections","hosts":{"organization":[{"name":"Yale University Beinecke Rare Book and Manuscript Library","address":{"city":"New Haven","region":"CT","country":"US"},"disambiguated-organization":{"disambiguated-organization-identifier":"508080","disambiguation-source":"RINGGOLD"}}]},"external-ids":{"external-id":[{"external-id-type":"source-work-id","external-id-value":"1100","external-id-relationship":"self"}]}}]}'
-        self.works20('30postrr.xml', 'research-resource', 'research-resources', jsontext, 'Clements', 'Beinecke', 'Laser')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_research_resource_v30.cy.js
 
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_work_v30.cy.js    
     
