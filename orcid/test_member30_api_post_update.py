@@ -54,17 +54,7 @@ class Member20ApiPostUpdate(OrcidBaseTest.OrcidBaseTest):
         
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_research_resource_v30.cy.js
         
-    def test_post_update_keyword(self):
-        # Post a keyword using 3.0 to the record created for testing today
-        response = self.post_activity(self.version, "keywords", "ma30_keyword.xml")
-        self.assertTrue("HTTP/1.1 201" in response, "Response missing \"201\" code: " + response)
-        putcode = self.get_putcode_from_response(response)
-        self.assertIsNotNone(putcode,"Not valid putcode returned: [%s]" % str(putcode))
-        #Update the keyword from pear to grapes
-        self.assertFalse("" == putcode, "Empty putcode in url")
-        updated_data = '{"put-code":' + str(putcode) + ',"content":"apricots"}'
-        update_response = self.update_activity(self.version, putcode, updated_data, "keywords")
-        self.assertTrue("HTTP/1.1 200" in update_response, str(putcode) + " > Update Action Response: " + update_response + " with data [%s]" % updated_data)
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_keywords_v30.cy.js
              
     def test_post_othername(self):
         # Post an other name using 3.0 to the record created for testing today
