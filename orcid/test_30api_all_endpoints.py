@@ -139,9 +139,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
 
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_address_v30.cy.js
 
-    def test_keywords30(self):
-        jsontext = '"content":"oranges"}'
-        self.bio20('20postkeyword.xml', 'keywords', 'keywords', jsontext, 'apples', 'oranges', 'bananas')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_keywords_v30.cy.js
 
     def test_researcherurls30(self):
         jsontext = '"url-name":"Bing","url":{"value":"www.bing.com"}}'
@@ -157,9 +155,7 @@ class Api30AllEndPoints(OrcidBaseTest.OrcidBaseTest):
         
     # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_invited_position_v30.cy.js
         
-    def test_membership30(self):
-        jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
-        self.bio20('30postmembership.xml', 'membership', 'memberships', jsontext, 'Annapolis', 'Oxford', 'AARP')
+    # https://github.com/ORCID/orcid-cypress_tests-private/blob/main/cypress/e2e/mapi/v3_0/crud_membership_v30.cy.js
         
     def test_qualification30(self):
         jsontext = '"department-name":"Rocket Science","role-title":"BA","start-date" : {"year" : {"value" : "2001"}},"organization":{"name":"University of Oxford ","address":{"city":"Oxford","region":"Oxfordshire","country":"GB"},"disambiguated-organization" : {"disambiguated-organization-identifier":"6396","disambiguation-source" : "RINGGOLD"}}}'
