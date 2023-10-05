@@ -21,8 +21,8 @@ class OrcidBrowser:
         if properties.type == "actions":
             print('------------------------------------------')
             print('Using default firefox and webdriver options')
-            print(str(options.headless))
-            print(str(options.binary_location))
+            print(self.signin_page)
+            print(self.auth_page)
             print('------------------------------------------')
             self.ff = webdriver.Firefox(options=options)
         else:
