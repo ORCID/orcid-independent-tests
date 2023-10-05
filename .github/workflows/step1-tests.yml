@@ -17,10 +17,10 @@ jobs:
         run: |
             echo "server - ${{github.event.inputs.server}}"
             echo "branch - ${GITHUB_REF#refs/heads/}"
-      - name: Set up Python 3.10.2
+      - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10.2
+          python-version: 3.11
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
