@@ -16,7 +16,8 @@ class OrcidBrowser:
         self.signin_page = 'https://%s/signin' % self.server_name
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
-        options.headless = True
+        options.add_argument("--headless")
+        # options.headless = True
 
         if properties.type == "actions":
             print('------------------------------------------')
