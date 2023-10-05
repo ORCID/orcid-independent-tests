@@ -24,7 +24,10 @@ class OrcidBrowser:
             print(self.signin_page)
             print(self.auth_page)
             print('------------------------------------------')
-            self.ff = webdriver.Firefox(options=options)
+            try:
+                self.ff = webdriver.Firefox(options=options)
+            except Exception as e:
+                print("Exception occurred:" + str(e))
         else:
             ops = Options()
             
