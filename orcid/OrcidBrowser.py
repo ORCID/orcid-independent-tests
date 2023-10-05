@@ -17,21 +17,11 @@ class OrcidBrowser:
         self.auth_page   = 'https://%s/signin/auth.json' % self.server_name
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
-        # options.headless = True
 
         if properties.type == "actions":
-            print('------------------------------------------')
-            print('Using default firefox and webdriver options')
-            print(self.signin_page)
-            print(self.auth_page)
-            print('------------------------------------------')
-            try:
-                self.ff = webdriver.Firefox(options=options)
-            except Exception as e:
-                print("Exception occurred:" + str(e))
+            self.ff = webdriver.Firefox(options=options)
         else:
-            ops = Options()
-            
+            ops = Options()            
             ops.binary_location = local_properties.firefoxPath
             serv = Service(local_properties.geckodriverPath)
             self.ff = webdriver.Firefox(service=serv, options=ops)
